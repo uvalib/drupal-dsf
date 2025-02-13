@@ -1,0 +1,18 @@
+{
+    "name": "uvalib/drupal-dsf",
+    "description": "UVa Library implementation of Data Storage Finder",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Uvalib\\DrupalDsf\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Yuji Shinozaki",
+            "email": "ys2n@virginia.edu"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
