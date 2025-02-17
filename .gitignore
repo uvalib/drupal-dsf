@@ -19,7 +19,10 @@
 !web/sites/*/settings.ddev.php
 
 # Ignore files generated in sites
-/web/sites/*/files/
+/web/sites/*/files/css
+/web/sites/*/files/js
+/web/sites/*/files/php
+/web/sites/*/files/styles
 /web/sites/*/private/
 /web/sites/*/translations/
 /web/sites/*/tmp/

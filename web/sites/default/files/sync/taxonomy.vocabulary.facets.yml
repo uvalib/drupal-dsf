@@ -1,0 +1,10 @@
+uuid: d9abb2ad-83ed-41dd-84dd-96022e1e2083
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 2OQj2uOWgp67EFBzcIpFK-nSHsW4MuoOPpBy3kL7AXs
+name: Facets
+vid: facets
+description: 'Part of the Finder module'
+weight: 0
