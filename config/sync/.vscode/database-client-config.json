@@ -1,0 +1,31 @@
+{
+    "database": {
+        "1739548586886": {
+            "host": "127.0.0.1",
+            "port": 51433,
+            "user": "db",
+            "password": "dbclient_a$yakdE2anbKKm+dwetIxqjg==",
+            "dbType": "MariaDB",
+            "database": "db",
+            "name": "drupal-dsf.ddev.site",
+            "advance": {
+                "hideSystemSchema": true
+            },
+            "timezone": "+00:00",
+            "usingSSH": false,
+            "useSocksProxy": false,
+            "useHTTPProxy": false,
+            "global": false,
+            "savePassword": "Forever",
+            "readonly": false,
+            "useSSL": false,
+            "fs": {
+                "showHidden": true
+            },
+            "key": "1739548586886",
+            "connectionKey": "database.connections",
+            "sort": 1
+        }
+    },
+    "$schema": "http://127.0.0.1:8828/schema.json"
+}

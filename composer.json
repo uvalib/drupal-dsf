@@ -1,0 +1,63 @@
+{
+    "name": "drupal/recommended-project",
+    "description": "Project template for Drupal projects with a relocated document root",
+    "type": "project",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://www.drupal.org/project/drupal",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/uvalib/CD-finder-uva.git"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Uvalib\\DrupalDsf\\": "src/"
+        }
+    },
+    "require": {
+        "composer/installers": "^1.9",
+        "drupal/core": "^8.9",
+        "drupal/core-composer-scaffold": "^8.9",
+        "drupal/core-project-message": "^8.9",
+        "drupal/core-recommended": "^8.9",
+        "drupal/paragraphs": "^1.13",
+        "drush/drush": "^10.6",
+        "uvalib/cd-finder-uva": "dev-master"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/installers": true,
+            "drupal/core-composer-scaffold": true,
+            "drupal/core-project-message": true
+        },
+        "platform": {
+            "php": "7.4"
+        }
+    },
+    "extra": {
+        "installer-paths": {
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/modules/contrib/{$name}": ["type:drupal-module"],
+            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "web/themes/contrib/{$name}": ["type:drupal-theme"],
+            "drush/Commands/contrib/{$name}": ["type:drupal-drush"]
+        },
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "web/"
+            },
+            "file-mapping": {
+                "[web-root]/.htaccess": false
+            }
+        }
+    }
+}
