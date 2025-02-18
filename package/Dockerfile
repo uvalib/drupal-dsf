@@ -31,8 +31,8 @@ RUN 	mkdir /opt/drupal/util \
 	&& ls -l /opt/drupal/web/modules /opt/drupal/web/themes \
         && rm -rf /opt/drupal/web/modules \
         && ln -sf /opt/drupal/util/drupal-dsf/web/modules /opt/drupal/web \
-        && rm -rf /opt/drupal/web/themes \
-        && ln -sf /opt/drupal/util/drupal-dsf/web/themes /opt/drupal/web \
+        # && rm -rf /opt/drupal/web/themes \
+        # && ln -sf /opt/drupal/util/drupal-dsf/web/themes /opt/drupal/web \
 	&& ls -l /opt/drupal/web/modules /opt/drupal/web/themes
 
 # install other dependancies
