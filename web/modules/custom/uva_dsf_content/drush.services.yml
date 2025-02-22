@@ -1,0 +1,6 @@
+services:
+  uva_dsf_content.commands:
+    class: \Drupal\uva_dsf_content\Commands\UvaDsfContentCommands
+    arguments: ['@entity_type.manager', '@file_system']
+    tags:
+      - { name: drush.command }

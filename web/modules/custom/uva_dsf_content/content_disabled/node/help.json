@@ -1,0 +1,28 @@
+{
+    "_links": {
+        "type": {
+            "href": "http://drupal-dsf.ddev.site/rest/type/node/service"
+        }
+    },
+    "title": [
+        {
+            "value": "Help"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "service"
+        }
+    ],
+    "field_summary": [
+        {
+            "value": "This is the help content for the storage services comparison."
+        }
+    ],
+    "field_service_paragraphs": [
+        {
+            "target_id": "1",
+            "target_revision_id": "1"
+        }
+    ]
+}

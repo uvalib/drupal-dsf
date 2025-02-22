@@ -1,9 +1,13 @@
 {
     "name": "drupal/recommended-project",
-    "description": "Project template for Drupal projects with a relocated document root",
+    "description": "Project template for Drupal 9 projects with a relocated document root",
     "type": "project",
     "license": "GPL-2.0-or-later",
     "homepage": "https://www.drupal.org/project/drupal",
+    "support": {
+        "docs": "https://www.drupal.org/docs/user_guide/en/index.html",
+        "chat": "https://www.drupal.org/node/314178"
+    },
     "repositories": [
         {
             "type": "composer",
@@ -20,14 +24,24 @@
         }
     },
     "require": {
+        "php": ">=7.4",
         "composer/installers": "^1.9",
-        "drupal/core": "^8.9",
-        "drupal/core-composer-scaffold": "^8.9",
-        "drupal/core-project-message": "^8.9",
-        "drupal/core-recommended": "^8.9",
-        "drupal/paragraphs": "^1.13",
-        "drush/drush": "^10.6",
+        "drupal/core": "^9.5",
+        "drupal/core-composer-scaffold": "^9.5",
+        "drupal/core-project-message": "^9.5",
+        "drupal/core-recommended": "^9.5",
+        "drupal/default_content": "^2.0@alpha",
+        "drupal/hal": "^1.0",
+        "drupal/paragraphs": "^1.15",
+        "drupal/restui": "^1.0",
+        "drush/drush": "^11.6",
         "uvalib/cd-finder-uva": "dev-master"
+    },
+    "require-dev": {
+        "drupal/core-dev": "^9.5"
+    },
+    "conflict": {
+        "drupal/drupal": "*"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -35,29 +49,39 @@
         "sort-packages": true,
         "allow-plugins": {
             "composer/installers": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
             "drupal/core-composer-scaffold": true,
-            "drupal/core-project-message": true
+            "drupal/core-project-message": true,
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true,
+            "tbachert/spi": false
         },
         "platform": {
             "php": "7.4"
         }
     },
+    "replace": {
+        "open-telemetry/context": "*",
+        "open-telemetry/api": "*",
+        "open-telemetry/sdk": "*",
+        "open-telemetry/sem-conv": "*",
+        "open-telemetry/gen-otlp-protobuf": "*",
+        "open-telemetry/exporter-otlp": "*"
+    },
     "extra": {
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "web/"
+            }
+        },
         "installer-paths": {
+            "web/modules/custom/finder": ["uvalib/cd-finder-uva"],
             "web/core": ["type:drupal-core"],
             "web/libraries/{$name}": ["type:drupal-library"],
             "web/modules/contrib/{$name}": ["type:drupal-module"],
             "web/profiles/contrib/{$name}": ["type:drupal-profile"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"],
             "drush/Commands/contrib/{$name}": ["type:drupal-drush"]
-        },
-        "drupal-scaffold": {
-            "locations": {
-                "web-root": "web/"
-            },
-            "file-mapping": {
-                "[web-root]/.htaccess": false
-            }
         }
     }
 }

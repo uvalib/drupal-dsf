@@ -1,0 +1,40 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 443be6fe-6a92-4cc5-ac5d-fc08f512a567
+  bundle: service
+  default_langcode: en
+  depends:
+    80594782-318c-4fcf-bf8c-958bd1496b0f: taxonomy_term
+    9ca5d290-f2ea-4205-8008-b358c1c1ab85: taxonomy_term
+default:
+  title:
+    -
+      value: Dropbox
+  status:
+    -
+      value: true
+  field_facet_matches:
+    -
+      entity: 80594782-318c-4fcf-bf8c-958bd1496b0f
+    -
+      entity: 9ca5d290-f2ea-4205-8008-b358c1c1ab85
+  field_service_paragraphs:
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: fdaf7fc2-b973-43e7-8fb1-8fe99a2e8569
+          bundle: service_paragraphs
+          default_langcode: en
+        default:
+          status:
+            -
+              value: '1'
+          created:
+            -
+              value: '1740203429'
+  field_summary:
+    -
+      value: 'Cloud storage with file syncing and sharing capabilities'

@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_control_type
+    - taxonomy.vocabulary.control_type
+    - taxonomy.vocabulary.facets
+id: taxonomy_term.facets.field_control_type
+field_name: field_control_type
+entity_type: taxonomy_term
+bundle: facets
+label: 'Control Type'
+description: 'Select whether this facet should use radio buttons or checkboxes'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      control_type: control_type
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

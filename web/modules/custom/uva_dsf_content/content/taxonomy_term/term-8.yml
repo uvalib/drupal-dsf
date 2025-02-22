@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 5e66ed20-0ac5-4cfc-ac35-6af47e3862a3
+  bundle: facets
+  default_langcode: en
+default:
+  name:
+    -
+      value: Chicken
+  description:
+    -
+      value: null
+      format: basic_html
+  weight:
+    -
+      value: 0
+  status:
+    -
+      value: true

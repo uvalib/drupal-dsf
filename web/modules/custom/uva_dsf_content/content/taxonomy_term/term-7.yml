@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 4d9eea9e-2dbb-4f86-b406-788364008c6d
+  bundle: facets
+  default_langcode: en
+default:
+  name:
+    -
+      value: 'What must be on your burger?'
+  description:
+    -
+      value: null
+      format: basic_html
+  weight:
+    -
+      value: 0
+  status:
+    -
+      value: true

@@ -1,0 +1,68 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 0c6f7524-88d8-43e8-8e69-f8fe18b06f9a
+  bundle: service
+  default_langcode: en
+  depends:
+    a6f6f95f-eff8-4891-b3bd-3d68c9488b87: taxonomy_term
+    359f2341-6462-48c5-a1cf-58c504b3bdae: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: pCloud
+  created:
+    -
+      value: 1740203429
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_facet_matches:
+    -
+      entity: a6f6f95f-eff8-4891-b3bd-3d68c9488b87
+    -
+      entity: 359f2341-6462-48c5-a1cf-58c504b3bdae
+  field_service_paragraphs:
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 3084dcb6-563a-4db4-8995-3632fd1274bd
+          bundle: service_paragraphs
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1740203429
+          behavior_settings:
+            -
+              value: {  }
+          revision_translation_affected:
+            -
+              value: true
+  field_summary:
+    -
+      value: 'Secure and encrypted cloud storage platform'

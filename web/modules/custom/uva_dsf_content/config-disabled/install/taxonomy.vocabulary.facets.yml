@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {}
+name: Facets
+vid: facets
+description: 'Two-level hierarchy of criteria/questions and choices'
+hierarchy: 1
+weight: 0

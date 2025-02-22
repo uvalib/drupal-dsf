@@ -1,4 +1,4 @@
-uuid: 83597396-0e7f-4b6f-922f-c5c7b46cdf34
+uuid: b866eb29-c8a3-441d-a684-76789a792737
 langcode: en
 status: true
 dependencies:
@@ -50,9 +50,7 @@ settings:
           items:
             - ShowBlocks
             - Source
-  plugins:
-    stylescombo:
-      styles: ''
+  plugins: {  }
 image_upload:
   status: true
   scheme: public

@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 359f2341-6462-48c5-a1cf-58c504b3bdae
+  bundle: facets
+  default_langcode: en
+default:
+  name:
+    -
+      value: Backup
+  description:
+    -
+      value: 'For data backup and recovery'
+      format: basic_html
+  weight:
+    -
+      value: 5
+  status:
+    -
+      value: true

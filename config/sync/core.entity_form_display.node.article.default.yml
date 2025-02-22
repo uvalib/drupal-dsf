@@ -1,4 +1,4 @@
-uuid: a04a26a1-6fb1-446b-afe2-4fae51197c53
+uuid: 7e64990b-2ee5-472f-85bf-70fe4c1fce89
 langcode: en
 status: true
 dependencies:
@@ -69,24 +69,24 @@ content:
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 15
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 120
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 16
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield

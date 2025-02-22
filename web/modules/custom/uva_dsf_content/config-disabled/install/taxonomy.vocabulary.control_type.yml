@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {}
+name: 'Control Type'
+vid: control_type
+description: 'Controls how facet choices can be selected (checkbox for multiple, radio for single)'
+hierarchy: 0
+weight: 0

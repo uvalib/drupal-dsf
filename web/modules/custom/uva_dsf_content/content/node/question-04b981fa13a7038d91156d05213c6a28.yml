@@ -1,0 +1,27 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 40b4d755-5b22-40d9-89fa-c0c1fe5ea467
+  bundle: question
+  default_langcode: en
+  depends:
+    a6f6f95f-eff8-4891-b3bd-3d68c9488b87: taxonomy_term
+    83629f93-ecf8-4d66-bf1c-25d2b550d49d: taxonomy_term
+    359f2341-6462-48c5-a1cf-58c504b3bdae: taxonomy_term
+default:
+  title:
+    -
+      value: 'How will you access the data?'
+  status:
+    -
+      value: true
+  field_weight:
+    -
+      value: '1'
+  field_facets:
+    -
+      entity: a6f6f95f-eff8-4891-b3bd-3d68c9488b87
+    -
+      entity: 83629f93-ecf8-4d66-bf1c-25d2b550d49d
+    -
+      entity: 359f2341-6462-48c5-a1cf-58c504b3bdae

@@ -1,0 +1,35 @@
+{
+    "_links": {
+        "self": {
+            "href": "http://drupal-dsf.ddev.site/taxonomy/term/3?_format=hal_json"
+        },
+        "type": {
+            "href": "http://drupal-dsf.ddev.site/rest/type/taxonomy_term/facets"
+        }
+    },
+    "tid": [
+        {
+            "value": 3
+        }
+    ],
+    "uuid": [
+        {
+            "value": "7e1f4914-c953-4f69-b7c7-f3d71fe1d165"
+        }
+    ],
+    "name": [
+        {
+            "value": "Example Criteria"
+        }
+    ],
+    "vid": [
+        {
+            "target_id": "facets"
+        }
+    ],
+    "field_control_type": [
+        {
+            "target_id": 1
+        }
+    ]
+}

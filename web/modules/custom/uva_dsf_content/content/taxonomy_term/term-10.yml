@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: a0dc2ca6-b3db-4c5e-a01b-d43c9248a629
+  bundle: facets
+  default_langcode: en
+default:
+  name:
+    -
+      value: Pork
+  description:
+    -
+      value: null
+      format: basic_html
+  weight:
+    -
+      value: 2
+  status:
+    -
+      value: true

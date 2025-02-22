@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 4b9b9b78-3bb7-48c6-a290-c8d8cae56c25
+  bundle: facets
+  default_langcode: en
+default:
+  name:
+    -
+      value: Mayonaise
+  description:
+    -
+      value: null
+      format: basic_html
+  weight:
+    -
+      value: 2
+  status:
+    -
+      value: true

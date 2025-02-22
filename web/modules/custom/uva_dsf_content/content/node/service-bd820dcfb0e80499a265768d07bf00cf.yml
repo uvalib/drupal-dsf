@@ -1,0 +1,43 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 92e061f1-1c97-411c-a085-1938881fd846
+  bundle: service
+  default_langcode: en
+  depends:
+    b2eec5ff-ba68-4f38-86dd-052a3e0e9c38: taxonomy_term
+    92e88c40-1c14-4788-9255-1447100cf153: taxonomy_term
+    4b9b9b78-3bb7-48c6-a290-c8d8cae56c25: taxonomy_term
+default:
+  title:
+    -
+      value: McDonalds
+  status:
+    -
+      value: true
+  field_facet_matches:
+    -
+      entity: b2eec5ff-ba68-4f38-86dd-052a3e0e9c38
+    -
+      entity: 92e88c40-1c14-4788-9255-1447100cf153
+    -
+      entity: 4b9b9b78-3bb7-48c6-a290-c8d8cae56c25
+  field_service_paragraphs:
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 5bfb3b51-7f6d-40c6-b189-d7c8b2a30101
+          bundle: service_paragraphs
+          default_langcode: en
+        default:
+          status:
+            -
+              value: '1'
+          created:
+            -
+              value: '1739820970'
+  field_summary:
+    -
+      value: burgers

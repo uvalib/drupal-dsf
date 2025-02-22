@@ -1,0 +1,40 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: e640f62b-09b9-48b2-9c59-6351aa0085ff
+  bundle: service
+  default_langcode: en
+  depends:
+    5e66ed20-0ac5-4cfc-ac35-6af47e3862a3: taxonomy_term
+    4b9b9b78-3bb7-48c6-a290-c8d8cae56c25: taxonomy_term
+default:
+  title:
+    -
+      value: Chick-Fil-A
+  status:
+    -
+      value: true
+  field_facet_matches:
+    -
+      entity: 5e66ed20-0ac5-4cfc-ac35-6af47e3862a3
+    -
+      entity: 4b9b9b78-3bb7-48c6-a290-c8d8cae56c25
+  field_service_paragraphs:
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: f1d696c3-85c4-426c-804d-c023fda45e7f
+          bundle: service_paragraphs
+          default_langcode: en
+        default:
+          status:
+            -
+              value: '1'
+          created:
+            -
+              value: '1739820766'
+  field_summary:
+    -
+      value: 'eat chicken'

@@ -1,0 +1,30 @@
+{
+    "_links": {
+        "self": {
+            "href": "http://drupal-dsf.ddev.site/taxonomy/term/2?_format=hal_json"
+        },
+        "type": {
+            "href": "http://drupal-dsf.ddev.site/rest/type/taxonomy_term/control_type"
+        }
+    },
+    "tid": [
+        {
+            "value": 2
+        }
+    ],
+    "uuid": [
+        {
+            "value": "8f1f4914-c953-4f69-b7c7-f3d71fe1d164"
+        }
+    ],
+    "name": [
+        {
+            "value": "radio"
+        }
+    ],
+    "vid": [
+        {
+            "target_id": "control_type"
+        }
+    ]
+}

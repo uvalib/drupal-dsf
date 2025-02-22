@@ -1,4 +1,4 @@
-uuid: 77ec0d9f-35ae-4943-b0ab-7eb2ec827db1
+uuid: 5bf58d08-e2aa-4762-96dd-e4428c7ef4c0
 langcode: en
 status: true
 dependencies:
@@ -16,12 +16,12 @@ bundle: page
 mode: default
 content:
   body:
-    label: hidden
     type: text_default
-    weight: 100
-    region: content
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 100
+    region: content
   links:
     weight: 101
     region: content

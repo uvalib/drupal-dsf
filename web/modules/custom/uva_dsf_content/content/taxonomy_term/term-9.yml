@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: b2eec5ff-ba68-4f38-86dd-052a3e0e9c38
+  bundle: facets
+  default_langcode: en
+default:
+  name:
+    -
+      value: Hamburger
+  description:
+    -
+      value: null
+      format: basic_html
+  weight:
+    -
+      value: 1
+  status:
+    -
+      value: true

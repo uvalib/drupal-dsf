@@ -17,16 +17,16 @@ mode: default
 content:
   field_first_category:
     type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
     weight: 0
     region: content
-    label: above
-    settings: {  }
-    third_party_settings: {  }
   field_second_category:
     type: text_default
-    weight: 1
-    region: content
     label: above
     settings: {  }
     third_party_settings: {  }
+    weight: 1
+    region: content
 hidden: {  }

@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.control_type
+  module:
+    - text
+id: taxonomy_term.control_type.default
+targetEntityType: taxonomy_term
+bundle: control_type
+mode: default
+content:
+  name:
+    label: hidden
+    type: string
+    weight: 0
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    region: content
+hidden:
+  description: true

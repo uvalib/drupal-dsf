@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 80594782-318c-4fcf-bf8c-958bd1496b0f
+  bundle: facets
+  default_langcode: en
+default:
+  name:
+    -
+      value: Collaborative
+  description:
+    -
+      value: 'Designed for team sharing and collaboration'
+      format: basic_html
+  weight:
+    -
+      value: 2
+  status:
+    -
+      value: true

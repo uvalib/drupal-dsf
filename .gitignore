@@ -40,3 +40,6 @@
 .env.local
 .DS_Store
 .idea/
+
+# Ignore composer-managed finder module
+web/modules/custom/finder

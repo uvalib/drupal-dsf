@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: a6f6f95f-eff8-4891-b3bd-3d68c9488b87
+  bundle: facets
+  default_langcode: en
+default:
+  name:
+    -
+      value: 'High Performance'
+  description:
+    -
+      value: 'Optimized for speed and large datasets'
+      format: basic_html
+  weight:
+    -
+      value: 3
+  status:
+    -
+      value: true

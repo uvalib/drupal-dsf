@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+    - hal
+id: taxonomy_term
+hal_form_displays: {  }
+hal_field_map:
+  name: name
+  description: description
+  parent: parent

@@ -1,0 +1,28 @@
+{
+    "_links": {
+        "type": {
+            "href": "http://drupal-dsf.ddev.site/rest/type/paragraph/text"
+        }
+    },
+    "id": [
+        {
+            "value": 1
+        }
+    ],
+    "uuid": [
+        {
+            "value": "5d89c8e7-1111-2222-3333-444455556666"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "text"
+        }
+    ],
+    "field_text": [
+        {
+            "value": "<p>Welcome to the Digital Storage Finder. This tool helps you compare different storage options based on your needs.</p><p>Use the filters on the left to narrow down your choices. You can select multiple criteria to find the perfect storage solution for your requirements.</p>",
+            "format": "basic_html"
+        }
+    ]
+}

@@ -1,0 +1,68 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 87b60d20-875f-4828-ac31-64908402d429
+  bundle: service
+  default_langcode: en
+  depends:
+    80594782-318c-4fcf-bf8c-958bd1496b0f: taxonomy_term
+    b2fda622-1b7d-4761-b05d-c9983779f2de: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: OneDrive
+  created:
+    -
+      value: 1740203429
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_facet_matches:
+    -
+      entity: 80594782-318c-4fcf-bf8c-958bd1496b0f
+    -
+      entity: b2fda622-1b7d-4761-b05d-c9983779f2de
+  field_service_paragraphs:
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: a624cf25-d34e-40d4-9336-36c75148d79a
+          bundle: service_paragraphs
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1740203429
+          behavior_settings:
+            -
+              value: {  }
+          revision_translation_affected:
+            -
+              value: true
+  field_summary:
+    -
+      value: 'Microsoft cloud storage with Office integration'

@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 92e88c40-1c14-4788-9255-1447100cf153
+  bundle: facets
+  default_langcode: en
+default:
+  name:
+    -
+      value: Ketchup
+  description:
+    -
+      value: null
+      format: basic_html
+  weight:
+    -
+      value: 1
+  status:
+    -
+      value: true

@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - finder
+      - taxonomy
+      - hal
+id: taxonomy_term.control_type
+entity_type_id: taxonomy_term
+bundle: control_type
+label: 'Control Type'
+hal_settings:
+  link_domain: null
+  embedded: false

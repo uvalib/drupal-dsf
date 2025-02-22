@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 9ca5d290-f2ea-4205-8008-b358c1c1ab85
+  bundle: facets
+  default_langcode: en
+default:
+  name:
+    -
+      value: 'Research Data'
+  description:
+    -
+      value: 'For storing research-related data'
+      format: basic_html
+  weight:
+    -
+      value: 0
+  status:
+    -
+      value: true

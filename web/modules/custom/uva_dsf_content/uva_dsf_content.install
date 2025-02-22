@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the UVA DSF Content module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function uva_dsf_content_install() {
+  \Drupal::logger('uva_dsf_content')->notice('Installing default content for Digital Storage Finder');
+}
