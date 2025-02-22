@@ -649,12 +649,21 @@ class UvaDsfContentCommands extends DrushCommands {
   public function generateFacets() {
     $this->loadExistingUuids();
     $facets = [
-      ['Research Data', 'For storing research-related data'],
-      ['Personal Storage', 'For individual use and personal files'],
-      ['Collaborative', 'Designed for team sharing and collaboration'],
-      ['High Performance', 'Optimized for speed and large datasets'],
-      ['Archival', 'Long-term storage and preservation'],
-      ['Backup', 'For data backup and recovery'],
+      // Meat options
+      ['Chicken', 'Chicken option for burger'],
+      ['Hamburger', 'Beef patty option'],
+      ['Pork', 'Pork option for burger'],
+      
+      // Condiments
+      ['BBQ Sauce', 'Barbecue sauce option'],
+      ['Ketchup', 'Tomato ketchup option'],
+      ['Mayonnaise', 'Mayo condiment option'],
+      
+      // Additional toppings
+      ['Lettuce', 'Fresh lettuce option'],
+      ['Tomato', 'Fresh tomato option'],
+      ['Cheese', 'Cheese option'],
+      ['Bacon', 'Bacon topping option'],
     ];
 
     $moduleHandler = \Drupal::service('module_handler');
@@ -731,19 +740,19 @@ class UvaDsfContentCommands extends DrushCommands {
 
     $questions = [
       [
-        'What type of data are you storing?',
-        'Choose the primary purpose of your storage needs',
-        ['Research Data', 'Personal Storage', 'Collaborative']
+        'What must be on your burger?',
+        'Choose your main protein',
+        ['Chicken', 'Hamburger', 'Pork']
       ],
       [
-        'How will you access the data?',
-        'Select your primary access pattern',
-        ['High Performance', 'Archival', 'Backup']
+        'Required Condiments',
+        'Select required sauces',
+        ['BBQ Sauce', 'Ketchup', 'Mayonnaise']
       ],
       [
-        'Who needs access to the data?',
-        'Define the access requirements',
-        ['Personal Storage', 'Collaborative']
+        'Additional Toppings',
+        'Select additional toppings',
+        ['Lettuce', 'Tomato', 'Cheese', 'Bacon']
       ],
     ];
 
