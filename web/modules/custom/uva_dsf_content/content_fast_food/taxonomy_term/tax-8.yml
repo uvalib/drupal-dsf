@@ -1,0 +1,32 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 5e66ed20-0ac5-4cfc-ac35-6af47e3862a3
+  bundle: facets
+  default_langcode: en
+  depends:
+    4d9eea9e-2dbb-4f86-b406-788364008c6d: taxonomy_term
+    71926686-b1ee-4103-ae94-c2ec8a4e3f8e: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: Chicken
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      entity: 4d9eea9e-2dbb-4f86-b406-788364008c6d
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_control_type:
+    -
+      entity: 71926686-b1ee-4103-ae94-c2ec8a4e3f8e

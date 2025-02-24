@@ -1,0 +1,65 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 31617898-fff9-42e3-9506-9ceeb91e6565
+  bundle: service
+  default_langcode: en
+  depends:
+    55bff349-65b2-46d8-9116-920fcebda331: taxonomy_term
+    47e549ed-4d92-430a-a223-8a2d820ae5b7: taxonomy_term
+    1eacf9cb-5fd7-4154-a33a-4af2d7e81c84: taxonomy_term
+    dc95b5d2-8cf6-42f7-901a-fb4f1a0c6d36: taxonomy_term
+    2c3b38a8-2823-4ee9-aeb8-c89a65008b25: taxonomy_term
+    3772f40f-2b9d-4d31-a49c-98b9b29113c6: paragraph
+    b9714f31-3030-4cfe-a9ef-10ac019eef29: paragraph
+    c3d5e12e-3cbc-46d7-a2fd-3d0b9ae96b80: paragraph
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: OneDrive
+  created:
+    -
+      value: 1740422402
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_facet_matches:
+    -
+      entity: 55bff349-65b2-46d8-9116-920fcebda331
+    -
+      entity: 47e549ed-4d92-430a-a223-8a2d820ae5b7
+    -
+      entity: 1eacf9cb-5fd7-4154-a33a-4af2d7e81c84
+    -
+      entity: dc95b5d2-8cf6-42f7-901a-fb4f1a0c6d36
+    -
+      entity: 2c3b38a8-2823-4ee9-aeb8-c89a65008b25
+  field_service_paragraphs:
+    -
+      entity: 3772f40f-2b9d-4d31-a49c-98b9b29113c6
+    -
+      entity: b9714f31-3030-4cfe-a9ef-10ac019eef29
+    -
+      entity: c3d5e12e-3cbc-46d7-a2fd-3d0b9ae96b80
+  field_summary:
+    -
+      value: 'Microsoft cloud storage with Office integration'

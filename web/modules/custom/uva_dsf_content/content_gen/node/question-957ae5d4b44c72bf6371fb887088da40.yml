@@ -1,0 +1,24 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: d8daae9d-6c91-4e69-b1bf-a0a60ed0f1e3
+  bundle: question
+  default_langcode: en
+  depends:
+    cce158a3-7e49-49fe-af60-6acc2e606288: taxonomy_term
+    a445ffbc-7eab-41e4-9ff5-755e81b10017: taxonomy_term
+    14aff7c9-49e6-4e98-b87e-24a00d9cd057: taxonomy_term
+default:
+  title:
+    -
+      value: 'What must be on your burger?'
+  status:
+    -
+      value: true
+  field_facets:
+    -
+      entity: cce158a3-7e49-49fe-af60-6acc2e606288
+    -
+      entity: a445ffbc-7eab-41e4-9ff5-755e81b10017
+    -
+      entity: 14aff7c9-49e6-4e98-b87e-24a00d9cd057

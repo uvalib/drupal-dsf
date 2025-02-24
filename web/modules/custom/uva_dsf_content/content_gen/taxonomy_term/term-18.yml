@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: a445ffbc-7eab-41e4-9ff5-755e81b10017
+  bundle: facets
+  default_langcode: en
+default:
+  name:
+    -
+      value: Hamburger
+  description:
+    -
+      value: 'Beef patty option'
+      format: basic_html
+  weight:
+    -
+      value: 1
+  status:
+    -
+      value: true

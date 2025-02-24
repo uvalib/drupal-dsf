@@ -1,0 +1,26 @@
+_meta:
+  version: '1.0'
+  entity_type: paragraph
+  uuid: 9ac78f45-0946-49e0-bcf2-b7c68704398d
+  bundle: service_paragraphs
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1740243721
+  behavior_settings:
+    -
+      value: {  }
+  revision_translation_affected:
+    -
+      value: true
+  field_section_title:
+    -
+      value: 'Security Features'
+  field_section_content:
+    -
+      value: "Advanced security features include:\n         - End-to-end encryption\n         - Two-factor authentication\n         - Audit logging\n         - Access controls"
+      format: basic_html

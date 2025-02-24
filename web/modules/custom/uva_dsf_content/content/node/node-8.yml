@@ -1,0 +1,65 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 315e14ff-9f05-43b3-975b-c8eacb101c10
+  bundle: service
+  default_langcode: en
+  depends:
+    99f6e1c0-6477-4e0b-9872-7a5a621cb8f2: taxonomy_term
+    71aa1816-8e66-4cf2-9114-52bc2bbed6d2: taxonomy_term
+    ba00020e-5fed-40ef-816f-5847163e4134: taxonomy_term
+    1b5d60de-cf88-44d1-8821-f4b915c1d200: taxonomy_term
+    a0022e44-9beb-4762-83fd-3706c2bb0b87: taxonomy_term
+    f5114fab-eb9b-4b1f-b044-f7b9c47bc7d9: paragraph
+    c74a43c3-57c8-4f60-98c9-4b3f47b8d6f7: paragraph
+    5bc8815c-95e1-4a95-9521-63f9625ec2b2: paragraph
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Backblaze B2'
+  created:
+    -
+      value: 1740422402
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_facet_matches:
+    -
+      entity: 99f6e1c0-6477-4e0b-9872-7a5a621cb8f2
+    -
+      entity: 71aa1816-8e66-4cf2-9114-52bc2bbed6d2
+    -
+      entity: ba00020e-5fed-40ef-816f-5847163e4134
+    -
+      entity: 1b5d60de-cf88-44d1-8821-f4b915c1d200
+    -
+      entity: a0022e44-9beb-4762-83fd-3706c2bb0b87
+  field_service_paragraphs:
+    -
+      entity: f5114fab-eb9b-4b1f-b044-f7b9c47bc7d9
+    -
+      entity: c74a43c3-57c8-4f60-98c9-4b3f47b8d6f7
+    -
+      entity: 5bc8815c-95e1-4a95-9521-63f9625ec2b2
+  field_summary:
+    -
+      value: 'Affordable cloud object storage service'

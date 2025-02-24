@@ -1,0 +1,26 @@
+_meta:
+  version: '1.0'
+  entity_type: paragraph
+  uuid: f17e7452-5622-4fd7-8fbc-7a7a1281b851
+  bundle: service_paragraphs
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1740422402
+  behavior_settings:
+    -
+      value: {  }
+  revision_translation_affected:
+    -
+      value: true
+  field_section_title:
+    -
+      value: 'Security Features'
+  field_section_content:
+    -
+      value: "Enterprise-grade security features:\n       - AES-256 bit encryption at rest\n       - TLS 1.3 encryption in transit\n       - Multi-factor authentication (MFA)\n       - Role-based access control (RBAC)\n       - Audit logging and reporting\n       - Compliance with SOC 2, HIPAA, and GDPR"
+      format: basic_html

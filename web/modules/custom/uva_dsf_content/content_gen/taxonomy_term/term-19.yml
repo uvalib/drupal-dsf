@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 52f55acb-b744-41c0-9be7-8581fad9788c
+  bundle: facets
+  default_langcode: en
+default:
+  name:
+    -
+      value: 'BBQ Sauce'
+  description:
+    -
+      value: 'Barbecue sauce option'
+      format: basic_html
+  weight:
+    -
+      value: 3
+  status:
+    -
+      value: true

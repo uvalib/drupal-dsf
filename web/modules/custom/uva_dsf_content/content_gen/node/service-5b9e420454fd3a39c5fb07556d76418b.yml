@@ -1,0 +1,40 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: b5d6c0db-9a03-4945-8c00-aba2aaa0a586
+  bundle: service
+  default_langcode: en
+  depends:
+    14aff7c9-49e6-4e98-b87e-24a00d9cd057: taxonomy_term
+    0a1e49e8-8546-40e6-bcbf-e3c079be393d: taxonomy_term
+default:
+  title:
+    -
+      value: Wasabi
+  status:
+    -
+      value: true
+  field_facet_matches:
+    -
+      entity: 14aff7c9-49e6-4e98-b87e-24a00d9cd057
+    -
+      entity: 0a1e49e8-8546-40e6-bcbf-e3c079be393d
+  field_service_paragraphs:
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 8643eb67-2173-4f13-8093-daabc490ec45
+          bundle: service_paragraphs
+          default_langcode: en
+        default:
+          status:
+            -
+              value: '1'
+          created:
+            -
+              value: '1740243721'
+  field_summary:
+    -
+      value: 'Hot cloud storage for all your data needs'

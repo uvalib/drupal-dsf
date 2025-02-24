@@ -1,0 +1,12 @@
+uuid: 7d5f4dbb-ac5b-4676-b274-649cacc9a403
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: ApCZzrPO0R4IY25P2TFJQGzX2rVr6401UvLPJVI7Htg
+id: service_paragraphs
+label: 'Service Paragraphs'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

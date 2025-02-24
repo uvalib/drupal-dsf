@@ -1,7 +1,7 @@
 _meta:
   version: '1.0'
   entity_type: paragraph
-  uuid: 676e346d-6c49-4cca-a25e-12468cd4b771
+  uuid: 65971247-9f52-43f4-8d0c-461f2f8147a1
   bundle: service_paragraphs
   default_langcode: en
 default:
@@ -10,7 +10,7 @@ default:
       value: true
   created:
     -
-      value: 1740203429
+      value: 1740422402
   behavior_settings:
     -
       value: {  }
@@ -19,8 +19,8 @@ default:
       value: true
   field_section_title:
     -
-      value: 'Security Features'
+      value: 'Storage Specifications'
   field_section_content:
     -
-      value: "Advanced security features include:\n         - End-to-end encryption\n         - Two-factor authentication\n         - Audit logging\n         - Access controls"
+      value: "Technical specifications:\n         - Maximum file size: 5TB per file\n         - Total storage capacity: Up to 1PB\n         - Minimum storage duration: 30 days\n         - Maximum retention period: Unlimited\n         - Access latency: < 10ms\n         - Data transfer speed: Up to 10Gb/s"
       format: basic_html

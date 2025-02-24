@@ -38,6 +38,94 @@ class UvaDsfContentCommands extends DrushCommands {
   protected $usedUuids = [];
 
   /**
+   * Sample content for paragraphs.
+   *
+   * @var array
+   */
+  protected $sample_content = [
+    [
+      'Service Overview',
+      'Our storage solution provides:
+       - Highly available storage infrastructure
+       - 99.999% uptime guarantee
+       - 24/7 technical support
+       - Flexible pricing models
+       - Automatic data replication
+       - Geographic redundancy'
+    ],
+    [
+      'Storage Specifications',
+      'Technical specifications:
+       - Maximum file size: 5TB per file
+       - Total storage capacity: Up to 1PB
+       - Minimum storage duration: 30 days
+       - Maximum retention period: Unlimited
+       - Access latency: < 10ms
+       - Data transfer speed: Up to 10Gb/s'
+    ],
+    [
+      'Security Features',
+      'Enterprise-grade security features:
+       - AES-256 bit encryption at rest
+       - TLS 1.3 encryption in transit
+       - Multi-factor authentication (MFA)
+       - Role-based access control (RBAC)
+       - Audit logging and reporting
+       - Compliance with SOC 2, HIPAA, and GDPR'
+    ],
+    [
+      'Backup and Recovery',
+      'Comprehensive data protection:
+       - Automated daily backups
+       - Point-in-time recovery options
+       - 30-day backup retention
+       - Cross-region backup replication
+       - 15-minute recovery time objective (RTO)
+       - Zero recovery point objective (RPO)'
+    ],
+    [
+      'Integration Options',
+      'Compatible with popular platforms:
+       - REST API for custom integration
+       - WebDAV support
+       - S3-compatible interface
+       - SFTP access
+       - Native Windows/Mac/Linux clients
+       - Mobile apps for iOS and Android'
+    ],
+    [
+      'Cost Structure',
+      'Transparent pricing model:
+       - Base storage: $0.02 per GB/month
+       - Data transfer: $0.01 per GB
+       - API requests: First 10,000 free
+       - Backup storage: 50% of base rate
+       - Volume discounts available
+       - No hidden fees'
+    ],
+    [
+      'Compliance Certifications',
+      'Current compliance certifications:
+       - SOC 2 Type II
+       - ISO 27001
+       - HIPAA compliance available
+       - GDPR compliant
+       - FedRAMP Moderate
+       - PCI DSS Level 1'
+    ],
+    [
+      'Support Services',
+      'Comprehensive support options:
+       - 24/7 technical support
+       - Dedicated account manager
+       - Online knowledge base
+       - Video tutorials
+       - Regular training sessions
+       - Community forums'
+    ],
+  ];
+
+  /**
    * Constructs a new UvaDsfContentCommands object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
@@ -201,12 +289,50 @@ class UvaDsfContentCommands extends DrushCommands {
     $count = 0;
     foreach ($services as $index => $service) {
       $uuid = $this->generateUniqueUuid();
-      $paragraph_uuid = $this->generateUniqueUuid();
       
-      // Get two random facet UUIDs
+      // Generate 2-3 paragraphs per service
+      $paragraphCount = rand(2, 3);
+      $paragraphUuids = [];
+      $paragraphYamls = [];
+      
+      // Get random paragraph content
+      $sample_paragraphs = $this->sample_content;
+      shuffle($sample_paragraphs);
+      $selected_paragraphs = array_slice($sample_paragraphs, 0, $paragraphCount);
+      
+      foreach ($selected_paragraphs as $pIndex => $content) {
+        $paragraph_uuid = $this->generateUniqueUuid();
+        $paragraphUuids[] = $paragraph_uuid;
+        
+        $paragraphYaml = [
+          '_meta' => [
+            'version' => '1.0',
+            'entity_type' => 'paragraph',
+            'uuid' => $paragraph_uuid,
+            'bundle' => 'service_paragraphs',
+            'default_langcode' => 'en',
+          ],
+          'default' => [
+            'status' => [['value' => true]],
+            'created' => [['value' => time()]],
+            'behavior_settings' => [['value' => []]],
+            'revision_translation_affected' => [['value' => true]],
+            'field_section_title' => [['value' => $content[0]]],
+            'field_section_content' => [['value' => $content[1], 'format' => 'basic_html']],
+          ],
+        ];
+        
+        // Save paragraph YAML
+        $paragraphPath = $this->getContentPath('paragraph');
+        $paragraphFile = $paragraphPath . '/paragraph-' . $this->sanitizeFilename($service[0]) . '-' . ($pIndex + 1) . '.yml';
+        file_put_contents($paragraphFile, Yaml::dump($paragraphYaml, 10, 2));
+      }
+      
+      // Get facet matches
       $facetUuids = array_values($this->facetMap ?? []);
       shuffle($facetUuids);
-      $selectedFacets = array_slice($facetUuids, 0, 2);
+      $matchCount = rand(3, 5);
+      $selectedFacets = array_slice($facetUuids, 0, $matchCount);
       
       $yaml_content = [
         '_meta' => [
@@ -215,9 +341,15 @@ class UvaDsfContentCommands extends DrushCommands {
           'uuid' => $uuid,
           'bundle' => 'service',
           'default_langcode' => 'en',
-          'depends' => array_combine(
-            $selectedFacets,
-            array_fill(0, count($selectedFacets), 'taxonomy_term')
+          'depends' => array_merge(
+            array_combine(
+              $selectedFacets,
+              array_fill(0, count($selectedFacets), 'taxonomy_term')
+            ),
+            array_combine(
+              $paragraphUuids,
+              array_fill(0, count($paragraphUuids), 'paragraph')
+            )
           ),
         ],
         'default' => [
@@ -233,23 +365,9 @@ class UvaDsfContentCommands extends DrushCommands {
           'field_facet_matches' => array_map(function($uuid) {
             return ['entity' => $uuid];
           }, $selectedFacets),
-          'field_service_paragraphs' => [[
-            'entity' => [
-              '_meta' => [
-                'version' => '1.0',
-                'entity_type' => 'paragraph',
-                'uuid' => $paragraph_uuid,
-                'bundle' => 'service_paragraphs',
-                'default_langcode' => 'en',
-              ],
-              'default' => [
-                'status' => [['value' => true]],
-                'created' => [['value' => time()]],
-                'behavior_settings' => [['value' => []]],
-                'revision_translation_affected' => [['value' => true]],
-              ],
-            ],
-          ]],
+          'field_service_paragraphs' => array_map(function($puuid) {
+            return ['entity' => $puuid];
+          }, $paragraphUuids),
           'field_summary' => [['value' => $service[1]]],
         ],
       ];
@@ -306,43 +424,84 @@ class UvaDsfContentCommands extends DrushCommands {
     
     $sample_content = [
       [
-        'Storage Limits',
-        'Each account comes with different storage limits based on licensing level:
-         - Basic: 15GB
-         - Pro: 2TB
-         - Enterprise: Unlimited'
+        'Service Overview',
+        'Our storage solution provides:
+         - Highly available storage infrastructure
+         - 99.999% uptime guarantee
+         - 24/7 technical support
+         - Flexible pricing models
+         - Automatic data replication
+         - Geographic redundancy'
+      ],
+      [
+        'Storage Specifications',
+        'Technical specifications:
+         - Maximum file size: 5TB per file
+         - Total storage capacity: Up to 1PB
+         - Minimum storage duration: 30 days
+         - Maximum retention period: Unlimited
+         - Access latency: < 10ms
+         - Data transfer speed: Up to 10Gb/s'
       ],
       [
         'Security Features',
-        'Advanced security features include:
-         - End-to-end encryption
-         - Two-factor authentication
-         - Audit logging
-         - Access controls'
+        'Enterprise-grade security features:
+         - AES-256 bit encryption at rest
+         - TLS 1.3 encryption in transit
+         - Multi-factor authentication (MFA)
+         - Role-based access control (RBAC)
+         - Audit logging and reporting
+         - Compliance with SOC 2, HIPAA, and GDPR'
       ],
       [
-        'Sharing Capabilities',
-        'Share files and folders with:
-         - Individual users
-         - Groups
-         - Public links
-         - Password protection'
+        'Backup and Recovery',
+        'Comprehensive data protection:
+         - Automated daily backups
+         - Point-in-time recovery options
+         - 30-day backup retention
+         - Cross-region backup replication
+         - 15-minute recovery time objective (RTO)
+         - Zero recovery point objective (RPO)'
       ],
       [
         'Integration Options',
-        'Integrates with popular platforms:
-         - Microsoft Office
-         - Google Workspace
-         - Slack
-         - Teams'
+        'Compatible with popular platforms:
+         - REST API for custom integration
+         - WebDAV support
+         - S3-compatible interface
+         - SFTP access
+         - Native Windows/Mac/Linux clients
+         - Mobile apps for iOS and Android'
       ],
       [
-        'Backup Features',
-        'Comprehensive backup solutions:
-         - Automatic versioning
-         - Point-in-time recovery
-         - Retention policies
-         - Disaster recovery'
+        'Cost Structure',
+        'Transparent pricing model:
+         - Base storage: $0.02 per GB/month
+         - Data transfer: $0.01 per GB
+         - API requests: First 10,000 free
+         - Backup storage: 50% of base rate
+         - Volume discounts available
+         - No hidden fees'
+      ],
+      [
+        'Compliance Certifications',
+        'Current compliance certifications:
+         - SOC 2 Type II
+         - ISO 27001
+         - HIPAA compliance available
+         - GDPR compliant
+         - FedRAMP Moderate
+         - PCI DSS Level 1'
+      ],
+      [
+        'Support Services',
+        'Comprehensive support options:
+         - 24/7 technical support
+         - Dedicated account manager
+         - Online knowledge base
+         - Video tutorials
+         - Regular training sessions
+         - Community forums'
       ],
     ];
 
@@ -615,13 +774,20 @@ class UvaDsfContentCommands extends DrushCommands {
    * Generate all content.
    *
    * @command uva:generate-all
+   * @option keep Whether to keep existing content files
    * @aliases uva-gen-all
    * @usage drush uva:generate-all
+   * @usage drush uva:generate-all --keep  Preserves existing content files
    */
-  public function generateAll() {
-    // Complete cleanup first
-    $this->cleanupAllContent();
-    $this->clearUuidTracking();
+  public function generateAll($options = ['keep' => FALSE]) {
+    if (!$options['keep']) {
+      // Complete cleanup when --keep is not passed
+      $this->cleanupAllContent();
+      $this->clearUuidTracking();
+      $this->logger()->info('Removed existing content (use --keep to preserve)');
+    } else {
+      $this->logger()->info('Keeping existing content files (--keep flag)');
+    }
     
     // Create content directory structure
     $moduleHandler = \Drupal::service('module_handler');
@@ -632,7 +798,6 @@ class UvaDsfContentCommands extends DrushCommands {
     $facetUuids = $this->generateFacets();
     $this->facetMap = $facetUuids;
     
-    $this->generateQuestions();
     $this->generateParagraphs();
     $this->generateServices(10);
     
@@ -648,22 +813,25 @@ class UvaDsfContentCommands extends DrushCommands {
    */
   public function generateFacets() {
     $this->loadExistingUuids();
-    $facets = [
-      // Meat options
-      ['Chicken', 'Chicken option for burger'],
-      ['Hamburger', 'Beef patty option'],
-      ['Pork', 'Pork option for burger'],
-      
-      // Condiments
-      ['BBQ Sauce', 'Barbecue sauce option'],
-      ['Ketchup', 'Tomato ketchup option'],
-      ['Mayonnaise', 'Mayo condiment option'],
-      
-      // Additional toppings
-      ['Lettuce', 'Fresh lettuce option'],
-      ['Tomato', 'Fresh tomato option'],
-      ['Cheese', 'Cheese option'],
-      ['Bacon', 'Bacon topping option'],
+    
+    // First generate a control type term that all terms will reference
+    $controlTypeUuid = $this->generateUniqueUuid();
+    $controlTypeYaml = [
+      '_meta' => [
+        'version' => '1.0',
+        'entity_type' => 'taxonomy_term',
+        'uuid' => $controlTypeUuid,
+        'bundle' => 'facets',
+        'default_langcode' => 'en',
+      ],
+      'default' => [
+        'status' => [['value' => true]],
+        'name' => [['value' => 'Storage Finder Controls']],
+        'weight' => [['value' => 0]],
+        'parent' => [['target_id' => 0]],
+        'revision_translation_affected' => [['value' => true]],
+        'path' => [['alias' => '', 'langcode' => 'en']],
+      ],
     ];
 
     $moduleHandler = \Drupal::service('module_handler');
@@ -673,229 +841,141 @@ class UvaDsfContentCommands extends DrushCommands {
       $this->fileSystem->mkdir($contentPath, 0777, TRUE);
     }
 
+    $yaml = Yaml::dump($controlTypeYaml, 10, 2);
+    file_put_contents($contentPath . '/term-control-type.yml', $yaml);
+
     $generatedUuids = [];
-    foreach ($facets as $index => $facet) {
-      $uuid = $this->generateUniqueUuid();
-      $generatedUuids[$facet[0]] = $uuid;
-      
-      $yaml_content = [
+    $index = 0;
+
+    // Define the taxonomy structure
+    $taxonomy = [
+      [
+        'question' => ['What type of storage do you need?', 'Choose your primary storage solution'],
+        'answers' => [
+          ['Emerald Storage', 'High-performance green storage from the Emerald City'],
+          ['Ruby Archives', 'Long-term preservation in the Ruby Vault'],
+          ['Yellow Brick Storage', 'Reliable path to your data'],
+          ['Poppy Field Cache', 'Fast but temporary data storage'],
+          ['Oz Cloud', 'Enterprise cloud storage solution'],
+        ]
+      ],
+      [
+        'question' => ['How will you access your data?', 'Select your preferred access method'],
+        'answers' => [
+          ['Flying Monkey Delivery', 'Fast aerial data transfer'],
+          ['Rainbow Bridge Access', 'Multi-region data access'],
+          ['Tornado Express', 'High-speed data movement'],
+          ['Magical Portal', 'Instant data retrieval'],
+          ['Crystal Ball Browse', 'Data preview and search'],
+        ]
+      ],
+      [
+        'question' => ['What security level do you require?', 'Choose your security requirements'],
+        'answers' => [
+          ['Wizard Protection', 'Enterprise-grade security'],
+          ['Glinda\'s Shield', 'Advanced data protection'],
+          ['Emerald Gate', 'Secure access control'],
+          ['Munchkin Watch', '24/7 monitoring'],
+          ['Scarecrow Guard', 'Intelligent threat detection'],
+        ]
+      ],
+      [
+        'question' => ['What backup features do you need?', 'Select your backup requirements'],
+        'answers' => [
+          ['Dorothy\'s Mirror', 'Point-in-time snapshots'],
+          ['Tin Man\'s Heart', 'Redundant storage'],
+          ['Lion\'s Courage', 'Disaster recovery'],
+          ['Good Witch Backup', 'Managed backup service'],
+          ['Toto\'s Cache', 'Local backup storage'],
+        ]
+      ],
+      [
+        'question' => ['What compliance features are required?', 'Choose your compliance needs'],
+        'answers' => [
+          ['Oz Certification', 'Regulatory compliance'],
+          ['Wizard\'s Scroll', 'Audit logging'],
+          ['Golden Cap Control', 'Access management'],
+          ['Silver Shoes Track', 'Data lineage tracking'],
+          ['Magic Book Vault', 'Compliant archival'],
+        ]
+      ]
+    ];
+
+    foreach ($taxonomy as $group) {
+      // Create the question term
+      $questionUuid = $this->generateUniqueUuid();
+      $questionName = $group['question'][0];
+      $questionYaml = [
         '_meta' => [
           'version' => '1.0',
           'entity_type' => 'taxonomy_term',
-          'uuid' => $uuid,
+          'uuid' => $questionUuid,
           'bundle' => 'facets',
           'default_langcode' => 'en',
+          'depends' => [
+            $controlTypeUuid => 'taxonomy_term'
+          ],
         ],
         'default' => [
-          'name' => [['value' => $facet[0]]],
-          'description' => [['value' => $facet[1], 'format' => 'basic_html']],
-          'weight' => [['value' => $index]],
           'status' => [['value' => true]],
+          'name' => [['value' => $questionName]],
+          'weight' => [['value' => $index]],
+          'parent' => [['target_id' => 0]],
+          'revision_translation_affected' => [['value' => true]],
+          'path' => [['alias' => '', 'langcode' => 'en']],
+          'field_control_type' => [['entity' => $controlTypeUuid]],
         ],
       ];
 
-      $yaml = Yaml::dump($yaml_content, 10, 2);
-      file_put_contents($contentPath . '/term-' . ($index + 1) . '.yml', $yaml);
+      $yaml = Yaml::dump($questionYaml, 10, 2);
+      file_put_contents($contentPath . '/term-question-' . $this->sanitizeFilename($questionName) . '.yml', $yaml);
+      $generatedUuids[$questionName] = $questionUuid;
+
+      // Create the answer terms
+      foreach ($group['answers'] as $answerIndex => $answer) {
+        $answerUuid = $this->generateUniqueUuid();
+        $answerName = $answer[0];
+        $answerYaml = [
+          '_meta' => [
+            'version' => '1.0',
+            'entity_type' => 'taxonomy_term',
+            'uuid' => $answerUuid,
+            'bundle' => 'facets',
+            'default_langcode' => 'en',
+            'depends' => [
+              $questionUuid => 'taxonomy_term',
+              $controlTypeUuid => 'taxonomy_term'
+            ],
+          ],
+          'default' => [
+            'status' => [['value' => true]],
+            'name' => [['value' => $answerName]],
+            'weight' => [['value' => $answerIndex]],
+            'parent' => [['entity' => $questionUuid]],
+            'revision_translation_affected' => [['value' => true]],
+            'path' => [['alias' => '', 'langcode' => 'en']],
+            'field_control_type' => [['entity' => $controlTypeUuid]],
+          ],
+        ];
+
+        $yaml = Yaml::dump($answerYaml, 10, 2);
+        file_put_contents($contentPath . '/term-answer-' . $this->sanitizeFilename($answerName) . '.yml', $yaml);
+        $generatedUuids[$answerName] = $answerUuid;
+      }
+
+      $index++;
     }
 
-    $this->logger()->success(dt('Generated @count facet terms.', ['@count' => count($facets)]));
+    $this->logger()->success(dt('Generated @count taxonomy terms for questions and answers.', 
+      ['@count' => count($generatedUuids)]));
     return $generatedUuids;
   }
 
   /**
-   * Generate finder questions.
-   *
-   * @command uva:generate-questions
-   * @aliases uva-gen-questions
-   * @usage drush uva:generate-questions
+   * Helper to sanitize filenames
    */
-  public function generateQuestions() {
-    // Ensure content directories exist
-    $moduleHandler = \Drupal::service('module_handler');
-    $basePath = $moduleHandler->getModule('uva_dsf_content')->getPath();
-    $contentPath = $basePath . '/content';
-    $nodePath = $contentPath . '/node';
-    
-    // Create directory structure
-    foreach ([$contentPath, $nodePath] as $dir) {
-      if (!file_exists($dir)) {
-        $this->fileSystem->mkdir($dir, 0777, TRUE);
-        $this->logger()->info(dt('Created directory: @dir', ['@dir' => $dir]));
-      }
-    }
-    
-    // Delete existing question nodes from the database
-    $this->deleteNodesByType('question');
-    $this->logger()->info('Deleted existing question nodes from database');
-    
-    // Remove existing question files
-    $this->removeExistingQuestions();
-    $this->logger()->info('Removed existing question YAML files');
-
-    // Ensure facetMap is loaded if it wasn't generated in this session
-    if (!isset($this->facetMap) || empty($this->facetMap)) {
-      $this->loadFacetMap();
-      $this->logger()->info('Loaded facet map with ' . count($this->facetMap) . ' facets');
-    }
-
-    $questions = [
-      [
-        'What must be on your burger?',
-        'Choose your main protein',
-        ['Chicken', 'Hamburger', 'Pork']
-      ],
-      [
-        'Required Condiments',
-        'Select required sauces',
-        ['BBQ Sauce', 'Ketchup', 'Mayonnaise']
-      ],
-      [
-        'Additional Toppings',
-        'Select additional toppings',
-        ['Lettuce', 'Tomato', 'Cheese', 'Bacon']
-      ],
-    ];
-
-    $moduleHandler = \Drupal::service('module_handler');
-    $contentPath = $moduleHandler->getModule('uva_dsf_content')->getPath() . '/content/node';
-    
-    if (!file_exists($contentPath)) {
-      $this->fileSystem->mkdir($contentPath, 0777, TRUE);
-    }
-
-    $count = 0;
-    foreach ($questions as $index => $question) {
-      $uuid = $this->generateUniqueUuid();
-      $facetRefs = [];
-      
-      // Ensure each facet name has a corresponding UUID
-      foreach ($question[2] as $facetName) {
-        $facetUuid = $this->getFacetUuid($facetName);
-        if ($facetUuid) {
-          $facetRefs[] = ['entity' => $facetUuid];
-        } else {
-          $this->logger()->warning(dt('Missing facet UUID for "@name"', ['@name' => $facetName]));
-        }
-      }
-      
-      $yaml_content = [
-        '_meta' => [
-          'version' => '1.0',
-          'entity_type' => 'node',
-          'uuid' => $uuid,
-          'bundle' => 'question',
-          'default_langcode' => 'en',
-          'depends' => array_combine(
-            array_column($facetRefs, 'entity'),
-            array_fill(0, count($facetRefs), 'taxonomy_term')
-          ),
-        ],
-        'default' => [
-          'revision_uid' => [['target_id' => 1]],
-          'status' => [['value' => true]],
-          'title' => [['value' => $question[0]]],
-          'body' => [['value' => $question[1], 'format' => 'basic_html']],
-          'field_weight' => [['value' => $index]],
-          'field_facets' => $facetRefs,
-          'path' => [['alias' => '', 'langcode' => 'en']],
-        ],
-      ];
-
-      $yaml = Yaml::dump($yaml_content, 10, 2);
-      // Use consistent naming pattern for question files
-      $filename = $contentPath . '/question-' . md5($question[0]) . '.yml';
-      file_put_contents($filename, $yaml);
-      $count++;
-    }
-
-    $this->logger()->success(dt('Generated @count questions with facets.', ['@count' => $count]));
-  }
-
-  protected function removeExistingQuestions() {
-    $moduleHandler = \Drupal::service('module_handler');
-    $contentPath = $moduleHandler->getModule('uva_dsf_content')->getPath() . '/content/node';
-    
-    if (!file_exists($contentPath)) {
-      return;
-    }
-
-    $removed = 0;
-    $files = $this->fileSystem->scanDirectory($contentPath, '/\.yml$/');
-    foreach ($files as $file) {
-      try {
-        $content = Yaml::parse(file_get_contents($file->uri));
-        if (isset($content['_meta']['bundle']) && $content['_meta']['bundle'] === 'question') {
-          unlink($file->uri);
-          $removed++;
-        }
-      } catch (\Exception $e) {
-        $this->logger()->warning(dt('Failed to parse @file: @error', [
-          '@file' => basename($file->uri),
-          '@error' => $e->getMessage()
-        ]));
-        continue;
-      }
-    }
-    
-    if ($removed > 0) {
-      $this->logger()->info(dt('Removed @count question files', ['@count' => $removed]));
-    }
-  }
-
-  /**
-   * Load facet UUIDs from existing content.
-   */
-  protected function loadFacetMap() {
-    $this->facetMap = [];
-    $moduleHandler = \Drupal::service('module_handler');
-    $taxonomyPath = $moduleHandler->getModule('uva_dsf_content')->getPath() . '/content/taxonomy_term';
-    
-    if (file_exists($taxonomyPath)) {
-      $files = $this->fileSystem->scanDirectory($taxonomyPath, '/\.yml$/');
-      foreach ($files as $file) {
-        try {
-          $content = Yaml::parse(file_get_contents($file->uri));
-          if (isset($content['_meta']['uuid']) && 
-              isset($content['default']['name'][0]['value'])) {
-            $this->facetMap[$content['default']['name'][0]['value']] = $content['_meta']['uuid'];
-          }
-        } catch (\Exception $e) {
-          continue;
-        }
-      }
-    }
-  }
-
-  /**
-   * Helper function to map facet names to UUIDs.
-   */
-  protected function getFacetUuid($name) {
-    if (isset($this->facetMap[$name])) {
-      return $this->facetMap[$name];
-    }
-    
-    // Fallback to searching in taxonomy content
-    $moduleHandler = \Drupal::service('module_handler');
-    $taxonomyPath = $moduleHandler->getModule('uva_dsf_content')->getPath() . '/content/taxonomy_term';
-    
-    if (file_exists($taxonomyPath)) {
-      $files = $this->fileSystem->scanDirectory($taxonomyPath, '/\.yml$/');
-      foreach ($files as $file) {
-        $content = Yaml::parse(file_get_contents($file->uri));
-        if (isset($content['default']['name'][0]['value']) && 
-            $content['default']['name'][0]['value'] === $name) {
-          return $content['_meta']['uuid'];
-        }
-      }
-    }
-    
-    // Generate a new UUID if none found
-    $uuid = $this->generateUniqueUuid();
-    if (!isset($this->facetMap)) {
-      $this->facetMap = [];
-    }
-    $this->facetMap[$name] = $uuid;
-    return $uuid;
+  protected function sanitizeFilename($name) {
+    return strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $name));
   }
 
   /**
@@ -1211,7 +1291,7 @@ class UvaDsfContentCommands extends DrushCommands {
     
     // Create base content directory if it doesn't exist
     if (!file_exists($path)) {
-      $this->fileSystem->mkdir($path, 0777, TRUE);
+      $thisSystem->mkdir($path, 0777, TRUE);
     }
     
     if ($type) {

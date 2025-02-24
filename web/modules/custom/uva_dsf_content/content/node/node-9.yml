@@ -1,0 +1,65 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 8dd9bd67-a0d7-4eb5-b51c-340a1213a093
+  bundle: service
+  default_langcode: en
+  depends:
+    eba37ea5-5dc4-4d66-a187-303464a2d58a: taxonomy_term
+    30b3583c-dc2d-4396-be35-6f0abc8700b6: taxonomy_term
+    a102ad4b-0c9b-47d5-8798-98dffe39c2c7: taxonomy_term
+    55bff349-65b2-46d8-9116-920fcebda331: taxonomy_term
+    dd665c2c-358a-4726-ae09-07f727ff0b99: taxonomy_term
+    b14272a3-ddc6-4a1c-a3e9-48f3c783039f: paragraph
+    abbe6145-1093-403d-a1d7-9cb359276282: paragraph
+    458e6257-4283-4e18-9d8b-1b40c9f1c406: paragraph
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: pCloud
+  created:
+    -
+      value: 1740422402
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_facet_matches:
+    -
+      entity: eba37ea5-5dc4-4d66-a187-303464a2d58a
+    -
+      entity: 30b3583c-dc2d-4396-be35-6f0abc8700b6
+    -
+      entity: a102ad4b-0c9b-47d5-8798-98dffe39c2c7
+    -
+      entity: 55bff349-65b2-46d8-9116-920fcebda331
+    -
+      entity: dd665c2c-358a-4726-ae09-07f727ff0b99
+  field_service_paragraphs:
+    -
+      entity: b14272a3-ddc6-4a1c-a3e9-48f3c783039f
+    -
+      entity: abbe6145-1093-403d-a1d7-9cb359276282
+    -
+      entity: 458e6257-4283-4e18-9d8b-1b40c9f1c406
+  field_summary:
+    -
+      value: 'Secure and encrypted cloud storage platform'

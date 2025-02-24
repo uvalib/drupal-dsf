@@ -1,7 +1,7 @@
 _meta:
   version: '1.0'
   entity_type: paragraph
-  uuid: 8f1d09b0-0a47-48af-9eec-8d4152bbb1f8
+  uuid: f376f5a1-b009-4a6d-a759-70e8abb53326
   bundle: service_paragraphs
   default_langcode: en
 default:
@@ -10,7 +10,7 @@ default:
       value: true
   created:
     -
-      value: 1740203429
+      value: 1740422402
   behavior_settings:
     -
       value: {  }
@@ -19,8 +19,8 @@ default:
       value: true
   field_section_title:
     -
-      value: 'Storage Limits'
+      value: 'Service Overview'
   field_section_content:
     -
-      value: "Each account comes with different storage limits based on licensing level:\n         - Basic: 15GB\n         - Pro: 2TB\n         - Enterprise: Unlimited"
+      value: "Our storage solution provides:\n         - Highly available storage infrastructure\n         - 99.999% uptime guarantee\n         - 24/7 technical support\n         - Flexible pricing models\n         - Automatic data replication\n         - Geographic redundancy"
       format: basic_html

@@ -1,0 +1,41 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: c902b41f-dfc4-4035-83eb-1e814b0bd0ed
+  bundle: question
+  default_langcode: en
+  depends:
+    0a1e49e8-8546-40e6-bcbf-e3c079be393d: taxonomy_term
+    b2afb7f6-06dc-4a18-b263-4f71653d2a69: taxonomy_term
+    0ee84cc8-7e3a-4a83-87bf-b25996db7dc0: taxonomy_term
+    480a50f7-f037-494c-9324-ce21c06a34ae: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  title:
+    -
+      value: 'Additional Toppings'
+  body:
+    -
+      value: 'Select additional toppings'
+      format: basic_html
+  field_weight:
+    -
+      value: 2
+  field_facets:
+    -
+      entity: 0a1e49e8-8546-40e6-bcbf-e3c079be393d
+    -
+      entity: b2afb7f6-06dc-4a18-b263-4f71653d2a69
+    -
+      entity: 0ee84cc8-7e3a-4a83-87bf-b25996db7dc0
+    -
+      entity: 480a50f7-f037-494c-9324-ce21c06a34ae
+  path:
+    -
+      alias: ''
+      langcode: en

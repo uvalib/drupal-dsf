@@ -1,0 +1,68 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 725f80c1-d96c-4336-9d70-7e0ba9a4660b
+  bundle: service
+  default_langcode: en
+  depends:
+    b2afb7f6-06dc-4a18-b263-4f71653d2a69: taxonomy_term
+    0a1e49e8-8546-40e6-bcbf-e3c079be393d: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Amazon S3'
+  created:
+    -
+      value: 1740243721
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_facet_matches:
+    -
+      entity: b2afb7f6-06dc-4a18-b263-4f71653d2a69
+    -
+      entity: 0a1e49e8-8546-40e6-bcbf-e3c079be393d
+  field_service_paragraphs:
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 06cd5e39-44b5-40a1-9ac3-f294dddf7459
+          bundle: service_paragraphs
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1740243721
+          behavior_settings:
+            -
+              value: {  }
+          revision_translation_affected:
+            -
+              value: true
+  field_summary:
+    -
+      value: 'Scalable cloud object storage service'

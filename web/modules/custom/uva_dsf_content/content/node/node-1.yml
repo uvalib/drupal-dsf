@@ -1,0 +1,62 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 0a54b9a4-7627-493f-972b-cee0422ef458
+  bundle: service
+  default_langcode: en
+  depends:
+    99f6e1c0-6477-4e0b-9872-7a5a621cb8f2: taxonomy_term
+    ba3988e7-0f23-4ce3-a6b6-475463fa8066: taxonomy_term
+    1b5d60de-cf88-44d1-8821-f4b915c1d200: taxonomy_term
+    a102ad4b-0c9b-47d5-8798-98dffe39c2c7: taxonomy_term
+    ba00020e-5fed-40ef-816f-5847163e4134: taxonomy_term
+    90efdfb8-2f6f-4e2c-bd23-887349054d3e: paragraph
+    1af9568d-d788-4fea-8ccc-ee6330339e6b: paragraph
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: Dropbox
+  created:
+    -
+      value: 1740422402
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_facet_matches:
+    -
+      entity: 99f6e1c0-6477-4e0b-9872-7a5a621cb8f2
+    -
+      entity: ba3988e7-0f23-4ce3-a6b6-475463fa8066
+    -
+      entity: 1b5d60de-cf88-44d1-8821-f4b915c1d200
+    -
+      entity: a102ad4b-0c9b-47d5-8798-98dffe39c2c7
+    -
+      entity: ba00020e-5fed-40ef-816f-5847163e4134
+  field_service_paragraphs:
+    -
+      entity: 90efdfb8-2f6f-4e2c-bd23-887349054d3e
+    -
+      entity: 1af9568d-d788-4fea-8ccc-ee6330339e6b
+  field_summary:
+    -
+      value: 'Cloud storage with file syncing and sharing capabilities'

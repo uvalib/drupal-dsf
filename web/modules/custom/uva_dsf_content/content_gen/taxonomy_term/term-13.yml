@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: b2afb7f6-06dc-4a18-b263-4f71653d2a69
+  bundle: facets
+  default_langcode: en
+default:
+  name:
+    -
+      value: Tomato
+  description:
+    -
+      value: 'Fresh tomato option'
+      format: basic_html
+  weight:
+    -
+      value: 7
+  status:
+    -
+      value: true

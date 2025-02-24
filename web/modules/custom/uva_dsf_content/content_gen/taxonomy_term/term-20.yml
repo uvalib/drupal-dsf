@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 421dbea1-3fa6-4773-99d5-766d89d029c8
+  bundle: facets
+  default_langcode: en
+default:
+  name:
+    -
+      value: Mayonnaise
+  description:
+    -
+      value: 'Mayo condiment option'
+      format: basic_html
+  weight:
+    -
+      value: 5
+  status:
+    -
+      value: true

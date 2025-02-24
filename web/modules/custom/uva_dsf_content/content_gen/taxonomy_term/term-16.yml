@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 480a50f7-f037-494c-9324-ce21c06a34ae
+  bundle: facets
+  default_langcode: en
+default:
+  name:
+    -
+      value: Bacon
+  description:
+    -
+      value: 'Bacon topping option'
+      format: basic_html
+  weight:
+    -
+      value: 9
+  status:
+    -
+      value: true

@@ -1,0 +1,22 @@
+uuid: b04c58a1-145d-46d0-b6a9-4aa4881fcade
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+_core:
+  default_config_hash: bpAbGUIWBO1tjumSSCsVioVwCuNzLATSQkpswe5uT04
+id: node.field_facets
+field_name: field_facets
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

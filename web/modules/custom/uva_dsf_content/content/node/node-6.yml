@@ -1,0 +1,56 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 53be6fa5-7b02-4d6e-832a-81af5507f9da
+  bundle: service
+  default_langcode: en
+  depends:
+    99f6e1c0-6477-4e0b-9872-7a5a621cb8f2: taxonomy_term
+    eba37ea5-5dc4-4d66-a187-303464a2d58a: taxonomy_term
+    47e549ed-4d92-430a-a223-8a2d820ae5b7: taxonomy_term
+    a7255582-538c-4965-9314-8c057aac329a: paragraph
+    439c29dd-0c30-4755-9657-b6c998fc8637: paragraph
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'iCloud Drive'
+  created:
+    -
+      value: 1740422402
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_facet_matches:
+    -
+      entity: 99f6e1c0-6477-4e0b-9872-7a5a621cb8f2
+    -
+      entity: eba37ea5-5dc4-4d66-a187-303464a2d58a
+    -
+      entity: 47e549ed-4d92-430a-a223-8a2d820ae5b7
+  field_service_paragraphs:
+    -
+      entity: a7255582-538c-4965-9314-8c057aac329a
+    -
+      entity: 439c29dd-0c30-4755-9657-b6c998fc8637
+  field_summary:
+    -
+      value: 'Apple ecosystem cloud storage solution'

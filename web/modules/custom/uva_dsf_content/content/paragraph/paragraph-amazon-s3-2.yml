@@ -1,0 +1,26 @@
+_meta:
+  version: '1.0'
+  entity_type: paragraph
+  uuid: b1d6c2bd-95f6-4ec7-b4ee-a84aadec3dbb
+  bundle: service_paragraphs
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1740422402
+  behavior_settings:
+    -
+      value: {  }
+  revision_translation_affected:
+    -
+      value: true
+  field_section_title:
+    -
+      value: 'Backup and Recovery'
+  field_section_content:
+    -
+      value: "Comprehensive data protection:\n       - Automated daily backups\n       - Point-in-time recovery options\n       - 30-day backup retention\n       - Cross-region backup replication\n       - 15-minute recovery time objective (RTO)\n       - Zero recovery point objective (RPO)"
+      format: basic_html

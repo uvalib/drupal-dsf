@@ -1,0 +1,68 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 2525971f-13ff-46c5-9a42-99e60c3f807c
+  bundle: service
+  default_langcode: en
+  depends:
+    480a50f7-f037-494c-9324-ce21c06a34ae: taxonomy_term
+    b2afb7f6-06dc-4a18-b263-4f71653d2a69: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: Mega
+  created:
+    -
+      value: 1740243721
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_facet_matches:
+    -
+      entity: 480a50f7-f037-494c-9324-ce21c06a34ae
+    -
+      entity: b2afb7f6-06dc-4a18-b263-4f71653d2a69
+  field_service_paragraphs:
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 8554263e-d45a-43c4-b231-bcb02611eaeb
+          bundle: service_paragraphs
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1740243721
+          behavior_settings:
+            -
+              value: {  }
+          revision_translation_affected:
+            -
+              value: true
+  field_summary:
+    -
+      value: 'Privacy-focused cloud storage and collaboration'

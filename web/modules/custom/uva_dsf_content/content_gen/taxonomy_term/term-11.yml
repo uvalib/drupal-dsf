@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: cce158a3-7e49-49fe-af60-6acc2e606288
+  bundle: facets
+  default_langcode: en
+default:
+  name:
+    -
+      value: Chicken
+  description:
+    -
+      value: 'Chicken option for burger'
+      format: basic_html
+  weight:
+    -
+      value: 0
+  status:
+    -
+      value: true

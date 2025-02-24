@@ -1,0 +1,32 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 95fdee86-d412-40a6-83ff-0f5bfac5c1dc
+  bundle: facets
+  default_langcode: en
+  depends:
+    1b5d60de-cf88-44d1-8821-f4b915c1d200: taxonomy_term
+    41becda3-c27a-4763-a035-75e7ae31a22f: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'Lion''s Courage'
+  weight:
+    -
+      value: 2
+  parent:
+    -
+      entity: 1b5d60de-cf88-44d1-8821-f4b915c1d200
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_control_type:
+    -
+      entity: 41becda3-c27a-4763-a035-75e7ae31a22f

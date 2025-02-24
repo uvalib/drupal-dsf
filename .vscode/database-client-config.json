@@ -2,7 +2,7 @@
     "database": {
         "1739461367266": {
             "host": "127.0.0.1",
-            "port": 56014,
+            "port": 50549,
             "user": "db",
             "password": "dbclient_a$yakdE2anbKKm+dwetIxqjg==",
             "dbType": "MariaDB",

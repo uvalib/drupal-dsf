@@ -1,20 +1,18 @@
-uuid: 7298eb47-b99f-4632-aa0a-7912488acf9f
+uuid: 6b6a66cd-2dd9-4852-8407-5a38bb9ba4db
 langcode: en
 status: true
 dependencies:
   module:
     - node
+    - text
 _core:
-  default_config_hash: GULIQ-9hnXf6jyByhNlEjpXYNgprAOJPDjJnw2EpW5Q
+  default_config_hash: v6tZZmnDCiLhbHulzS5imIDiKySSuWoXadL_xHNdSXQ
 id: node.field_summary
 field_name: field_summary
 entity_type: node
-type: string
-settings:
-  max_length: 255
-  case_sensitive: false
-  is_ascii: false
-module: core
+type: text_long
+settings: {  }
+module: text
 locked: false
 cardinality: 1
 translatable: true

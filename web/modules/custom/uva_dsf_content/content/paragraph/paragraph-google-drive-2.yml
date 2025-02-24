@@ -1,0 +1,26 @@
+_meta:
+  version: '1.0'
+  entity_type: paragraph
+  uuid: 4ffadbbd-efe4-4698-944f-d80873b5564e
+  bundle: service_paragraphs
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1740422402
+  behavior_settings:
+    -
+      value: {  }
+  revision_translation_affected:
+    -
+      value: true
+  field_section_title:
+    -
+      value: 'Cost Structure'
+  field_section_content:
+    -
+      value: "Transparent pricing model:\n       - Base storage: $0.02 per GB/month\n       - Data transfer: $0.01 per GB\n       - API requests: First 10,000 free\n       - Backup storage: 50% of base rate\n       - Volume discounts available\n       - No hidden fees"
+      format: basic_html

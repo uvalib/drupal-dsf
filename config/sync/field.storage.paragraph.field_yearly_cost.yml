@@ -1,0 +1,19 @@
+uuid: b78328f1-f659-44ff-9f5e-c39f7d265676
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - text
+id: paragraph.field_yearly_cost
+field_name: field_yearly_cost
+entity_type: paragraph
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

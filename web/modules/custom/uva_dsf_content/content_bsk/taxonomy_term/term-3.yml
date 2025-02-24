@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 14aff7c9-49e6-4e98-b87e-24a00d9cd057
+  bundle: facets
+  default_langcode: en
+default:
+  name:
+    -
+      value: Pork
+  description:
+    -
+      value: 'Pork option for burger'
+      format: basic_html
+  weight:
+    -
+      value: 2
+  status:
+    -
+      value: true

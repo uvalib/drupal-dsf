@@ -1,0 +1,62 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 8bc3d650-fd9a-42b6-a18b-ca70f1ded36c
+  bundle: service
+  default_langcode: en
+  depends:
+    a102ad4b-0c9b-47d5-8798-98dffe39c2c7: taxonomy_term
+    76ab2b37-445b-4671-a016-6ab317cc7d4a: taxonomy_term
+    95fdee86-d412-40a6-83ff-0f5bfac5c1dc: taxonomy_term
+    eba37ea5-5dc4-4d66-a187-303464a2d58a: taxonomy_term
+    870507e1-681d-42c7-84ac-d5104f13c71a: paragraph
+    25d2fbe0-2b95-4460-986e-6d1e29fc08fc: paragraph
+    af955637-588e-4730-98b8-5c9f31c2f299: paragraph
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: Wasabi
+  created:
+    -
+      value: 1740422402
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_facet_matches:
+    -
+      entity: a102ad4b-0c9b-47d5-8798-98dffe39c2c7
+    -
+      entity: 76ab2b37-445b-4671-a016-6ab317cc7d4a
+    -
+      entity: 95fdee86-d412-40a6-83ff-0f5bfac5c1dc
+    -
+      entity: eba37ea5-5dc4-4d66-a187-303464a2d58a
+  field_service_paragraphs:
+    -
+      entity: 870507e1-681d-42c7-84ac-d5104f13c71a
+    -
+      entity: 25d2fbe0-2b95-4460-986e-6d1e29fc08fc
+    -
+      entity: af955637-588e-4730-98b8-5c9f31c2f299
+  field_summary:
+    -
+      value: 'Hot cloud storage for all your data needs'

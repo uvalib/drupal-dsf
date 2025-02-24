@@ -1,0 +1,31 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 2d8961a1-91cd-4794-a338-01be225d96f9
+  bundle: facets
+  default_langcode: en
+  depends:
+    41becda3-c27a-4763-a035-75e7ae31a22f: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'What security level do you require?'
+  weight:
+    -
+      value: 2
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_control_type:
+    -
+      entity: 41becda3-c27a-4763-a035-75e7ae31a22f

@@ -1,0 +1,32 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 4b9b9b78-3bb7-48c6-a290-c8d8cae56c25
+  bundle: facets
+  default_langcode: en
+  depends:
+    cab044b1-0332-4d1c-8c51-404f468c07ff: taxonomy_term
+    7b0771be-ebcf-436f-867f-f5f573f4c3db: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: Mayonaise
+  weight:
+    -
+      value: 2
+  parent:
+    -
+      entity: cab044b1-0332-4d1c-8c51-404f468c07ff
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_control_type:
+    -
+      entity: 7b0771be-ebcf-436f-867f-f5f573f4c3db

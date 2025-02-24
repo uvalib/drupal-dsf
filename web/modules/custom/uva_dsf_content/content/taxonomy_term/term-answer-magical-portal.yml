@@ -1,0 +1,32 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: ccf9d891-7a68-464f-ac32-2bcb6e1595ec
+  bundle: facets
+  default_langcode: en
+  depends:
+    fdefdcdd-06c4-4d14-882b-a0a089aed7a0: taxonomy_term
+    41becda3-c27a-4763-a035-75e7ae31a22f: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'Magical Portal'
+  weight:
+    -
+      value: 3
+  parent:
+    -
+      entity: fdefdcdd-06c4-4d14-882b-a0a089aed7a0
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_control_type:
+    -
+      entity: 41becda3-c27a-4763-a035-75e7ae31a22f

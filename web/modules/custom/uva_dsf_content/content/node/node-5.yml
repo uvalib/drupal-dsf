@@ -1,0 +1,62 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: f9a6771d-a7cb-4ae4-a29c-c32955cdf39f
+  bundle: service
+  default_langcode: en
+  depends:
+    ba00020e-5fed-40ef-816f-5847163e4134: taxonomy_term
+    ba3988e7-0f23-4ce3-a6b6-475463fa8066: taxonomy_term
+    dc95b5d2-8cf6-42f7-901a-fb4f1a0c6d36: taxonomy_term
+    a102ad4b-0c9b-47d5-8798-98dffe39c2c7: taxonomy_term
+    2c3b38a8-2823-4ee9-aeb8-c89a65008b25: taxonomy_term
+    f17e7452-5622-4fd7-8fbc-7a7a1281b851: paragraph
+    d65ae625-82d2-4869-a5b0-548c8bb13912: paragraph
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: Box
+  created:
+    -
+      value: 1740422402
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_facet_matches:
+    -
+      entity: ba00020e-5fed-40ef-816f-5847163e4134
+    -
+      entity: ba3988e7-0f23-4ce3-a6b6-475463fa8066
+    -
+      entity: dc95b5d2-8cf6-42f7-901a-fb4f1a0c6d36
+    -
+      entity: a102ad4b-0c9b-47d5-8798-98dffe39c2c7
+    -
+      entity: 2c3b38a8-2823-4ee9-aeb8-c89a65008b25
+  field_service_paragraphs:
+    -
+      entity: f17e7452-5622-4fd7-8fbc-7a7a1281b851
+    -
+      entity: d65ae625-82d2-4869-a5b0-548c8bb13912
+  field_summary:
+    -
+      value: 'Enterprise-focused cloud content management platform'

@@ -1,0 +1,26 @@
+_meta:
+  version: '1.0'
+  entity_type: paragraph
+  uuid: a7255582-538c-4965-9314-8c057aac329a
+  bundle: service_paragraphs
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1740422402
+  behavior_settings:
+    -
+      value: {  }
+  revision_translation_affected:
+    -
+      value: true
+  field_section_title:
+    -
+      value: 'Storage Specifications'
+  field_section_content:
+    -
+      value: "Technical specifications:\n       - Maximum file size: 5TB per file\n       - Total storage capacity: Up to 1PB\n       - Minimum storage duration: 30 days\n       - Maximum retention period: Unlimited\n       - Access latency: < 10ms\n       - Data transfer speed: Up to 10Gb/s"
+      format: basic_html

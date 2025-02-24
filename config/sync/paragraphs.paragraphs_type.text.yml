@@ -1,0 +1,12 @@
+uuid: aafcf877-4fdd-4038-b86d-d5d798e1608e
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 57CRR5_Uq1lLKr_zFyg4fkAGX_qCPYHe3UHpRFjlnU8
+id: text
+label: Text
+icon_uuid: null
+icon_default: null
+description: 'A simple text paragraph type'
+behavior_plugins: {  }

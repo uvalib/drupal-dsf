@@ -1,7 +1,7 @@
 _meta:
   version: '1.0'
   entity_type: paragraph
-  uuid: a5591bda-8c8c-415a-8852-f1fc57c47457
+  uuid: 047b4f42-5dc9-469f-bd5c-05df7d2aee11
   bundle: service_paragraphs
   default_langcode: en
 default:
@@ -10,7 +10,7 @@ default:
       value: true
   created:
     -
-      value: 1740203429
+      value: 1740422402
   behavior_settings:
     -
       value: {  }
@@ -19,8 +19,8 @@ default:
       value: true
   field_section_title:
     -
-      value: 'Sharing Capabilities'
+      value: 'Security Features'
   field_section_content:
     -
-      value: "Share files and folders with:\n         - Individual users\n         - Groups\n         - Public links\n         - Password protection"
+      value: "Enterprise-grade security features:\n         - AES-256 bit encryption at rest\n         - TLS 1.3 encryption in transit\n         - Multi-factor authentication (MFA)\n         - Role-based access control (RBAC)\n         - Audit logging and reporting\n         - Compliance with SOC 2, HIPAA, and GDPR"
       format: basic_html

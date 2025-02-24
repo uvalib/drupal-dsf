@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 0a1e49e8-8546-40e6-bcbf-e3c079be393d
+  bundle: facets
+  default_langcode: en
+default:
+  name:
+    -
+      value: Lettuce
+  description:
+    -
+      value: 'Fresh lettuce option'
+      format: basic_html
+  weight:
+    -
+      value: 6
+  status:
+    -
+      value: true

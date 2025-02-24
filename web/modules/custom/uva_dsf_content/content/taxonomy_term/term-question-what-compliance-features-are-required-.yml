@@ -1,0 +1,31 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: a102ad4b-0c9b-47d5-8798-98dffe39c2c7
+  bundle: facets
+  default_langcode: en
+  depends:
+    41becda3-c27a-4763-a035-75e7ae31a22f: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'What compliance features are required?'
+  weight:
+    -
+      value: 4
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_control_type:
+    -
+      entity: 41becda3-c27a-4763-a035-75e7ae31a22f

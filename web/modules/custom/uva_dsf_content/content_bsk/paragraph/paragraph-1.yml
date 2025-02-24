@@ -1,0 +1,26 @@
+_meta:
+  version: '1.0'
+  entity_type: paragraph
+  uuid: ec474bc7-ee9e-4fa6-9193-65e45c80d558
+  bundle: service_paragraphs
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1740243721
+  behavior_settings:
+    -
+      value: {  }
+  revision_translation_affected:
+    -
+      value: true
+  field_section_title:
+    -
+      value: 'Storage Limits'
+  field_section_content:
+    -
+      value: "Each account comes with different storage limits based on licensing level:\n         - Basic: 15GB\n         - Pro: 2TB\n         - Enterprise: Unlimited"
+      format: basic_html

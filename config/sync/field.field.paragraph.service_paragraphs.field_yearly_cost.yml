@@ -1,0 +1,21 @@
+uuid: 7baea024-7d5f-4df9-bedc-aaaee95329c7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_yearly_cost
+    - paragraphs.paragraphs_type.service_paragraphs
+  module:
+    - text
+id: paragraph.service_paragraphs.field_yearly_cost
+field_name: field_yearly_cost
+entity_type: paragraph
+bundle: service_paragraphs
+label: 'Yearly Cost'
+description: 'Help for Yearly Cost'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

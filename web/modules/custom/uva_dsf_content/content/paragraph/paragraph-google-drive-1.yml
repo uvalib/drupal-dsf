@@ -1,0 +1,26 @@
+_meta:
+  version: '1.0'
+  entity_type: paragraph
+  uuid: 67a3383c-53f8-4ed0-bb14-a27e605c271c
+  bundle: service_paragraphs
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1740422402
+  behavior_settings:
+    -
+      value: {  }
+  revision_translation_affected:
+    -
+      value: true
+  field_section_title:
+    -
+      value: 'Service Overview'
+  field_section_content:
+    -
+      value: "Our storage solution provides:\n       - Highly available storage infrastructure\n       - 99.999% uptime guarantee\n       - 24/7 technical support\n       - Flexible pricing models\n       - Automatic data replication\n       - Geographic redundancy"
+      format: basic_html

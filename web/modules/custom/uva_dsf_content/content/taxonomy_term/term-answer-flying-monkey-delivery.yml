@@ -1,0 +1,32 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 30b3583c-dc2d-4396-be35-6f0abc8700b6
+  bundle: facets
+  default_langcode: en
+  depends:
+    fdefdcdd-06c4-4d14-882b-a0a089aed7a0: taxonomy_term
+    41becda3-c27a-4763-a035-75e7ae31a22f: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'Flying Monkey Delivery'
+  weight:
+    -
+      value: 0
+  parent:
+    -
+      entity: fdefdcdd-06c4-4d14-882b-a0a089aed7a0
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_control_type:
+    -
+      entity: 41becda3-c27a-4763-a035-75e7ae31a22f

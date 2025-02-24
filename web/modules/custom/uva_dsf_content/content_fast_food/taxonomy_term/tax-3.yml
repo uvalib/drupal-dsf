@@ -1,0 +1,31 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: cab044b1-0332-4d1c-8c51-404f468c07ff
+  bundle: facets
+  default_langcode: en
+  depends:
+    7b0771be-ebcf-436f-867f-f5f573f4c3db: taxonomy_term
+default:
+  status:
+    -
+      value: true
+  name:
+    -
+      value: 'Required Condiments'
+  weight:
+    -
+      value: 7
+  parent:
+    -
+      target_id: 0
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_control_type:
+    -
+      entity: 7b0771be-ebcf-436f-867f-f5f573f4c3db

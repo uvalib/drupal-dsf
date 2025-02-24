@@ -1,0 +1,40 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 1f92e125-eeb0-4459-83ce-d933de2c85f6
+  bundle: service
+  default_langcode: en
+  depends:
+    b2afb7f6-06dc-4a18-b263-4f71653d2a69: taxonomy_term
+    14aff7c9-49e6-4e98-b87e-24a00d9cd057: taxonomy_term
+default:
+  title:
+    -
+      value: Box
+  status:
+    -
+      value: true
+  field_facet_matches:
+    -
+      entity: b2afb7f6-06dc-4a18-b263-4f71653d2a69
+    -
+      entity: 14aff7c9-49e6-4e98-b87e-24a00d9cd057
+  field_service_paragraphs:
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: 5c14f1a7-e23d-40c7-a709-32f85361b3b0
+          bundle: service_paragraphs
+          default_langcode: en
+        default:
+          status:
+            -
+              value: '1'
+          created:
+            -
+              value: '1740243721'
+  field_summary:
+    -
+      value: 'Enterprise-focused cloud content management platform'

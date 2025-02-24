@@ -1,4 +1,4 @@
-uuid: 5bf58d08-e2aa-4762-96dd-e4428c7ef4c0
+uuid: c852b9c1-7002-4f8c-ac85-8a1e4deee84c
 langcode: en
 status: true
 dependencies:
@@ -9,7 +9,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: g1S3_GLaxq4l3I9RIca5Mlz02MxI2KmOquZpHw59akM
+  default_config_hash: M_Y8L5tfmhx7DR143E05YyZSpvgil6VFvqcfBWykalg
 id: node.page.default
 targetEntityType: node
 bundle: page

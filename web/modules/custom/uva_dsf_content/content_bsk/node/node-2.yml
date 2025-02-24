@@ -1,0 +1,68 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 4384f06a-b1a0-423a-818f-b8d61a3a0e17
+  bundle: service
+  default_langcode: en
+  depends:
+    52f55acb-b744-41c0-9be7-8581fad9788c: taxonomy_term
+    97b96360-9ce4-4559-8b7c-938eecbaaacb: taxonomy_term
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Google Drive'
+  created:
+    -
+      value: 1740243721
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_facet_matches:
+    -
+      entity: 52f55acb-b744-41c0-9be7-8581fad9788c
+    -
+      entity: 97b96360-9ce4-4559-8b7c-938eecbaaacb
+  field_service_paragraphs:
+    -
+      entity:
+        _meta:
+          version: '1.0'
+          entity_type: paragraph
+          uuid: d429996c-2ab8-4403-8dc2-4bf3a736e344
+          bundle: service_paragraphs
+          default_langcode: en
+        default:
+          status:
+            -
+              value: true
+          created:
+            -
+              value: 1740243721
+          behavior_settings:
+            -
+              value: {  }
+          revision_translation_affected:
+            -
+              value: true
+  field_summary:
+    -
+      value: 'Cloud storage integrated with Google Workspace'

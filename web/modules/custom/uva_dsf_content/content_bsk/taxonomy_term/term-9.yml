@@ -1,0 +1,20 @@
+_meta:
+  version: '1.0'
+  entity_type: taxonomy_term
+  uuid: 0ee84cc8-7e3a-4a83-87bf-b25996db7dc0
+  bundle: facets
+  default_langcode: en
+default:
+  name:
+    -
+      value: Cheese
+  description:
+    -
+      value: 'Cheese option'
+      format: basic_html
+  weight:
+    -
+      value: 8
+  status:
+    -
+      value: true

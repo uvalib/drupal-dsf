@@ -1,0 +1,26 @@
+_meta:
+  version: '1.0'
+  entity_type: paragraph
+  uuid: 439c29dd-0c30-4755-9657-b6c998fc8637
+  bundle: service_paragraphs
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1740422402
+  behavior_settings:
+    -
+      value: {  }
+  revision_translation_affected:
+    -
+      value: true
+  field_section_title:
+    -
+      value: 'Support Services'
+  field_section_content:
+    -
+      value: "Comprehensive support options:\n       - 24/7 technical support\n       - Dedicated account manager\n       - Online knowledge base\n       - Video tutorials\n       - Regular training sessions\n       - Community forums"
+      format: basic_html

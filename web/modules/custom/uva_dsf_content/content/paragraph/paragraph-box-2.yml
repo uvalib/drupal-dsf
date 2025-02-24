@@ -1,0 +1,26 @@
+_meta:
+  version: '1.0'
+  entity_type: paragraph
+  uuid: d65ae625-82d2-4869-a5b0-548c8bb13912
+  bundle: service_paragraphs
+  default_langcode: en
+default:
+  status:
+    -
+      value: true
+  created:
+    -
+      value: 1740422402
+  behavior_settings:
+    -
+      value: {  }
+  revision_translation_affected:
+    -
+      value: true
+  field_section_title:
+    -
+      value: 'Integration Options'
+  field_section_content:
+    -
+      value: "Compatible with popular platforms:\n       - REST API for custom integration\n       - WebDAV support\n       - S3-compatible interface\n       - SFTP access\n       - Native Windows/Mac/Linux clients\n       - Mobile apps for iOS and Android"
+      format: basic_html

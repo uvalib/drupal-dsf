@@ -1,0 +1,59 @@
+_meta:
+  version: '1.0'
+  entity_type: node
+  uuid: 87af44bf-be23-4d44-a850-8185680e5d46
+  bundle: service
+  default_langcode: en
+  depends:
+    2d8961a1-91cd-4794-a338-01be225d96f9: taxonomy_term
+    b9c4d8f4-60b4-421a-847b-76d7959a5e87: taxonomy_term
+    dd665c2c-358a-4726-ae09-07f727ff0b99: taxonomy_term
+    67a3383c-53f8-4ed0-bb14-a27e605c271c: paragraph
+    4ffadbbd-efe4-4698-944f-d80873b5564e: paragraph
+    f6b35e93-e620-43ad-85d5-64a0d66e76ad: paragraph
+default:
+  revision_uid:
+    -
+      target_id: 1
+  status:
+    -
+      value: true
+  uid:
+    -
+      target_id: 1
+  title:
+    -
+      value: 'Google Drive'
+  created:
+    -
+      value: 1740422402
+  promote:
+    -
+      value: true
+  sticky:
+    -
+      value: false
+  revision_translation_affected:
+    -
+      value: true
+  path:
+    -
+      alias: ''
+      langcode: en
+  field_facet_matches:
+    -
+      entity: 2d8961a1-91cd-4794-a338-01be225d96f9
+    -
+      entity: b9c4d8f4-60b4-421a-847b-76d7959a5e87
+    -
+      entity: dd665c2c-358a-4726-ae09-07f727ff0b99
+  field_service_paragraphs:
+    -
+      entity: 67a3383c-53f8-4ed0-bb14-a27e605c271c
+    -
+      entity: 4ffadbbd-efe4-4698-944f-d80873b5564e
+    -
+      entity: f6b35e93-e620-43ad-85d5-64a0d66e76ad
+  field_summary:
+    -
+      value: 'Cloud storage integrated with Google Workspace'
