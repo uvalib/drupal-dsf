@@ -1,51 +1,34 @@
-uuid: ca7b547a-1dc2-4448-a62b-816880450d6c
+uuid: 5e07006c-8898-4750-9e99-a366bad3fa9b
 langcode: en
 status: true
 dependencies:
   config:
     - field.field.taxonomy_term.facets.field_control_type
     - taxonomy.vocabulary.facets
-  module:
-    - path
-    - text
 _core:
-  default_config_hash: DsRau02_2E5o83ZegJxnhBmwMOGisXQLzvh2EF52Wpo
+  default_config_hash: U8Qya7NuZCK1KZykjbs6EIMRXoWyjgCmtzW-grWoNyk
 id: taxonomy_term.facets.default
 targetEntityType: taxonomy_term
 bundle: facets
 mode: default
 content:
-  description:
-    type: text_textfield
+  field_control_type:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    third_party_settings: {  }
+  name:
+    type: string_textfield
     weight: 0
     region: content
     settings:
       size: 60
       placeholder: ''
-    third_party_settings: {  }
-  field_control_type:
-    type: entity_reference_autocomplete
-    weight: 2
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  name:
-    type: string_textfield
-    weight: -5
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  path:
-    type: path
-    weight: 30
-    region: content
-    settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
@@ -54,4 +37,6 @@ content:
     weight: 100
     region: content
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  description: true
+  path: true

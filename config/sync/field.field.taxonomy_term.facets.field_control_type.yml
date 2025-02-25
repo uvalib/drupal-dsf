@@ -1,4 +1,4 @@
-uuid: 81021d33-2f1d-4f7f-8d0f-5bebce07efe1
+uuid: da82d0be-15c7-4df9-b298-4ab4ef8a46f7
 langcode: en
 status: true
 dependencies:
@@ -7,16 +7,18 @@ dependencies:
     - taxonomy.vocabulary.control_type
     - taxonomy.vocabulary.facets
 _core:
-  default_config_hash: rRncBaJA5Rya7kHM1Q4WNAqVrxCIWGM52aysD2QXEKU
+  default_config_hash: SINNQNDEcVC3KStdVB7cW18vckpVntrPHtj4gEb31n0
 id: taxonomy_term.facets.field_control_type
 field_name: field_control_type
 entity_type: taxonomy_term
 bundle: facets
 label: 'Control Type'
-description: 'Select whether this facet should use radio buttons or checkboxes'
+description: ''
 required: false
 translatable: false
-default_value: {  }
+default_value:
+  -
+    target_uuid: e138e5a3-0eb3-4bd6-971c-094a2da11b51
 default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'

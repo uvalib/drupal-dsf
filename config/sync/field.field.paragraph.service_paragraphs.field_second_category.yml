@@ -13,8 +13,8 @@ id: paragraph.service_paragraphs.field_second_category
 field_name: field_second_category
 entity_type: paragraph
 bundle: service_paragraphs
-label: 'Second Category'
-description: ''
+label: 'Second Category: Required Condiments'
+description: 'Liquids that you might want on your sandwich.'
 required: false
 translatable: false
 default_value: {  }

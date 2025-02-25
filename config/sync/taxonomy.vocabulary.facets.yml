@@ -1,10 +1,10 @@
-uuid: a04b3a0a-f21f-4a53-b73f-93686fa19902
+uuid: d9abb2ad-83ed-41dd-84dd-96022e1e2083
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: hmAOaAyM8kYwqpnpA6JzHuy1zRRDJza-ZsFYtS1DZI0
+  default_config_hash: 2OQj2uOWgp67EFBzcIpFK-nSHsW4MuoOPpBy3kL7AXs
 name: Facets
 vid: facets
-description: 'Two-level hierarchy of criteria/questions and choices'
+description: 'Part of the Finder module'
 weight: 0

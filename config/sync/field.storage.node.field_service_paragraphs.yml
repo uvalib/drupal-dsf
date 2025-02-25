@@ -1,4 +1,4 @@
-uuid: 6eb34fed-7f64-45fa-bca2-89189bfed982
+uuid: 6726816b-0fd7-469b-a286-b56c7ddce82c
 langcode: en
 status: true
 dependencies:
@@ -7,7 +7,7 @@ dependencies:
     - node
     - paragraphs
 _core:
-  default_config_hash: dmLoXHwM6I6OCyq7P9wqBRNzgkCaYaQQBogaNgwmCB8
+  default_config_hash: whwuNf5x6F6uIHiEvAcv1_9HC9Fb-AcBzu0qpp_iyd4
 id: node.field_service_paragraphs
 field_name: field_service_paragraphs
 entity_type: node
@@ -16,7 +16,7 @@ settings:
   target_type: paragraph
 module: entity_reference_revisions
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false
