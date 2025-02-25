@@ -4,8 +4,8 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.service_paragraphs.field_first_category
+    - field.field.paragraph.service_paragraphs.field_hot_or_cold
     - field.field.paragraph.service_paragraphs.field_second_category
-    - field.field.paragraph.service_paragraphs.field_yearly_cost
     - paragraphs.paragraphs_type.service_paragraphs
   module:
     - text
@@ -24,17 +24,17 @@ content:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_second_category:
-    type: text_textarea
-    weight: 1
-    region: content
+  field_hot_or_cold:
+    weight: 2
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  field_yearly_cost:
     type: text_textarea
-    weight: 2
+    region: content
+  field_second_category:
+    type: text_textarea
+    weight: 1
     region: content
     settings:
       rows: 5

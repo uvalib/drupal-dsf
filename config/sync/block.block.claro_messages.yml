@@ -1,4 +1,4 @@
-uuid: 627896d8-12ed-497e-a639-a6d50408c914
+uuid: fe584999-81db-4685-9bd3-ac83166c5fa6
 langcode: en
 status: true
 dependencies:
@@ -7,7 +7,7 @@ dependencies:
   theme:
     - claro
 _core:
-  default_config_hash: '-Ac3ISpIT0PQ-whzD7_dw0SdKi6dAbRFNWdSjOiVDqg'
+  default_config_hash: iIy-YIc9d9s1isAtTIKWDBKd6kd2r6LxoYz_-hkLJco
 id: claro_messages
 theme: claro
 region: highlighted
@@ -17,6 +17,6 @@ plugin: system_messages_block
 settings:
   id: system_messages_block
   label: 'Status messages'
-  label_display: '0'
   provider: system
+  label_display: '0'
 visibility: {  }

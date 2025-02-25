@@ -1,0 +1,55 @@
+{
+    "_links": {
+        "self": {
+            "href": "https:\/\/drupal-dsf.ddev.site:8443\/admin\/config\/user-interface\/shortcut\/link\/2?_format=hal_json"
+        },
+        "type": {
+            "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/shortcut\/default"
+        }
+    },
+    "id": [
+        {
+            "value": 2
+        }
+    ],
+    "uuid": [
+        {
+            "value": "79663756-dc7d-440c-b2f8-e59780df0d4c"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "shortcut_set": [
+        {
+            "target_id": "default"
+        }
+    ],
+    "title": [
+        {
+            "value": "All content",
+            "lang": "en"
+        }
+    ],
+    "weight": [
+        {
+            "value": -19
+        }
+    ],
+    "link": [
+        {
+            "uri": "internal:\/admin\/content",
+            "title": null,
+            "options": []
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ]
+}

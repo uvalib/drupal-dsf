@@ -1,0 +1,91 @@
+{
+    "_links": {
+        "self": {
+            "href": ""
+        },
+        "type": {
+            "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/paragraph\/service_paragraphs"
+        }
+    },
+    "id": [
+        {
+            "value": 4
+        }
+    ],
+    "uuid": [
+        {
+            "value": "74f3ab01-9620-4438-b72a-80847f455132"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "service_paragraphs"
+        }
+    ],
+    "status": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ],
+    "created": [
+        {
+            "value": "2025-02-25T17:11:20+00:00",
+            "lang": "en",
+            "format": "Y-m-d\\TH:i:sP"
+        }
+    ],
+    "parent_id": [
+        {
+            "value": "4"
+        }
+    ],
+    "parent_type": [
+        {
+            "value": "node"
+        }
+    ],
+    "parent_field_name": [
+        {
+            "value": "field_service_paragraphs"
+        }
+    ],
+    "behavior_settings": [
+        {
+            "value": []
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ],
+    "field_first_category": [
+        {
+            "value": "<p>This is the help module for \"What must be on your burger?\"<\/p>\r\n",
+            "format": "basic_html",
+            "processed": "<p>This is the help module for \"What must be on your burger?\"<\/p>"
+        }
+    ],
+    "field_hot_or_cold": [
+        {
+            "value": "<p>This is a description put into the service paragraphs, about the temperature of your data.<\/p>\r\n",
+            "format": "basic_html",
+            "processed": "<p>This is a description put into the service paragraphs, about the temperature of your data.<\/p>"
+        }
+    ],
+    "field_second_category": [
+        {
+            "value": "<p>This is the help module for \"required condiments\"<\/p>\r\n",
+            "format": "basic_html",
+            "processed": "<p>This is the help module for \"required condiments\"<\/p>"
+        }
+    ]
+}

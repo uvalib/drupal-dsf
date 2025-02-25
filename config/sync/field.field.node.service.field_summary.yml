@@ -1,14 +1,12 @@
-uuid: 3681e4b9-c114-424a-ad8d-a6419a1f1f5e
+uuid: 223dded3-82cc-4509-8aef-fcb52d70ea47
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_summary
     - node.type.service
-  module:
-    - text
 _core:
-  default_config_hash: VnJUr5eNg28Wvm7vCTVYS6grW4n42MnC3ng8V6nBTy8
+  default_config_hash: oe7dnXuaqkM6egyx0wHNzsdBmhvBlM6efFQNi95ZLco
 id: node.service.field_summary
 field_name: field_summary
 entity_type: node
@@ -20,4 +18,4 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: text_long
+field_type: string

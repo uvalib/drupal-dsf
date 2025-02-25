@@ -1,0 +1,97 @@
+{
+    "_links": {
+        "self": {
+            "href": "https:\/\/drupal-dsf.ddev.site:8443\/user\/1?_format=hal_json"
+        },
+        "type": {
+            "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/user\/user"
+        }
+    },
+    "uid": [
+        {
+            "value": 1
+        }
+    ],
+    "uuid": [
+        {
+            "value": "63c266c9-47d4-4c14-94ac-2b7e009b94d3"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "preferred_langcode": [
+        {
+            "value": "en"
+        }
+    ],
+    "name": [
+        {
+            "value": "admin"
+        }
+    ],
+    "mail": [
+        {
+            "value": "admin@example.com"
+        }
+    ],
+    "timezone": [
+        {
+            "value": "UTC"
+        }
+    ],
+    "status": [
+        {
+            "value": true
+        }
+    ],
+    "created": [
+        {
+            "value": "2025-02-17T16:45:54+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+        }
+    ],
+    "changed": [
+        {
+            "value": "2025-02-17T16:45:54+00:00",
+            "lang": "en",
+            "format": "Y-m-d\\TH:i:sP"
+        }
+    ],
+    "access": [
+        {
+            "value": "2025-02-25T18:09:59+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+        }
+    ],
+    "login": [
+        {
+            "value": "2025-02-25T16:46:08+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+        }
+    ],
+    "init": [
+        {
+            "value": "admin@example.com"
+        }
+    ],
+    "roles": [
+        {
+            "target_id": "administrator"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ],
+    "pass": [
+        {
+            "value": "$S$E6sxQhyljkmRfPy28a\/lpl7qmsrriKOgcMrY9HCYPx\/jx\/9zjarx"
+        }
+    ]
+}

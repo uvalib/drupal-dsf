@@ -1,11 +1,11 @@
-uuid: 5abafa39-fc5f-4871-9921-a8149fcbe32a
+uuid: 9982e0de-bb37-4065-be91-efd979b449f3
 langcode: en
 status: true
 dependencies:
   module:
     - taxonomy
 _core:
-  default_config_hash: wWcUya8nOENRq1FQ1FHhwF8uGutpe3aQABDg2693yFo
+  default_config_hash: w2uZ3xqBUmNxDmWQTS7jzmIgZccInlQF_qnm37ecit8
 id: taxonomy_term.field_control_type
 field_name: field_control_type
 entity_type: taxonomy_term

@@ -1,0 +1,111 @@
+{
+    "_links": {
+        "self": {
+            "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/11?_format=hal_json"
+        },
+        "type": {
+            "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/taxonomy_term\/facets"
+        },
+        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/taxonomy_term\/facets\/parent": [
+            null
+        ],
+        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/taxonomy_term\/facets\/field_control_type": [
+            {
+                "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/2?_format=hal_json"
+            }
+        ]
+    },
+    "tid": [
+        {
+            "value": 11
+        }
+    ],
+    "uuid": [
+        {
+            "value": "d3613da7-5a62-4e7b-8ca9-2bb47fc452ea"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "vid": [
+        {
+            "target_id": "facets"
+        }
+    ],
+    "revision_created": [
+        {
+            "value": "2025-02-25T17:31:51+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+        }
+    ],
+    "status": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ],
+    "name": [
+        {
+            "value": "Hot or cold",
+            "lang": "en"
+        }
+    ],
+    "weight": [
+        {
+            "value": 6
+        }
+    ],
+    "_embedded": {
+        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/taxonomy_term\/facets\/parent": [
+            null
+        ],
+        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/taxonomy_term\/facets\/field_control_type": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/2?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/taxonomy_term\/control_type"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "71926686-b1ee-4103-ae94-c2ec8a4e3f8e"
+                    }
+                ]
+            }
+        ]
+    },
+    "changed": [
+        {
+            "value": "2025-02-25T17:35:53+00:00",
+            "lang": "en",
+            "format": "Y-m-d\\TH:i:sP"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ],
+    "revision_translation_affected": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ],
+    "path": [
+        {
+            "alias": null,
+            "pid": null,
+            "langcode": "en",
+            "lang": "en"
+        }
+    ]
+}

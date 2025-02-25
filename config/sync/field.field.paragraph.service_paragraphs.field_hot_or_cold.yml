@@ -1,0 +1,21 @@
+uuid: 3c24e07a-e9d9-458d-a98c-4d8017607d67
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_hot_or_cold
+    - paragraphs.paragraphs_type.service_paragraphs
+  module:
+    - text
+id: paragraph.service_paragraphs.field_hot_or_cold
+field_name: field_hot_or_cold
+entity_type: paragraph
+bundle: service_paragraphs
+label: 'Hot or cold'
+description: 'This is the temperature of your data.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

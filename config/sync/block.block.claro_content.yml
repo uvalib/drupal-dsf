@@ -1,4 +1,4 @@
-uuid: c5721f17-b7e0-4ced-a216-cb6dcdb1f5a2
+uuid: 4810a0f5-b157-457e-847e-7707224bbc01
 langcode: en
 status: true
 dependencies:
@@ -7,7 +7,7 @@ dependencies:
   theme:
     - claro
 _core:
-  default_config_hash: a0Yyx1GeyKarZ4T_yXQBR_ZFKnXiFLtxAb6gWLd8nr0
+  default_config_hash: QTwkfDaGeBUk6aerktJBDXso4fCsqLTQOuWKXE1xMPU
 id: claro_content
 theme: claro
 region: content
@@ -17,6 +17,6 @@ plugin: system_main_block
 settings:
   id: system_main_block
   label: 'Main page content'
-  label_display: '0'
   provider: system
+  label_display: '0'
 visibility: {  }

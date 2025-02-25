@@ -1,0 +1,127 @@
+{
+    "_links": {
+        "self": {
+            "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/6?_format=hal_json"
+        },
+        "type": {
+            "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/taxonomy_term\/facets"
+        },
+        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/taxonomy_term\/facets\/parent": [
+            {
+                "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/3?_format=hal_json"
+            }
+        ],
+        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/taxonomy_term\/facets\/field_control_type": [
+            {
+                "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/1?_format=hal_json"
+            }
+        ]
+    },
+    "tid": [
+        {
+            "value": 6
+        }
+    ],
+    "uuid": [
+        {
+            "value": "4b9b9b78-3bb7-48c6-a290-c8d8cae56c25"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "vid": [
+        {
+            "target_id": "facets"
+        }
+    ],
+    "revision_created": [
+        {
+            "value": "2025-02-17T19:12:24+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+        }
+    ],
+    "status": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ],
+    "name": [
+        {
+            "value": "Mayonaise",
+            "lang": "en"
+        }
+    ],
+    "weight": [
+        {
+            "value": 2
+        }
+    ],
+    "_embedded": {
+        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/taxonomy_term\/facets\/parent": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/3?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/taxonomy_term\/facets"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "cab044b1-0332-4d1c-8c51-404f468c07ff"
+                    }
+                ]
+            }
+        ],
+        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/taxonomy_term\/facets\/field_control_type": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/taxonomy_term\/control_type"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "7b0771be-ebcf-436f-867f-f5f573f4c3db"
+                    }
+                ]
+            }
+        ]
+    },
+    "changed": [
+        {
+            "value": "2025-02-17T19:31:49+00:00",
+            "lang": "en",
+            "format": "Y-m-d\\TH:i:sP"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ],
+    "revision_translation_affected": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ],
+    "path": [
+        {
+            "alias": null,
+            "pid": null,
+            "langcode": "en",
+            "lang": "en"
+        }
+    ]
+}

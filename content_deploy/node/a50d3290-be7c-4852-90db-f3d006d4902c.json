@@ -1,0 +1,229 @@
+{
+    "_links": {
+        "self": {
+            "href": "https:\/\/drupal-dsf.ddev.site:8443\/node\/5?_format=hal_json"
+        },
+        "type": {
+            "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/node\/service"
+        },
+        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/node\/service\/revision_uid": [
+            {
+                "href": "https:\/\/drupal-dsf.ddev.site:8443\/user\/1?_format=hal_json"
+            }
+        ],
+        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/node\/service\/uid": [
+            {
+                "href": "https:\/\/drupal-dsf.ddev.site:8443\/user\/1?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/node\/service\/field_facet_matches": [
+            {
+                "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/13?_format=hal_json"
+            },
+            {
+                "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/8?_format=hal_json"
+            },
+            {
+                "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/4?_format=hal_json"
+            }
+        ],
+        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/node\/service\/field_service_paragraphs": [
+            {
+                "href": ""
+            }
+        ]
+    },
+    "nid": [
+        {
+            "value": 5
+        }
+    ],
+    "uuid": [
+        {
+            "value": "a50d3290-be7c-4852-90db-f3d006d4902c"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "service"
+        }
+    ],
+    "revision_timestamp": [
+        {
+            "value": "2025-02-25T17:47:42+00:00",
+            "format": "Y-m-d\\TH:i:sP"
+        }
+    ],
+    "_embedded": {
+        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/node\/service\/revision_uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "63c266c9-47d4-4c14-94ac-2b7e009b94d3"
+                    }
+                ]
+            }
+        ],
+        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/node\/service\/uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "63c266c9-47d4-4c14-94ac-2b7e009b94d3"
+                    }
+                ],
+                "lang": "en"
+            }
+        ],
+        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/node\/service\/field_facet_matches": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/13?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/taxonomy_term\/facets"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "540383b9-55d2-44aa-89c0-299984fee788"
+                    }
+                ]
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/8?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/taxonomy_term\/facets"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "5e66ed20-0ac5-4cfc-ac35-6af47e3862a3"
+                    }
+                ]
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/4?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/taxonomy_term\/facets"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "92e88c40-1c14-4788-9255-1447100cf153"
+                    }
+                ]
+            }
+        ],
+        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/node\/service\/field_service_paragraphs": [
+            {
+                "_links": {
+                    "self": {
+                        "href": ""
+                    },
+                    "type": {
+                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/paragraph\/service_paragraphs"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "e2e8d729-a375-4e70-91f8-9fa03f716dd9"
+                    }
+                ],
+                "target_revision_id": "14"
+            }
+        ]
+    },
+    "status": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ],
+    "title": [
+        {
+            "value": "My pantry",
+            "lang": "en"
+        }
+    ],
+    "created": [
+        {
+            "value": "2025-02-25T17:47:42+00:00",
+            "lang": "en",
+            "format": "Y-m-d\\TH:i:sP"
+        }
+    ],
+    "changed": [
+        {
+            "value": "2025-02-25T17:47:42+00:00",
+            "lang": "en",
+            "format": "Y-m-d\\TH:i:sP"
+        }
+    ],
+    "promote": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ],
+    "sticky": [
+        {
+            "value": false,
+            "lang": "en"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ],
+    "revision_translation_affected": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ],
+    "path": [
+        {
+            "alias": null,
+            "pid": null,
+            "langcode": "en",
+            "lang": "en"
+        }
+    ],
+    "field_summary": [
+        {
+            "value": "I don't serve food"
+        }
+    ]
+}

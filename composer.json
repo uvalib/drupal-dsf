@@ -26,11 +26,13 @@
     "require": {
         "php": ">=7.4",
         "composer/installers": "^1.9",
+        "drupal/better_normalizers": "^2.0@beta",
         "drupal/core": "^9.5",
         "drupal/core-composer-scaffold": "^9.5",
         "drupal/core-project-message": "^9.5",
         "drupal/core-recommended": "^9.5",
         "drupal/default_content": "^2.0@alpha",
+        "drupal/default_content_deploy": "^2.0",
         "drupal/hal": "^1.0",
         "drupal/paragraphs": "^1.15",
         "drupal/restui": "^1.0",
