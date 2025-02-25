@@ -1,20 +1,13 @@
-uuid: 7441436c-3b5c-402e-9f6b-c049b12698a0
+uuid: dc393894-2980-400a-9a52-b30bc8eb1366
 langcode: en
 status: true
-dependencies:
-  module:
-    - menu_ui
-third_party_settings:
-  menu_ui:
-    available_menus:
-      - main
-    parent: 'main:'
+dependencies: {  }
 _core:
-  default_config_hash: s3qoHxQq5ZH9lPyFM1EF5iMre_gIRjCf1YusWP7ZAUo
+  default_config_hash: Lt9t6WraeVH_rSS29KYBM-rvRO7u_9tAW0bPdzuCwbU
 name: Service
 type: service
-description: 'Part of the Finder module'
+description: 'Content type for service pages like Help'
 help: ''
 new_revision: true
 preview_mode: 1
-display_submitted: true
+display_submitted: false

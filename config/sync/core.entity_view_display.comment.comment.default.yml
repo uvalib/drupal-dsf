@@ -1,4 +1,4 @@
-uuid: f47e1e50-41a0-4fa8-bca5-0644f05c84dd
+uuid: 5e11ca7d-ad86-4e5e-bc67-e542f7775b52
 langcode: en
 status: true
 dependencies:
@@ -8,19 +8,19 @@ dependencies:
   module:
     - text
 _core:
-  default_config_hash: 77Ye1kR-P6AaiGfEO8mnXNSr7nqtnP3PiiVBwJeGGMI
+  default_config_hash: aBQUGsQ46M4048fIlFuTXwl2zV0j2cJX89CTUobh9hA
 id: comment.comment.default
 targetEntityType: comment
 bundle: comment
 mode: default
 content:
   comment_body:
-    label: hidden
     type: text_default
-    weight: 0
-    region: content
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
   links:
     weight: 100
     region: content

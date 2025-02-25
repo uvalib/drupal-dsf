@@ -1,10 +1,10 @@
-uuid: 31fcc9cf-f89a-49f2-bc31-df1d2cfd3bd0
+uuid: 868cf0bb-d798-48bd-971e-95a30d294c5f
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: eDiNsi6Rt1VC5gCRnaznlpZGPEtRCqu1IRY0nItNasM
+  default_config_hash: _af-EHApsxA4WIpiBR826pR8-MjRwKE4bBbYgpI4F0w
 name: 'Control Type'
 vid: control_type
-description: 'Part of the Finder module'
+description: 'Controls how facet choices can be selected (checkbox for multiple, radio for single)'
 weight: 0

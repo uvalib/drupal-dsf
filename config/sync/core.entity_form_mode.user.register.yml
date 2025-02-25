@@ -1,11 +1,9 @@
-uuid: 5615359f-e2b9-4ec1-bf29-6fa44f8bde52
+uuid: 7f870c4d-af7b-4b26-97c6-eac80f4965a9
 langcode: en
 status: true
 dependencies:
   module:
     - user
-_core:
-  default_config_hash: flXhTcp55yLcyy7ZLOhPGKGZobZQJdkAFVWV3LseiuI
 id: user.register
 label: Register
 targetEntityType: user
