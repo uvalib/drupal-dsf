@@ -28,10 +28,10 @@ RUN 	mkdir /opt/drupal/util \
 	&& ln -sf util/drupal-dsf/composer.lock /opt/drupal/composer.lock \
 	&& ln -sf util/drupal-dsf/composer.json /opt/drupal/composer.json \
 	&& ln -sf util/drupal-dsf/config /opt/drupal/config \
-	&& ls -l /opt/drupal/web/modules /opt/drupal/web/themes \
     && rm -rf /opt/drupal/web/modules \
     && ln -sf /opt/drupal/util/drupal-dsf/web/modules /opt/drupal/web \
-	&& ls -l /opt/drupal/web/modules /opt/drupal/web/themes
+	&& ln -sf /opt/drupal/util/drupal-dsf/content_deploy /opt/drupal/content_deploy
+
 
 # RUN chown -R www-data:www-data /opt/drupal/web/sites/default/files
 # install other dependancies
