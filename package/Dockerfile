@@ -1,7 +1,7 @@
 #
 # build the target container
 #
-FROM public.ecr.aws/docker/library/drupal:9
+FROM public.ecr.aws/docker/library/drupal:9.5.11
 
 # update the packages
 RUN apt-get -y update && \
