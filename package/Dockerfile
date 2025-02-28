@@ -33,7 +33,7 @@ RUN 	mkdir /opt/drupal/util \
     && ln -sf /opt/drupal/util/drupal-dsf/web/modules /opt/drupal/web \
 	&& ls -l /opt/drupal/web/modules /opt/drupal/web/themes
 
-RUN chown -R www-data:www-data /opt/drupal/web/sites/default/files
+# RUN chown -R www-data:www-data /opt/drupal/web/sites/default/files
 # install other dependancies
 RUN pecl install apcu-5.1.22 && docker-php-ext-enable apcu
 
