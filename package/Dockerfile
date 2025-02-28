@@ -32,6 +32,7 @@ RUN 	mkdir /opt/drupal/util \
     && rm -rf /opt/drupal/web/modules \
     && ln -sf /opt/drupal/util/drupal-dsf/web/modules /opt/drupal/web \
 	&& ls -l /opt/drupal/web/modules /opt/drupal/web/themes \
+	&& rm -rf /opt/drupal/web/sites \
     && ln -sf /opt/drupal/util/drupal-dsf/web/sites /opt/drupal/web 
 
 RUN chown -R www-data:www-data /opt/drupal/web/sites/default/files
