@@ -25,13 +25,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_hot_or_cold:
+    type: text_textarea
     weight: 2
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: text_textarea
-    region: content
   field_second_category:
     type: text_textarea
     weight: 1

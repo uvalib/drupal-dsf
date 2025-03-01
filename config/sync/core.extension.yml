@@ -1,5 +1,8 @@
+_core:
+  default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc
 module:
   automated_cron: 0
+  better_normalizers: 0
   big_pipe: 0
   block: 0
   block_content: 0
@@ -12,6 +15,7 @@ module:
   contextual: 0
   datetime: 0
   dblog: 0
+  default_content_deploy: 0
   dynamic_page_cache: 0
   editor: 0
   entity_reference_revisions: 0
@@ -20,12 +24,14 @@ module:
   file: 0
   filter: 0
   finder: 0
+  hal: 0
   help: 0
   history: 0
   image: 0
   link: 0
   menu_link_content: 0
   menu_ui: 0
+  mysql: 0
   node: 0
   options: 0
   page_cache: 0
@@ -34,6 +40,7 @@ module:
   quickedit: 0
   rdf: 0
   search: 0
+  serialization: 0
   shortcut: 0
   system: 0
   taxonomy: 0
@@ -47,11 +54,7 @@ module:
   paragraphs: 11
   standard: 1000
 theme:
-  stable: 0
-  classy: 0
   bartik: 0
   seven: 0
   claro: 0
 profile: standard
-_core:
-  default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc

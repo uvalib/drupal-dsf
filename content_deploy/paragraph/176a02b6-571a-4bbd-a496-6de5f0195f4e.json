@@ -4,7 +4,7 @@
             "href": ""
         },
         "type": {
-            "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/paragraph\/service_paragraphs"
+            "href": "http:\/\/default\/rest\/type\/paragraph\/service_paragraphs"
         }
     },
     "id": [

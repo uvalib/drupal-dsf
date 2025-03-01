@@ -1,12 +1,12 @@
 {
     "_links": {
         "self": {
-            "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/2?_format=hal_json"
+            "href": "http:\/\/default\/taxonomy\/term\/2?_format=hal_json"
         },
         "type": {
-            "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/taxonomy_term\/control_type"
+            "href": "http:\/\/default\/rest\/type\/taxonomy_term\/control_type"
         },
-        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/taxonomy_term\/control_type\/parent": [
+        "http:\/\/default\/rest\/relation\/taxonomy_term\/control_type\/parent": [
             null
         ]
     },
@@ -55,7 +55,7 @@
         }
     ],
     "_embedded": {
-        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/taxonomy_term\/control_type\/parent": [
+        "http:\/\/default\/rest\/relation\/taxonomy_term\/control_type\/parent": [
             null
         ]
     },

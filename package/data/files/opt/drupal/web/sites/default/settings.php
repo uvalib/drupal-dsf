@@ -879,3 +879,4 @@ $databases['default']['default'] = array(
 
 $settings['devops_label'] = getenv('DEVOPS_LABEL') ?: "unknown";
 $settings['config_sync_directory'] = '/opt/drupal/config/sync';
+$settings['default_content_deploy_content_directory'] = '/opt/drupal/content_deploy';

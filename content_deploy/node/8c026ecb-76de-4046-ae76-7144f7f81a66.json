@@ -1,34 +1,34 @@
 {
     "_links": {
         "self": {
-            "href": "https:\/\/drupal-dsf.ddev.site:8443\/node\/6?_format=hal_json"
+            "href": "http:\/\/default\/node\/6?_format=hal_json"
         },
         "type": {
-            "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/node\/service"
+            "href": "http:\/\/default\/rest\/type\/node\/service"
         },
-        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/node\/service\/revision_uid": [
+        "http:\/\/default\/rest\/relation\/node\/service\/revision_uid": [
             {
-                "href": "https:\/\/drupal-dsf.ddev.site:8443\/user\/1?_format=hal_json"
+                "href": "http:\/\/default\/user\/1?_format=hal_json"
             }
         ],
-        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/node\/service\/uid": [
+        "http:\/\/default\/rest\/relation\/node\/service\/uid": [
             {
-                "href": "https:\/\/drupal-dsf.ddev.site:8443\/user\/1?_format=hal_json",
+                "href": "http:\/\/default\/user\/1?_format=hal_json",
                 "lang": "en"
             }
         ],
-        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/node\/service\/field_facet_matches": [
+        "http:\/\/default\/rest\/relation\/node\/service\/field_facet_matches": [
             {
-                "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/12?_format=hal_json"
+                "href": "http:\/\/default\/taxonomy\/term\/12?_format=hal_json"
             },
             {
-                "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/8?_format=hal_json"
+                "href": "http:\/\/default\/taxonomy\/term\/8?_format=hal_json"
             },
             {
-                "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/5?_format=hal_json"
+                "href": "http:\/\/default\/taxonomy\/term\/5?_format=hal_json"
             }
         ],
-        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/node\/service\/field_service_paragraphs": [
+        "http:\/\/default\/rest\/relation\/node\/service\/field_service_paragraphs": [
             {
                 "href": ""
             }
@@ -62,14 +62,14 @@
         }
     ],
     "_embedded": {
-        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/node\/service\/revision_uid": [
+        "http:\/\/default\/rest\/relation\/node\/service\/revision_uid": [
             {
                 "_links": {
                     "self": {
-                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/user\/1?_format=hal_json"
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
                     },
                     "type": {
-                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/user\/user"
+                        "href": "http:\/\/default\/rest\/type\/user\/user"
                     }
                 },
                 "uuid": [
@@ -79,14 +79,14 @@
                 ]
             }
         ],
-        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/node\/service\/uid": [
+        "http:\/\/default\/rest\/relation\/node\/service\/uid": [
             {
                 "_links": {
                     "self": {
-                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/user\/1?_format=hal_json"
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
                     },
                     "type": {
-                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/user\/user"
+                        "href": "http:\/\/default\/rest\/type\/user\/user"
                     }
                 },
                 "uuid": [
@@ -97,14 +97,14 @@
                 "lang": "en"
             }
         ],
-        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/node\/service\/field_facet_matches": [
+        "http:\/\/default\/rest\/relation\/node\/service\/field_facet_matches": [
             {
                 "_links": {
                     "self": {
-                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/12?_format=hal_json"
+                        "href": "http:\/\/default\/taxonomy\/term\/12?_format=hal_json"
                     },
                     "type": {
-                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/taxonomy_term\/facets"
+                        "href": "http:\/\/default\/rest\/type\/taxonomy_term\/facets"
                     }
                 },
                 "uuid": [
@@ -116,10 +116,10 @@
             {
                 "_links": {
                     "self": {
-                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/8?_format=hal_json"
+                        "href": "http:\/\/default\/taxonomy\/term\/8?_format=hal_json"
                     },
                     "type": {
-                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/taxonomy_term\/facets"
+                        "href": "http:\/\/default\/rest\/type\/taxonomy_term\/facets"
                     }
                 },
                 "uuid": [
@@ -131,10 +131,10 @@
             {
                 "_links": {
                     "self": {
-                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/5?_format=hal_json"
+                        "href": "http:\/\/default\/taxonomy\/term\/5?_format=hal_json"
                     },
                     "type": {
-                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/taxonomy_term\/facets"
+                        "href": "http:\/\/default\/rest\/type\/taxonomy_term\/facets"
                     }
                 },
                 "uuid": [
@@ -144,14 +144,14 @@
                 ]
             }
         ],
-        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/node\/service\/field_service_paragraphs": [
+        "http:\/\/default\/rest\/relation\/node\/service\/field_service_paragraphs": [
             {
                 "_links": {
                     "self": {
                         "href": ""
                     },
                     "type": {
-                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/paragraph\/service_paragraphs"
+                        "href": "http:\/\/default\/rest\/type\/paragraph\/service_paragraphs"
                     }
                 },
                 "uuid": [

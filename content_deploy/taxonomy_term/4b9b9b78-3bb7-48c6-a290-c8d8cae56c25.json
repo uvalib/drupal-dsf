@@ -1,19 +1,19 @@
 {
     "_links": {
         "self": {
-            "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/6?_format=hal_json"
+            "href": "http:\/\/default\/taxonomy\/term\/6?_format=hal_json"
         },
         "type": {
-            "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/taxonomy_term\/facets"
+            "href": "http:\/\/default\/rest\/type\/taxonomy_term\/facets"
         },
-        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/taxonomy_term\/facets\/parent": [
+        "http:\/\/default\/rest\/relation\/taxonomy_term\/facets\/parent": [
             {
-                "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/3?_format=hal_json"
+                "href": "http:\/\/default\/taxonomy\/term\/3?_format=hal_json"
             }
         ],
-        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/taxonomy_term\/facets\/field_control_type": [
+        "http:\/\/default\/rest\/relation\/taxonomy_term\/facets\/field_control_type": [
             {
-                "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/1?_format=hal_json"
+                "href": "http:\/\/default\/taxonomy\/term\/1?_format=hal_json"
             }
         ]
     },
@@ -62,14 +62,14 @@
         }
     ],
     "_embedded": {
-        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/taxonomy_term\/facets\/parent": [
+        "http:\/\/default\/rest\/relation\/taxonomy_term\/facets\/parent": [
             {
                 "_links": {
                     "self": {
-                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/3?_format=hal_json"
+                        "href": "http:\/\/default\/taxonomy\/term\/3?_format=hal_json"
                     },
                     "type": {
-                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/taxonomy_term\/facets"
+                        "href": "http:\/\/default\/rest\/type\/taxonomy_term\/facets"
                     }
                 },
                 "uuid": [
@@ -79,14 +79,14 @@
                 ]
             }
         ],
-        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/taxonomy_term\/facets\/field_control_type": [
+        "http:\/\/default\/rest\/relation\/taxonomy_term\/facets\/field_control_type": [
             {
                 "_links": {
                     "self": {
-                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/1?_format=hal_json"
+                        "href": "http:\/\/default\/taxonomy\/term\/1?_format=hal_json"
                     },
                     "type": {
-                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/taxonomy_term\/control_type"
+                        "href": "http:\/\/default\/rest\/type\/taxonomy_term\/control_type"
                     }
                 },
                 "uuid": [

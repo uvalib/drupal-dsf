@@ -1,10 +1,10 @@
 {
     "_links": {
         "self": {
-            "href": "https:\/\/drupal-dsf.ddev.site:8443\/admin\/config\/user-interface\/shortcut\/link\/1?_format=hal_json"
+            "href": "http:\/\/default\/admin\/config\/user-interface\/shortcut\/link\/1?_format=hal_json"
         },
         "type": {
-            "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/shortcut\/default"
+            "href": "http:\/\/default\/rest\/type\/shortcut\/default"
         }
     },
     "id": [

@@ -1,17 +1,17 @@
 {
     "_links": {
         "self": {
-            "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/7?_format=hal_json"
+            "href": "http:\/\/default\/taxonomy\/term\/7?_format=hal_json"
         },
         "type": {
-            "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/taxonomy_term\/facets"
+            "href": "http:\/\/default\/rest\/type\/taxonomy_term\/facets"
         },
-        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/taxonomy_term\/facets\/parent": [
+        "http:\/\/default\/rest\/relation\/taxonomy_term\/facets\/parent": [
             null
         ],
-        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/taxonomy_term\/facets\/field_control_type": [
+        "http:\/\/default\/rest\/relation\/taxonomy_term\/facets\/field_control_type": [
             {
-                "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/2?_format=hal_json"
+                "href": "http:\/\/default\/taxonomy\/term\/2?_format=hal_json"
             }
         ]
     },
@@ -60,17 +60,17 @@
         }
     ],
     "_embedded": {
-        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/taxonomy_term\/facets\/parent": [
+        "http:\/\/default\/rest\/relation\/taxonomy_term\/facets\/parent": [
             null
         ],
-        "https:\/\/drupal-dsf.ddev.site:8443\/rest\/relation\/taxonomy_term\/facets\/field_control_type": [
+        "http:\/\/default\/rest\/relation\/taxonomy_term\/facets\/field_control_type": [
             {
                 "_links": {
                     "self": {
-                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/taxonomy\/term\/2?_format=hal_json"
+                        "href": "http:\/\/default\/taxonomy\/term\/2?_format=hal_json"
                     },
                     "type": {
-                        "href": "https:\/\/drupal-dsf.ddev.site:8443\/rest\/type\/taxonomy_term\/control_type"
+                        "href": "http:\/\/default\/rest\/type\/taxonomy_term\/control_type"
                     }
                 },
                 "uuid": [
