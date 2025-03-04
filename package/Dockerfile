@@ -47,6 +47,7 @@ WORKDIR /opt/drupal
 RUN ls -l
 RUN ls -l /opt/drupal/web/themes
 RUN ls -l /opt/drupal/web/modules
+RUN rm -rf /opt/drupal/vendor
 RUN composer install
 RUN ls -l /opt/drupal/web/themes
 RUN ls -l /opt/drupal/web/modules
