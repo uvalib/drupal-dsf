@@ -30,7 +30,7 @@ RUN 	mkdir /opt/drupal/util \
 	&& ln -sf util/drupal-dsf/config /opt/drupal/config \
     && rm -rf /opt/drupal/web/modules \
     && ln -sf /opt/drupal/util/drupal-dsf/web/modules /opt/drupal/web \
-    && ln -sf /opt/drupal/util/drupal-dsf/web/themes/custom /opt/drupal/web/themes \	
+    && mkdir -p /opt/drupal/web/themes/custom \
 	&& ln -sf /opt/drupal/util/drupal-dsf/content_deploy /opt/drupal/content_deploy
 
 
