@@ -64,7 +64,7 @@
             "tbachert/spi": false
         },
         "platform": {
-            "php": "8.2"
+            "php": "8.1"
         }
     },
     "replace": {
