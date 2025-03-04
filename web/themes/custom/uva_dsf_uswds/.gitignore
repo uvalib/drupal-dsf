@@ -1,0 +1,25 @@
+# Node.js
+node_modules/
+
+# USWDS compiled assets
+assets/uswds/
+assets/fonts/
+assets/img/
+assets/js/
+assets/css/
+
+# NPM/Yarn lock files
+package-lock.json
+yarn.lock
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# VS Code
+.vscode/
+.history/
+*.code-workspace

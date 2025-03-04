@@ -1,0 +1,37 @@
+name: 'UVA DSF USWDS'
+type: theme
+description: 'A USWDS subtheme for UVA Digital Service Factory.'
+core_version_requirement: ^10
+base theme: uswds
+
+libraries:
+  - uva_dsf_uswds/uswds
+
+libraries-override:
+  uswds/uswds:
+    css:
+      theme:
+        assets/css/uswds.css: assets/uswds/css/styles.css
+    js:
+      assets/js/uswds.min.js: assets/uswds/js/uswds.min.js
+
+ckeditor_stylesheets:
+  - assets/uswds/css/styles.css
+ckeditor5-stylesheets:
+  - assets/uswds/css/styles.css
+
+regions:
+  header_top: 'Above Header'
+  header: 'Header'
+  primary_menu: 'Primary Menu'
+  secondary_menu: 'Secondary Menu'
+  sidebar_first: 'First sidebar'
+  sidebar_second: 'Second sidebar'
+  breadcrumb: 'Breadcrumb'
+  highlighted: 'Highlighted'
+  help: 'Help'
+  hero: 'Hero'
+  content: 'Content'
+  footer_menu: 'Footer Menu'
+  footer: 'Primary Footer'
+  footer_secondary: 'Secondary Footer'

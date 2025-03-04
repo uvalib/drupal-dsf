@@ -43,3 +43,8 @@
 
 # Ignore composer-managed finder module
 web/modules/custom/finder
+
+# VS Code
+.vscode/
+.history/
+*.code-workspace
