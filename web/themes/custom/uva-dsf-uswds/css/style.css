@@ -1,0 +1,9 @@
+/* Custom styles for UVA DSF USWDS theme */
+:root {
+  --uva-blue: #232D4B;
+  --uva-orange: #E57200;
+}
+
+.usa-header {
+  background-color: var(--uva-blue);
+}
