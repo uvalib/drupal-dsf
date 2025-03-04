@@ -44,6 +44,9 @@
 # Ignore composer-managed finder module
 web/modules/custom/finder
 
+# Ignore composer-managed theme
+web/themes/custom/uva_dsf_uswds
+
 # VS Code
 .vscode/
 .history/

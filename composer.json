@@ -16,6 +16,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/uvalib/CD-finder-uva.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/uvalib/uva_dsf_uswds.git"
         }
     ],
     "autoload": {
@@ -43,7 +47,8 @@
         "drupal/stable": "^2",
         "drupal/uswds": "^3",
         "drush/drush": "^12.0",
-        "uvalib/cd-finder-uva": "dev-master"
+        "uvalib/cd-finder-uva": "dev-master",
+        "uvalib/uva_dsf_uswds": "dev-main"
     },
     "require-dev": {
         "drupal/core-dev": "^10.0",
@@ -89,7 +94,8 @@
             "web/modules/contrib/{$name}": ["type:drupal-module"],
             "web/profiles/contrib/{$name}": ["type:drupal-profile"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"],
-            "drush/Commands/contrib/{$name}": ["type:drupal-drush"]
+            "drush/Commands/contrib/{$name}": ["type:drupal-drush"],
+            "web/themes/custom/uva_dsf_uswds": ["uvalib/uva_dsf_uswds"]
         }
     }
 }
