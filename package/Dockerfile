@@ -48,7 +48,7 @@ RUN ls -l
 RUN ls -l /opt/drupal/web/themes
 RUN ls -l /opt/drupal/web/modules
 RUN rm -rf /opt/drupal/vendor
-RUN composer install
+RUN composer install --prefer-source
 RUN ls -l /opt/drupal/web/themes
 RUN ls -l /opt/drupal/web/modules
 
