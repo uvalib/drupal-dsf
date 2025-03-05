@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configuration
-HOSTS="dsf-drupal-dev-0.internal.lib.virginia.edu"
+HOSTS="dev:dsf-drupal-dev-0.internal.lib.virginia.edu"
 DEFAULT_ENV="dev"
 LOCAL_DIR="../web/sites/default/files"
 REMOTE_PATH="/mnt/data/drupal-0/sites/default/files/"

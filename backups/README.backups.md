@@ -1,0 +1,1 @@
+The script update-db-from-remote.sh will download a dump from the remote instance and put a it here, and then proceed to repopulate the local database.   Note that hese dumps are ignored by git, but can be added via `git add -f <backup.sql.gz>``

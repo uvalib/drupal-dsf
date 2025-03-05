@@ -89,13 +89,13 @@
         },
         "installer-paths": {
             "web/modules/custom/finder": ["uvalib/cd-finder-uva"],
+            "web/themes/custom/uva_dsf_uswds": ["uvalib/uva_dsf_uswds"],
             "web/core": ["type:drupal-core"],
             "web/libraries/{$name}": ["type:drupal-library"],
             "web/modules/contrib/{$name}": ["type:drupal-module"],
             "web/profiles/contrib/{$name}": ["type:drupal-profile"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"],
-            "drush/Commands/contrib/{$name}": ["type:drupal-drush"],
-            "web/themes/custom/uva_dsf_uswds": ["uvalib/uva_dsf_uswds"]
+            "drush/Commands/contrib/{$name}": ["type:drupal-drush"]
         }
     }
 }
