@@ -20,7 +20,7 @@
         {
             "type": "git",
             "url": "git@github.com:uvalib/uva_dsf_uswds.git"
-        },
+                }
     ],
     "autoload": {
         "psr-4": {
@@ -48,7 +48,7 @@
         "drupal/uswds": "^3",
         "drush/drush": "^12.0",
         "uvalib/cd-finder-uva": "dev-master",
-        "uvalib/uva_dsf_uswds": "dev-main",
+        "uvalib/uva_dsf_uswds": "dev-main"
     },
     "require-dev": {
         "drupal/core-dev": "^10.0",

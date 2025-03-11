@@ -51,3 +51,7 @@ web/themes/custom/uva_dsf_uswds
 .vscode/
 .history/
 *.code-workspace
+
+# Ignore custom modules/themes managed via Composer
+web/modules/custom/finder
+web/themes/custom/uva_dsf_usdws
