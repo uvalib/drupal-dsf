@@ -1,12 +1,30 @@
 #!/bin/bash
 
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+PROJECT_ROOT=$(dirname "$SCRIPT_DIR")
+cd "$PROJECT_ROOT"  # Ensure we're in project root
+
 # Configuration
 HOSTS="dev:dsf-drupal-dev-0.internal.lib.virginia.edu"
 DEFAULT_ENV="dev"
-SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
-BACKUP_DIR="$SCRIPT_DIR/../backups"
+BACKUP_DIR="$PROJECT_ROOT/backups"
+DUMP_DIR="$PROJECT_ROOT/database/dumps"
 IMPORT_DB=true
 USE_LATEST=false
+
+set -e  # Exit on error
+
+for arg in "$@"
+do
+    case $arg in
+        --latest)
+        USE_LATEST=true
+        shift
+        ;;
+    esac
+done
+
+mkdir -p "$DUMP_DIR"
 
 while getopts "hnl" opt; do
     case $opt in
@@ -29,6 +47,7 @@ show_help() {
     echo "  -n    Download only, skip import and cache clear"
     echo "  -l    Use latest backup instead of downloading new one"
     echo "  -h    Show this help message"
+    echo "  --latest    Use the most recent local dump instead of fetching from remote"
     echo "Environments:"
     for pair in $HOSTS; do
         env=${pair%%:*}
@@ -53,18 +72,13 @@ done
 [[ -z "$HOST" ]] && echo "Error: Unknown environment '$ENV'" && show_help
 
 if $USE_LATEST; then
-    # Find latest backup for specified environment
-    LATEST_BACKUP=$(ls -t "${BACKUP_DIR}/dh-backup-${ENV}-"*.sql.gz 2>/dev/null | head -n1)
-    if [[ -z "$LATEST_BACKUP" ]]; then
-        echo "Error: No existing backup found for environment '$ENV'"
+    # Find the most recent dump file
+    LATEST_DUMP=$(ls -t "$DUMP_DIR"/*.sql.gz 2>/dev/null | head -n1)
+    if [ -z "$LATEST_DUMP" ]; then
+        echo "Error: No existing dump files found in $DUMP_DIR"
         exit 1
     fi
-    
-    # Check backup age
-    BACKUP_AGE=$(( ($(date +%s) - $(date -r "$LATEST_BACKUP" +%s)) / 3600 ))
-    echo "Using latest backup: $LATEST_BACKUP"
-    echo "Warning: Backup is $BACKUP_AGE hours old"
-    BACKUP=$LATEST_BACKUP
+    echo "Using latest local dump: $LATEST_DUMP"
 else
     eval "$(ssh-agent -s)"
     ssh-add
@@ -116,7 +130,13 @@ fi
 
 if $IMPORT_DB; then
     echo "Restoring db..."
-    gunzip -c "$BACKUP" | ddev import-db
+    if $USE_LATEST; then
+        ddev import-db --src="$LATEST_DUMP"
+    else
+        gunzip -c "$BACKUP" | ddev import-db
+    fi
     echo "Clearing cache..."
     ddev drush cr
 fi
+
+echo "✓ Database update completed"
