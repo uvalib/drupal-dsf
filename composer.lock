@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f1acd01a69d66be89997abaab961eff4",
+    "content-hash": "49448588f2518b5ac65fed7b889be5fa",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -7457,7 +7457,7 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git@github.com:uvalib/CD-finder-uva.git",
+                "url": "https://github.com/uvalib/CD-finder-uva.git",
                 "reference": "c7fbea3d52504db1f40e22b13e27b64b7aef4a83"
             },
             "require": {
@@ -7501,7 +7501,7 @@
             "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "git@github.com:uvalib/uva_dsf_uswds.git",
+                "url": "https://github.com/uvalib/uva_dsf_uswds.git",
                 "reference": "1e2fdc4455e0806e51a20d8195efc127a08bcdc1"
             },
             "require": {
