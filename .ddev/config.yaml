@@ -18,6 +18,10 @@ web_environment:
 nodejs_version: "18"
 corepack_enable: false
 
+hooks:
+  post-start:
+    - exec: if [ ! -d "vendor" ]; then composer install --prefer-dist; fi
+
 # Key features of DDEV's config.yaml:
 
 # name: <projectname> # Name of the project, automatically provides
