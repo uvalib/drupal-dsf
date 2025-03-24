@@ -1,0 +1,64 @@
+name: "UVA DSF Bootstrap"
+type: theme
+description: "Custom theme based on Bootstrap for UVA Data Storage Finder project."
+core_version_requirement: ^10.3 || ^11
+base theme: bootstrap
+screenshot: assets/uvalibrary-DSF-theme.png
+
+# List of libraries your theme uses.
+# The "bootstrap_sass" library comes with the starter kit for SASS-based theming.
+libraries:
+  - uva_dsf_bs/global-styling # Change this to match your custom library (you'll define it later)
+
+libraries-override:
+  bootstrap/global-styling: false # We're overriding the default bootstrap styles
+
+# Define regions for your theme. You might not need all of these regions, so you can adjust based on your needs.
+
+# These are the regions from USDWS theme
+# regions:
+#   header_top: "Above Header"
+#   header: "Header"
+#   primary_menu: "Primary Menu"
+#   secondary_menu: "Secondary Menu"
+#   sidebar_first: "First sidebar"
+#   sidebar_second: "Second sidebar"
+#   breadcrumb: "Breadcrumb"
+#   highlighted: "Highlighted"
+#   help: "Help"
+#   hero: "Hero"
+#   content: "Content"
+#   footer_menu: "Footer Menu"
+#   footer: "Primary Footer"
+#   footer_secondary: "Secondary Footer"
+
+# This is the list of regions from the Bootstrap theme
+regions:
+  top_header: "Top header"
+  top_header_form: "Top header form"
+  header: "Header"
+  header_form: "Header form"
+  primary_menu: "Primary menu"
+  secondary_menu: "Secondary menu"
+  page_top: "Page top"
+  page_bottom: "Page bottom"
+  highlighted: "Highlighted"
+  featured_top: "Featured top"
+  breadcrumb: "Breadcrumb"
+  content: "Content"
+  sidebar_first: "Sidebar first"
+  sidebar_second: "Sidebar second"
+  featured_bottom_first: "Featured bottom first"
+  featured_bottom_second: "Featured bottom second"
+  featured_bottom_third: "Featured bottom third"
+  footer_first: "Footer first"
+  footer_second: "Footer second"
+  footer_third: "Footer third"
+  footer_fourth: "Footer fourth"
+  footer_fifth: "Footer fifth"
+  none: "None"
+
+# Information about your theme (Version, project info, etc.)
+version: "1.0.0"
+project: "uva_dsf_bs"
+datestamp: 1726511779

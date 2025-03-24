@@ -1,0 +1,30 @@
+global-styling:
+  version: VERSION
+  js:
+    js/jquery.min.js: { weight: -49 }
+    js/jquery.mustache.js: { weight: -48 }
+    js/popper.min.js: { weight: -47 }
+    js/bootstrap.min.js: { weight: -46 }
+    js/base.js: {}
+    js/custom.js: {}
+    js/app.js: {}
+    js/contrib: {}
+    js/cwd_gallery.js: {}
+    js/cwd_popups.js: {}
+    js/cwd_tables.js: {}
+    js/cwd_utilities.js: {}
+    js/mustache.js: {}
+
+  css:
+    component:
+      css/bootstrap.css: {}
+      css/style.css: {}
+  dependencies:
+    # - core/jquery
+    # - core/drupal
+    - core/jquery
+    - core/drupal.ajax
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
+    - core/modernizr
