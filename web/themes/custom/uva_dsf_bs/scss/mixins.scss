@@ -1,0 +1,23 @@
+// Mixin to style the buttons (with optional border)
+@mixin button-styles($bg-color, $text-color, $hover-bg-color, $hover-text-color, $border-color: transparent) {
+  background-color: $bg-color;
+  border-radius: 5px;
+  border: 1px solid $border-color; // Make sure it's properly formatted as "border-thickness solid border-color"
+  padding: 7px 30px;
+  color: $text-color;
+
+  &:hover,
+  &:focus {
+    background-color: $hover-bg-color;
+    border-color: $border-color;
+    color: $hover-text-color;
+  }
+
+  &:active,
+  &:active:hover,
+  &:active:focus {
+    background-color: $border-color;
+    border-color: $border-color;
+    color: $bg-color;
+  }
+}
