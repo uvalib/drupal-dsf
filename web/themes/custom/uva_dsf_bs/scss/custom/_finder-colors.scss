@@ -1,0 +1,109 @@
+// Primary Button
+$color-a: #007BAC; // Primary Button Background
+$color-b: #007BAC; // Primary Button Border
+$color-c: #ffffff; // Primary Button Text
+$color-i: #005679; // Primary Button Hover Background
+$color-j: #ffffff; // Primary Button Hover Text
+
+// Secondary Button
+$color-d: #BFE7F7; // Secondary Button Border
+$color-e: #4F4F4F; // Secondary Button Text
+$color-k: #91D8F2; // Secondary Button Hover Background
+$color-l: #BFE7F7; // Secondary Button background
+
+// Footer and Notifications
+$color-f: #B40000; // Footer Links, Notifications Background
+
+// Background and Selection
+$color-m: #8693A7; // Primary Background (blue-gray)
+$color-p: #232D4B; // Selected Item Background
+
+// Grays
+$color-g: #171717; // Navbar Link Default
+$color-h: #666666; // Navbar Link Hover
+$color-o: #4f4f4f; // Subheadings
+$color-q: #737373; // Explanation Text
+$color-v: #262626; // ally text
+$color-w: #ffffff; // ally text light
+
+// Other
+$color-n: #232D4B; // Headings (brown)
+$color-r: #414b7b; // Service Panel Text
+$color-s: #a1a9cd; // Service Panel Border
+$color-t: #ffdddd; // Blocker Background
+$color-u: #E57200; // hr rules
+// $color-x: #D1F2F1; // Service Panel Background
+// $color-y: #A5D8D0; // Service Panel Background Hover
+// $color-z: #80B8B2; // Service Panel Border
+// $color-1a: #40726C; // Service Panel icon
+// $color-1b: #264540; // Service Panel icon & text hover
+$color-x: #D5DBEB; // Service Panel Background
+$color-y: #A8B5D4; // Service Panel Background Hover
+$color-z: #7B8FB6; // Service Panel Border
+$color-1a: #455E87; // Service Panel icon
+$color-1b: #232D4B; // Service Panel icon & text hover
+$color-1c: #3A4B7D; // Table Header Background
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+// Primary colors
+$primary-bg: $color-a; // Primary Button Background
+$primary-border: $color-b; // Primary Button Border
+$primary-text: $color-c; // Primary Button Text
+$primary-hover-bg: $color-i; // Primary Button Hover Background
+$primary-hover-border: $color-b; // Primary Button Hover Border
+$primary-hover-text: $color-j; // Primary Button Hover Text
+$primary-active-bg: $color-b; // Primary Button Active Background
+$primary-active-border: $color-b; // Primary Button Active Border
+$primary-active-text: $color-j; // Primary Button Active Text
+
+// Secondary colors
+$secondary-bg: $color-l; // Secondary Button Background
+$secondary-border: $color-d; // Secondary Button Border
+$secondary-text: $color-e; // Secondary Button Text
+$secondary-hover-bg: $color-k; // Secondary Button Hover Background
+$secondary-hover-border: $color-d; // Secondary Button Hover Border
+$secondary-hover-text: $color-e; // Secondary Button Hover Text
+$secondary-active-bg: $color-k; // Secondary Button Active Background
+$secondary-active-border: $color-d; // Secondary Button Active Border
+$secondary-active-text: $color-e; // Secondary Button Active Text
+
+// Footer and Navbar
+$footer-link-color: $color-f; // Footer Links
+$navbar-link-color: $color-g; // Navbar Link Default
+$navbar-link-hover-color: $color-h; // Navbar Link Hover
+$navbar-link-active-color: $color-h; // Navbar Link Active
+$skiplink-bg: $color-c; // Skip Link Background
+$skiplink-text: $color-p; // Skip Link Text
+
+// Text colors
+$heading-color: $color-n; // Headings (e.g., hero, interior-content)
+$subheading-color: $color-o; // Subheadings
+$explanation-text: $color-q; // Explanation text
+$service-panel-text: $color-r; // Service Panel Text
+$questionlist-text: $color-e; // Question List Text
+$selection-bg: $color-p; // Selected Item Background
+$blocker-bg: $color-t; // Blocker Background
+$text-color-main: $color-g; // Text Color Main
+$text-color-secondary: $color-o; // Text Color Secondary
+$ally-text: $color-v; // ally text
+$ally-text-light: $color-w; // ally text light
+
+// Background colors
+$background-primary: $color-m; // Primary Background (e.g., hero, general background)
+$service-panel-border: $color-s; // Service Panel Border
+$service-panel-focus: $color-p; // Service Panel Border
+$service-panel-control-indicator-bg: $color-x; // Service Panel Control Indicator Background
+$service-panel-control-indicator-bg-hover: $color-y; // Service Panel Control Indicator Background Hover
+$service-panel-control-indicator-bg-active: $color-y; // Service Panel Control Indicator Background Active
+$service-panel-control-indicator-border: $color-z; // Service Panel Control Indicator Border Color
+$service-panel-control-indicator-border-hover: $color-z; // Service Panel Control Indicator Border Hover
+$jump-to-chart-bg: $color-p; // Jump to Chart Background
+$table-header-bg: $color-1c; // Table Header Background
+
+// Miscellaneous
+$notifications-bg: $color-f; // Notifications Background
+$horizontal-rule-color: $color-m; // hr rules
+$tool-tip-icon: $color-e; // Tool Tip Background
+$service-panel-icon: $color-1a; // Service Panel icon
+$service-panel-icon-hover: $color-1b; // Service Panel icon & text hover

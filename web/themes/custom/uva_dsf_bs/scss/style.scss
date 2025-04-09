@@ -2,12 +2,15 @@
 Theme Name: Bootstrap 4 Sass
 Description: Bootstrap 4 with Sass
 */
-@use "./custom/index";
+@use "./variables.scss" as *;
+@use "./mixins.scss" as *;
+@use "./typography.scss" as *;
+@use "./custom/index"; // This will include everything from _finder-colors.scss and _finder-v2.scss
 // import files
 // @import "import";
-@import "./variables.scss";
-@import "./typography.scss";
-@import "./mixins.scss";
+// @import "./variables.scss";
+// @import "./typography.scss";
+// @import "./mixins.scss";
 
 /* GENERAL STYLES
 -------------------------------------------------*/
@@ -23,13 +26,13 @@ a {
   color: $accent-shade;
 }
 
-.bg-inverse {
-  background: $primary-shade !important;
-}
+// .bg-inverse {
+//   background: $primary-shade !important;
+// }
 
-.site-footer {
-  background: $primary-shade !important;
-}
+// .site-footer {
+//   background: $primary-shade !important;
+// }
 
 .site-name-slogan a {
   text-decoration: none;
@@ -49,6 +52,6 @@ a {
   width: 100%;
 }
 
-.slick > div {
+.slick>div {
   margin: 0 15px;
 }
