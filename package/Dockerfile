@@ -31,7 +31,7 @@ RUN 	mkdir /opt/drupal/util \
     && rm -rf /opt/drupal/web/modules \
     && ln -sf /opt/drupal/util/drupal-dsf/web/modules /opt/drupal/web \
     && mkdir -p /opt/drupal/web/themes/custom \
-	&& ln -sf /opt/drupal/util/drupal-dsf/content_deploy /opt/drupal/content_deploy
+	&& ln -sf /opt/drupal/util/drupal-dsf/content_deploy /opt/drupal/content_deploy \
 	&& ln -sf /opt/drupal/util/drupal-dsf/web/themes/custom/uva_dsf_bs /opt/drupal/web/themes/custom/uva_dsf_bs
 
 
