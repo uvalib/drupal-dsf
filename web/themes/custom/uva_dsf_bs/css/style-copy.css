@@ -8,7 +8,7 @@ Description: Bootstrap 4 with Sass
 /* GENERAL STYLES
 -------------------------------------------------*/
 * {
-  outline: 1px dotted rgb(212, 243, 212);
+  outline: 1px solid yellow;
 }
 
 body {
