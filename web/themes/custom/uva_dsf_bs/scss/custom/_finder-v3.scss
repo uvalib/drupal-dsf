@@ -1,0 +1,359 @@
+@use "./finder-colors" as *;
+@use "../mixins.scss" as *;
+
+// * {
+//   -webkit-box-sizing: border-box;
+//   box-sizing: border-box;
+// }
+
+html {
+  font-size: 16px;
+}
+
+body.path-finder,
+body.path-finder .table {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+a {
+  text-decoration: underline;
+
+  &:focus,
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+footer a {
+  color: $footer-link-color;
+  text-decoration: underline;
+}
+
+#bs-example-navbar-collapse-1 ul li a {
+  color: $navbar-link-color;
+
+  &:hover {
+    color: $navbar-link-hover-color;
+  }
+}
+
+#bs-example-navbar-collapse-1 ul li.active a {
+  color: $navbar-link-active-color;
+}
+
+// .navbar {
+//   max-height: 50px;
+// }
+
+// .navbar-brand {
+//   img {
+//     height: 50px;
+//   }
+// }
+
+// .table {
+//   margin-top: 0;
+// }
+
+// .hero {
+//   background-image: url("../images/bg-hero-home-t.jpg") !important;
+
+//   .about {
+//     padding: 0 12px;
+//   }
+
+//   &:hover {
+//     background-image: url("../images/bg-hero-home-t.jpg") !important;
+//   }
+// }
+
+.cert {
+  position: relative;
+  text-indent: 30px;
+  color: $background-primary;
+
+  .fa {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    font-size: 22px;
+    color: $tool-tip-icon;
+    opacity: 0.68;
+  }
+}
+
+.questions-header {
+  padding: 10px 0 22px;
+  margin-bottom: 20px;
+  border-bottom: 4px solid $horizontal-rule-color;
+}
+
+#questionlist li {
+  color: $color-p;
+  font-weight: bold;
+  font-size: 1.4em;
+  margin-bottom: 1em;
+  margin-left: 2px;
+}
+
+.services-header {
+  padding-bottom: 15px;
+
+  h3 {
+    position: relative;
+    text-indent: 30px;
+    margin-left: -3px !important;
+
+    .fa {
+      position: absolute;
+      top: 3px;
+      left: 0px;
+      font-size: 24px;
+      color: $service-panel-text;
+      opacity: 0.4;
+    }
+  }
+
+  @media (max-width: 768px) {
+    h3 {
+      margin-left: 0 !important;
+      text-indent: 0;
+
+      .fa {
+        display: none;
+      }
+    }
+  }
+}
+
+// .interior-content {
+#app {
+  margin-bottom: 6rem;
+
+  h2.title,
+  h3.sub-heading {
+    color: $heading-color;
+  }
+
+  h2.sub-heading {
+    font-size: 2rem;
+  }
+
+  // h3.sub-heading {
+  //   margin: 1em 0;
+  // }
+
+  // p,
+  // ul,
+  // ol,
+  // #comparisonchart th,
+  // #comparisonchart td,
+  // .cwd-scrolling-table {
+  //   font-size: 14px;
+  // }
+
+  .btn-primary {
+    //background, text, hover background, hover text, border color
+    // @include button-styles($color-a, $color-c, $color-i, $color-c, $color-i);
+    @include button-styles($primary-bg, $primary-text, $primary-hover-bg, $primary-hover-text, $primary-hover-border);
+  }
+
+  .btn-secondary {
+    //background, text, hover background, hover text, border color
+    // @include button-styles($color-l, $color-e, $color-k, $color-e, $color-k);
+    @include button-styles($secondary-bg, $secondary-text, $secondary-hover-bg, $secondary-hover-text, $secondary-hover-border);
+  }
+
+  // .email-options {
+  //   margin-bottom: 0.75em;
+
+  //   legend {
+  //     font-size: 1em;
+  //     border-bottom: none;
+  //     margin-bottom: 10px;
+  //   }
+
+  //   label {
+  //     display: inline;
+  //   }
+  // }
+
+  // fieldset {
+  //   label {
+  //     font-size: 1rem;
+  //   }
+
+  //   .checkbox {
+  //     margin-top: 0;
+  //     margin-bottom: 0;
+  //   }
+  // }
+
+  // #comparisonchart th,
+  // #comparisonchart td {
+  //   padding: 12px;
+  // }
+
+  #comparisonchart thead th,
+  #comparisonchart thead td {
+    background-color: $table-header-bg;
+    color: $ally-text-light;
+  }
+
+  .skip-link.visually-hidden.focusable {
+    background-color: $skiplink-bg;
+    color: $skiplink-text;
+
+    &:focus {
+      position: absolute !important;
+      padding: 1em;
+      top: 1em;
+      left: 1em;
+      z-index: 1;
+      display: inline-block;
+    }
+  }
+
+  #questionlist {
+    font-size: 1em;
+    padding-left: 2em;
+
+    li {
+      color: $color-e;
+      font-weight: bold;
+      font-size: 1.4em;
+      margin-bottom: 1em;
+      margin-left: 2px;
+    }
+  }
+
+  .section-break {
+    border-color: $horizontal-rule-color;
+    opacity: 1;
+    border-top-width: 3px;
+    margin-top: 30px;
+
+    &.dashed {
+      border-style: dashed;
+    }
+  }
+
+  // .step-1+button {
+  //   margin-top: 1.75em;
+  // }
+
+  // .title {
+  //   margin: 1.5em 0 0.35em;
+  // }
+
+  .title+.lead {
+    color: $explanation-text;
+    font-size: 21px;
+    margin-bottom: 1em;
+  }
+
+  .service-panel {
+    // margin: 0.25em;
+    // width: calc(25% - 0.5em);
+    // display: flex;
+
+    &:focus-within {
+      box-shadow: 0px 0px 0px 4px $service-panel-focus;
+      border-radius: 0.5em;
+    }
+
+    h4,
+    p {
+      color: $ally-text;
+    }
+
+    // p {
+    //   font-weight: normal;
+    //   font-size: 0.9rem;
+    //   line-height: 1.25;
+    // }
+
+    label {
+      position: relative;
+      padding: 1em;
+      margin-bottom: 1px;
+      background: $service-panel-text;
+      background: linear-gradient(180deg, $color-p 0%, $color-o 100%);
+      box-sizing: border-box;
+      border-radius: 8px;
+      color: $primary-text;
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+
+      &:hover {
+        background: $color-n;
+        color: $color-a;
+      }
+
+      input {
+        position: absolute;
+        left: -9999px;
+
+        &~.control-indicator {
+          margin: 0;
+          background-color: $service-panel-control-indicator-bg;
+          border: 2px $service-panel-control-indicator-border solid;
+          border-radius: 0.25em;
+          height: 100%;
+          width: 100%;
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          z-index: -1;
+          font-size: 2em;
+
+          &:hover {
+            background-color: $service-panel-control-indicator-bg-hover;
+            border-color: $service-panel-control-indicator-border-hover;
+          }
+
+          &:active {
+            background-color: $service-panel-control-indicator-bg-active;
+            border-color: $service-panel-control-indicator-border;
+          }
+
+          &::before {
+            content: "\f10c";
+            font-family: "FontAwesome";
+            display: block;
+            color: $service-panel-icon;
+            font-weight: normal;
+            margin-left: 0.25em;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+          }
+        }
+
+        &:checked {
+          &~.control-indicator {
+            background-color: $service-panel-control-indicator-bg-hover;
+
+            &::before {
+              content: "\f058";
+              color: $service-panel-icon;
+            }
+          }
+        }
+      }
+
+      input:checked~h4,
+      input:checked~p {
+        color: $service-panel-icon-hover;
+        position: relative;
+      }
+    }
+  }
+
+  .jump-to-chart {
+    background-color: $jump-to-chart-bg;
+    color: $ally-text;
+  }
+}
