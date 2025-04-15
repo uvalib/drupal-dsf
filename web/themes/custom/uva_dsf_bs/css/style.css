@@ -5,12 +5,328 @@ Description: Bootstrap 4 with Sass
 /* VARIABLES */
 /* TYPOGRAPHY */
 /* Google Fonts */
-/* GENERAL STYLES
--------------------------------------------------*/
 * {
-  outline: 1px dotted rgb(212, 243, 212);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
+html {
+  font-size: 16px;
+}
+
+body.path-finder,
+body.path-finder .table {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+a {
+  text-decoration: underline;
+}
+a:focus, a:hover {
+  text-decoration: none;
+}
+
+footer a {
+  color: #B40000;
+  text-decoration: underline;
+}
+
+#bs-example-navbar-collapse-1 ul li a {
+  color: #171717;
+}
+#bs-example-navbar-collapse-1 ul li a:hover {
+  color: #666666;
+}
+
+#bs-example-navbar-collapse-1 ul li.active a {
+  color: #666666;
+}
+
+.navbar {
+  max-height: 50px;
+}
+
+.navbar-brand img {
+  height: 50px;
+}
+
+.table {
+  margin-top: 0;
+}
+
+.hero {
+  background-image: url("../images/bg-hero-home-t.jpg") !important;
+}
+.hero .about {
+  padding: 0 12px;
+}
+.hero:hover {
+  background-image: url("../images/bg-hero-home-t.jpg") !important;
+}
+
+.cert {
+  position: relative;
+  text-indent: 30px;
+  color: #8693A7;
+}
+.cert .fa {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  font-size: 22px;
+  color: #4F4F4F;
+  opacity: 0.68;
+}
+
+.questions-header {
+  padding: 10px 0 22px;
+  margin-bottom: 20px;
+  border-bottom: 4px solid #8693A7;
+}
+
+#questionlist li {
+  color: #4F4F4F;
+  font-weight: bold;
+  font-size: 1.4em;
+  margin-bottom: 1em;
+  margin-left: 2px;
+}
+
+.services-header {
+  padding-bottom: 15px;
+}
+.services-header h3 {
+  position: relative;
+  text-indent: 30px;
+  margin-left: -3px !important;
+}
+.services-header h3 .fa {
+  position: absolute;
+  top: 3px;
+  left: 0px;
+  font-size: 24px;
+  color: #414b7b;
+  opacity: 0.4;
+}
+@media (max-width: 768px) {
+  .services-header h3 {
+    margin-left: 0 !important;
+    text-indent: 0;
+  }
+  .services-header h3 .fa {
+    display: none;
+  }
+}
+
+#app {
+  margin-bottom: 6rem;
+}
+#app h2.title,
+#app h3.sub-heading {
+  color: #232D4B;
+}
+#app h2.sub-heading {
+  font-size: 2rem;
+}
+#app h3.sub-heading {
+  margin: 1em 0;
+}
+#app p,
+#app ul,
+#app ol,
+#app #comparisonchart th,
+#app #comparisonchart td,
+#app .cwd-scrolling-table {
+  font-size: 14px;
+}
+#app .btn-primary {
+  background-color: #007BAC;
+  border-radius: 5px;
+  border: 1px solid #007BAC;
+  padding: 7px 30px;
+  color: #ffffff;
+}
+#app .btn-primary:hover, #app .btn-primary:focus {
+  background-color: #005679;
+  border-color: #007BAC;
+  color: #ffffff;
+}
+#app .btn-primary:active, #app .btn-primary:active:hover, #app .btn-primary:active:focus {
+  background-color: #007BAC;
+  border-color: #007BAC;
+  color: #007BAC;
+}
+#app .btn-secondary {
+  background-color: #BFE7F7;
+  border-radius: 5px;
+  border: 1px solid #BFE7F7;
+  padding: 7px 30px;
+  color: #4F4F4F;
+}
+#app .btn-secondary:hover, #app .btn-secondary:focus {
+  background-color: #91D8F2;
+  border-color: #BFE7F7;
+  color: #4F4F4F;
+}
+#app .btn-secondary:active, #app .btn-secondary:active:hover, #app .btn-secondary:active:focus {
+  background-color: #BFE7F7;
+  border-color: #BFE7F7;
+  color: #BFE7F7;
+}
+#app .email-options {
+  margin-bottom: 0.75em;
+}
+#app .email-options legend {
+  font-size: 1em;
+  border-bottom: none;
+  margin-bottom: 10px;
+}
+#app .email-options label {
+  display: inline;
+}
+#app fieldset label {
+  font-size: 1rem;
+}
+#app fieldset .checkbox {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+#app #comparisonchart th,
+#app #comparisonchart td {
+  padding: 12px;
+}
+#app #comparisonchart thead th,
+#app #comparisonchart thead td {
+  background-color: #3A4B7D;
+  color: #ffffff;
+}
+#app .skip-link.visually-hidden.focusable {
+  background-color: #ffffff;
+  color: #232D4B;
+}
+#app .skip-link.visually-hidden.focusable:focus {
+  position: absolute !important;
+  padding: 1em;
+  top: 1em;
+  left: 1em;
+  z-index: 1;
+  display: inline-block;
+}
+#app #questionlist {
+  font-size: 1em;
+  padding-left: 2em;
+}
+#app .section-break {
+  border-color: #8693A7;
+  opacity: 1;
+  border-top-width: 3px;
+  margin-top: 30px;
+}
+#app .section-break.dashed {
+  border-style: dashed;
+}
+#app .step-1 + button {
+  margin-top: 1.75em;
+}
+#app .title {
+  margin: 1em 0 0.35em;
+}
+#app .title + .lead {
+  color: #737373;
+  font-size: 21px;
+  margin-bottom: 1em;
+}
+#app .service-panel {
+  margin: 0.25em;
+  width: calc(25% - 0.5em);
+  display: flex;
+}
+#app .service-panel:focus-within {
+  box-shadow: 0px 0px 0px 4px #232D4B;
+  border-radius: 0.5em;
+}
+#app .service-panel h4,
+#app .service-panel p {
+  color: #262626;
+}
+#app .service-panel p {
+  font-weight: normal;
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+#app .service-panel label {
+  position: relative;
+  padding: 1em;
+  margin-bottom: 1px;
+  background: #414b7b;
+  background: linear-gradient(180deg, #232D4B 0%, #4f4f4f 100%);
+  box-sizing: border-box;
+  border-radius: 8px;
+  color: #ffffff;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+#app .service-panel label:hover {
+  background: #232D4B;
+  color: #007BAC;
+}
+#app .service-panel label input {
+  position: absolute;
+  left: -9999px;
+}
+#app .service-panel label input ~ .control-indicator {
+  margin: 0;
+  background-color: #D5DBEB;
+  border: 2px #7B8FB6 solid;
+  border-radius: 0.25em;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  font-size: 2em;
+}
+#app .service-panel label input ~ .control-indicator:hover {
+  background-color: #A8B5D4;
+  border-color: #7B8FB6;
+}
+#app .service-panel label input ~ .control-indicator:active {
+  background-color: #A8B5D4;
+  border-color: #7B8FB6;
+}
+#app .service-panel label input ~ .control-indicator::before {
+  content: "\f10c";
+  font-family: "FontAwesome";
+  display: block;
+  color: #455E87;
+  font-weight: normal;
+  margin-left: 0.25em;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+#app .service-panel label input:checked ~ .control-indicator {
+  background-color: #A8B5D4;
+}
+#app .service-panel label input:checked ~ .control-indicator::before {
+  content: "\f058";
+  color: #455E87;
+}
+#app .service-panel label input:checked ~ h4,
+#app .service-panel label input:checked ~ p {
+  color: #232D4B;
+  position: relative;
+}
+#app .jump-to-chart {
+  background-color: #232D4B;
+  color: #262626;
+}
+
+/* GENERAL STYLES
+-------------------------------------------------*/
 body {
   background: #fff;
 }

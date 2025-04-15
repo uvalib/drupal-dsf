@@ -5,7 +5,7 @@ Description: Bootstrap 4 with Sass
 @use "./variables.scss" as *;
 @use "./mixins.scss" as *;
 @use "./typography.scss" as *;
-// @use "./custom/index"; // This will include everything from _finder-colors.scss and _finder-v2.scss
+@use "./custom/index"; // This will include everything from _finder-colors.scss and _finder-v2.scss
 
 // import files
 // @import "import";
@@ -15,9 +15,6 @@ Description: Bootstrap 4 with Sass
 
 /* GENERAL STYLES
 -------------------------------------------------*/
-* {
-  outline: 1px dotted rgb(212, 243, 212);
-}
 
 body {
   background: $body-bg;
