@@ -1,13 +1,9 @@
 @use "./finder-colors" as *;
 @use "../mixins.scss" as *;
 
-// * {
-//   -webkit-box-sizing: border-box;
-//   box-sizing: border-box;
-// }
-
 * {
-  outline: 1px solid cyan;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
@@ -45,31 +41,31 @@ footer a {
   color: $navbar-link-active-color;
 }
 
-// .navbar {
-//   max-height: 50px;
-// }
+.navbar {
+  max-height: 50px;
+}
 
-// .navbar-brand {
-//   img {
-//     height: 50px;
-//   }
-// }
+.navbar-brand {
+  img {
+    height: 50px;
+  }
+}
 
-// .table {
-//   margin-top: 0;
-// }
+.table {
+  margin-top: 0;
+}
 
-// .hero {
-//   background-image: url("../images/bg-hero-home-t.jpg") !important;
+.hero {
+  background-image: url("../images/bg-hero-home-t.jpg") !important;
 
-//   .about {
-//     padding: 0 12px;
-//   }
+  .about {
+    padding: 0 12px;
+  }
 
-//   &:hover {
-//     background-image: url("../images/bg-hero-home-t.jpg") !important;
-//   }
-// }
+  &:hover {
+    background-image: url("../images/bg-hero-home-t.jpg") !important;
+  }
+}
 
 .cert {
   position: relative;
@@ -93,7 +89,7 @@ footer a {
 }
 
 #questionlist li {
-  color: $color-p;
+  color: $color-e;
   font-weight: bold;
   font-size: 1.4em;
   margin-bottom: 1em;
@@ -130,7 +126,6 @@ footer a {
   }
 }
 
-// .interior-content {
 #app {
   margin-bottom: 6rem;
 
@@ -143,60 +138,56 @@ footer a {
     font-size: 2rem;
   }
 
-  // h3.sub-heading {
-  //   margin: 1em 0;
-  // }
+  h3.sub-heading {
+    margin: 1em 0;
+  }
 
-  // p,
-  // ul,
-  // ol,
-  // #comparisonchart th,
-  // #comparisonchart td,
-  // .cwd-scrolling-table {
-  //   font-size: 14px;
-  // }
+  p,
+  ul,
+  ol,
+  #comparisonchart th,
+  #comparisonchart td,
+  .cwd-scrolling-table {
+    font-size: 14px;
+  }
 
   .btn-primary {
-    //background, text, hover background, hover text, border color
-    // @include button-styles($color-a, $color-c, $color-i, $color-c, $color-i);
     @include button-styles($primary-bg, $primary-text, $primary-hover-bg, $primary-hover-text, $primary-hover-border);
   }
 
   .btn-secondary {
-    //background, text, hover background, hover text, border color
-    // @include button-styles($color-l, $color-e, $color-k, $color-e, $color-k);
     @include button-styles($secondary-bg, $secondary-text, $secondary-hover-bg, $secondary-hover-text, $secondary-hover-border);
   }
 
-  // .email-options {
-  //   margin-bottom: 0.75em;
+  .email-options {
+    margin-bottom: 0.75em;
 
-  //   legend {
-  //     font-size: 1em;
-  //     border-bottom: none;
-  //     margin-bottom: 10px;
-  //   }
+    legend {
+      font-size: 1em;
+      border-bottom: none;
+      margin-bottom: 10px;
+    }
 
-  //   label {
-  //     display: inline;
-  //   }
-  // }
+    label {
+      display: inline;
+    }
+  }
 
-  // fieldset {
-  //   label {
-  //     font-size: 1rem;
-  //   }
+  fieldset {
+    label {
+      font-size: 1rem;
+    }
 
-  //   .checkbox {
-  //     margin-top: 0;
-  //     margin-bottom: 0;
-  //   }
-  // }
+    .checkbox {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
 
-  // #comparisonchart th,
-  // #comparisonchart td {
-  //   padding: 12px;
-  // }
+  #comparisonchart th,
+  #comparisonchart td {
+    padding: 12px;
+  }
 
   #comparisonchart thead th,
   #comparisonchart thead td {
@@ -221,14 +212,6 @@ footer a {
   #questionlist {
     font-size: 1em;
     padding-left: 2em;
-
-    li {
-      color: $color-e;
-      font-weight: bold;
-      font-size: 1.4em;
-      margin-bottom: 1em;
-      margin-left: 2px;
-    }
   }
 
   .section-break {
@@ -242,13 +225,14 @@ footer a {
     }
   }
 
-  // .step-1+button {
-  //   margin-top: 1.75em;
-  // }
+  .step-1+button {
+    margin-top: 1.75em;
+  }
 
-  // .title {
-  //   margin: 1.5em 0 0.35em;
-  // }
+  .title {
+    // margin: 1.5em 0 0.35em;
+    margin: 1em 0 0.35em;
+  }
 
   .title+.lead {
     color: $explanation-text;
@@ -257,9 +241,9 @@ footer a {
   }
 
   .service-panel {
-    // margin: 0.25em;
-    // width: calc(25% - 0.5em);
-    // display: flex;
+    margin: 0.25em;
+    width: calc(25% - 0.5em);
+    display: flex;
 
     &:focus-within {
       box-shadow: 0px 0px 0px 4px $service-panel-focus;
@@ -271,11 +255,11 @@ footer a {
       color: $ally-text;
     }
 
-    // p {
-    //   font-weight: normal;
-    //   font-size: 0.9rem;
-    //   line-height: 1.25;
-    // }
+    p {
+      font-weight: normal;
+      font-size: 0.9rem;
+      line-height: 1.25;
+    }
 
     label {
       position: relative;
