@@ -19,6 +19,13 @@ body.path-finder .table {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+#header {
+  max-width: 1140px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+}
+
 a {
   text-decoration: underline;
 }
@@ -44,6 +51,8 @@ footer a {
 
 .navbar {
   max-height: 50px;
+  padding: 0;
+  border-bottom: 0;
 }
 
 .navbar-brand img {
@@ -90,6 +99,11 @@ footer a {
   font-size: 1.4em;
   margin-bottom: 1em;
   margin-left: 2px;
+}
+#questionlist .explanation {
+  color: #262626;
+  padding: 4px;
+  border-left: 1px solid #232D4B;
 }
 
 .services-header {
@@ -232,7 +246,7 @@ footer a {
   margin: 1em 0 0.35em;
 }
 #app .title + .lead {
-  color: #737373;
+  color: #262626;
   font-size: 21px;
   margin-bottom: 1em;
 }

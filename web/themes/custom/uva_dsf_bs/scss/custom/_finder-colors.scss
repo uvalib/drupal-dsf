@@ -30,7 +30,7 @@ $color-w: #ffffff; // ally text light
 $color-n: #232D4B; // Headings (brown)
 $color-r: #414b7b; // Service Panel Text
 $color-s: #a1a9cd; // Service Panel Border
-$color-t: #ffdddd; // Blocker Background
+$color-t: #F0F5FF; //#ffdddd; // Blocker Background
 $color-u: #E57200; // hr rules
 // $color-x: #D1F2F1; // Service Panel Background
 // $color-y: #A5D8D0; // Service Panel Background Hover
@@ -79,7 +79,7 @@ $skiplink-text: $color-p; // Skip Link Text
 // Text colors
 $heading-color: $color-n; // Headings (e.g., hero, interior-content)
 $subheading-color: $color-o; // Subheadings
-$explanation-text: $color-q; // Explanation text
+$explanation-text: $color-v; // Explanation text
 $service-panel-text: $color-r; // Service Panel Text
 $questionlist-text: $color-e; // Question List Text
 $selection-bg: $color-p; // Selected Item Background
@@ -98,6 +98,7 @@ $service-panel-control-indicator-bg-hover: $color-y; // Service Panel Control In
 $service-panel-control-indicator-bg-active: $color-y; // Service Panel Control Indicator Background Active
 $service-panel-control-indicator-border: $color-z; // Service Panel Control Indicator Border Color
 $service-panel-control-indicator-border-hover: $color-z; // Service Panel Control Indicator Border Hover
+$tool-tip-bg: $color-t; // Tool Tip Background
 $jump-to-chart-bg: $color-p; // Jump to Chart Background
 $table-header-bg: $color-1c; // Table Header Background
 

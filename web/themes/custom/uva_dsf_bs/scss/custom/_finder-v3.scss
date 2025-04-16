@@ -15,6 +15,13 @@ body.path-finder .table {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+#header {
+  max-width: 1140px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+}
+
 a {
   text-decoration: underline;
 
@@ -43,6 +50,8 @@ footer a {
 
 .navbar {
   max-height: 50px;
+  padding: 0;
+  border-bottom: 0;
 }
 
 .navbar-brand {
@@ -88,12 +97,37 @@ footer a {
   border-bottom: 4px solid $horizontal-rule-color;
 }
 
-#questionlist li {
-  color: $color-e;
-  font-weight: bold;
-  font-size: 1.4em;
-  margin-bottom: 1em;
-  margin-left: 2px;
+// #questionlist .explanation {
+//   color: $explanation-text;
+//   background-color: $tool-tip-bg;
+//   padding: 4px;
+//   outline: 1px solid red;
+// }
+
+// #questionlist li {
+//   color: $color-e;
+//   font-weight: bold;
+//   font-size: 1.4em;
+//   margin-bottom: 1em;
+//   margin-left: 2px;
+// }
+
+#questionlist {
+  li {
+    color: $color-e;
+    font-weight: bold;
+    font-size: 1.4em;
+    margin-bottom: 1em;
+    margin-left: 2px;
+  }
+
+  .explanation {
+    color: $explanation-text;
+    // background-color: $tool-tip-bg;
+    padding: 4px;
+    // border-radius: 3px;
+    border-left: 1px solid $jump-to-chart-bg;
+  }
 }
 
 .services-header {
