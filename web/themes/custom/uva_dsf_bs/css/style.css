@@ -265,6 +265,7 @@ footer a {
 #app #comparisonchart th,
 #app #comparisonchart td {
   padding: 12px;
+  overflow-wrap: anywhere;
 }
 #app #comparisonchart thead th,
 #app #comparisonchart thead td {
