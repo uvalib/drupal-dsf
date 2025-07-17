@@ -36,7 +36,7 @@ composer install
 The custom theme `uva_dsf_usdws` is located in `web/themes/custom/uva_dsf_usdws`. This theme is maintained in a separate GitHub repository and is included as a Composer dependency.
 
 Theme development should be done in the theme's own repository at:
-- Theme repository: [uvalib/uva_dsf_uswds](https://github.com/uvalib/uva_dsf_uswds)
+- Theme repository: [uvalib/uva_dsf_bs](https://github.com/uvalib/uva_dsf_bs)
 
 Any theme changes should be committed and pushed to the theme repository, not to this project directly.
 
