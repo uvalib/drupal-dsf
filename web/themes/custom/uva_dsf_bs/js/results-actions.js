@@ -685,8 +685,12 @@
       announceToScreenReader(announcement);
     }
 
-    // Generate email functionality
+    // Generate email functionality - DISABLED
     $('#generate_email').on('click', function() {
+      // Email functionality is currently disabled
+      announceToScreenReader('Email functionality is currently disabled. Please use the share link or copy functionality instead.');
+      return false;
+      
       var data = getResultsData();
       var htmlContent = formatResultsAsHTML(data);
       var textContent = formatResultsAsText(data);
