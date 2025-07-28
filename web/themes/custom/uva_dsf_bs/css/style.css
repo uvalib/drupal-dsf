@@ -87,13 +87,6 @@ a:focus-visible {
   box-shadow: 0 0 0 4px rgba(0, 95, 204, 0.25) !important;
 }
 
-/* WCAG 2.2 AA - Consistent Help - Ensure help is consistently available */
-.help-available::after {
-  content: " (Help available)" !important;
-  font-size: 0.8em !important;
-  color: #666 !important;
-}
-
 /* WCAG 2.2 AA - Redundant Entry - Prevent unnecessary re-entry */
 .auto-complete-hint {
   font-size: 0.9em !important;

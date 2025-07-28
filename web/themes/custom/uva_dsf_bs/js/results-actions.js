@@ -9,6 +9,12 @@
   // Function to initialize once DOM and dependencies are ready
   function initResultsActions() {
     
+    // Prevent multiple initializations
+    if (window.resultsActionsInitialized) {
+      return;
+    }
+    window.resultsActionsInitialized = true;
+    
     // Function to get selected criteria and results
     function getResultsData() {
       var data = {
@@ -814,7 +820,11 @@
     });
 
     // Function to create a shareable URL with current state
-    function createShareableUrl() {
+    function createShareableUrl(includeTimestamp) {
+      if (includeTimestamp === undefined) {
+        includeTimestamp = true; // Default behavior for share links
+      }
+      
       var currentUrl = window.location.href.split('?')[0]; // Base URL without query params
       var params = new URLSearchParams();
       
@@ -845,8 +855,16 @@
         params.set('services', selectedServices.join(','));
       }
       
-      // Add timestamp for cache busting and tracking
-      params.set('shared', Date.now());
+      // Add timestamp for cache busting and tracking (only for explicit share links)
+      if (includeTimestamp) {
+        params.set('shared', Date.now());
+      } else {
+        // For browser URL updates, preserve existing shared timestamp if present
+        var currentParams = new URLSearchParams(window.location.search);
+        if (currentParams.has('shared')) {
+          params.set('shared', currentParams.get('shared'));
+        }
+      }
       
       var shareUrl = currentUrl;
       if (params.toString()) {
@@ -854,6 +872,53 @@
       }
       
       return shareUrl;
+    }
+
+    // Function to update the browser URL to reflect current state (for bookmarking)
+    function updateBrowserUrl() {
+      try {
+        var shareUrl = createShareableUrl(false); // Don't add new timestamp for browser URL
+        var currentUrl = window.location.href;
+        
+        // Only update if the URL would actually change (avoid unnecessary history entries)
+        if (shareUrl !== currentUrl) {
+          // Use replaceState to update URL without adding to browser history
+          window.history.replaceState(
+            { timestamp: Date.now() }, 
+            document.title, 
+            shareUrl
+          );
+          
+          // Optional: Announce to screen readers for debugging (can be removed in production)
+          // announceToScreenReader('Page URL updated to reflect current selections');
+        }
+      } catch (error) {
+        // Fail silently if History API is not supported
+        console.log('URL update failed:', error);
+      }
+    }
+
+    // Function to initialize URL sync with user interactions
+    function initUrlSync() {
+      // Update URL when facets change
+      $(document).on('change', '.facet', function() {
+        setTimeout(updateBrowserUrl, 100);
+      });
+      
+      // Update URL when services are selected/deselected
+      $(document).on('change', '.cardcheckbox', function() {
+        setTimeout(updateBrowserUrl, 100);
+      });
+      
+      // Update URL when manual comparison checkboxes change
+      $(document).on('change', '.manualcheckbox', function() {
+        setTimeout(updateBrowserUrl, 100);
+      });
+      
+      // Initial URL update on page load (after restoration)
+      setTimeout(function() {
+        updateBrowserUrl();
+      }, 1000);
     }
 
     // Show share copy feedback
@@ -880,8 +945,10 @@
     function restoreFromShareLink() {
       var urlParams = new URLSearchParams(window.location.search);
       
-      // Check if this is a shared link
-      if (urlParams.has('shared')) {
+      // Check if this is a shared link and hasn't been restored already
+      if (urlParams.has('shared') && !window.shareLinksRestored) {
+        window.shareLinksRestored = true; // Prevent multiple executions
+        
         announceToScreenReader('Loading shared comparison setup...');
         
         // Restore criteria selections
@@ -910,26 +977,29 @@
           });
         }
         
-        // Show notification that link was restored
+        // Show notification that link was restored (only once)
         setTimeout(function() {
-          var notification = $('<div class="alert alert-info alert-dismissible fade show" role="alert">' +
-            '<i class="fa fa-link" aria-hidden="true"></i> ' +
-            '<strong>Shared Link Loaded:</strong> This comparison was shared with you. The criteria and services have been pre-selected.' +
-            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-            '<span aria-hidden="true">&times;</span>' +
-            '</button>' +
-            '</div>');
-          
-          $('#app').prepend(notification);
-          
-          // Auto-dismiss after 10 seconds
-          setTimeout(function() {
-            notification.fadeOut(function() {
-              $(this).remove();
-            });
-          }, 10000);
-          
-          announceToScreenReader('Shared comparison setup loaded successfully.');
+          // Double-check no notification exists already
+          if ($('.share-link-notification').length === 0) {
+            var notification = $('<div class="alert alert-info alert-dismissible fade show share-link-notification" role="alert">' +
+              '<i class="fa fa-link" aria-hidden="true"></i> ' +
+              '<strong>Shared Link Loaded:</strong> This comparison was shared with you. The criteria and services have been pre-selected.' +
+              '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+              '<span aria-hidden="true">&times;</span>' +
+              '</button>' +
+              '</div>');
+            
+            $('#app').prepend(notification);
+            
+            // Auto-dismiss after 10 seconds
+            setTimeout(function() {
+              notification.fadeOut(function() {
+                $(this).remove();
+              });
+            }, 10000);
+            
+            announceToScreenReader('Shared comparison setup loaded successfully.');
+          }
         }, 1000);
       }
     }
@@ -990,8 +1060,8 @@
 
     // Enhanced keyboard navigation support for WCAG 2.2 AA accessibility
     function initKeyboardSupport() {
-      // Add keyboard support for all action buttons
-      $('#print_results, #copy_results, #generate_email, #generate_share_link, #copy_email_content, #open_email_client, #close_email_preview, #copy_share_link, #test_share_link, #close_share_preview').on('keydown', function(e) {
+      // Add keyboard support for action buttons (excluding disabled email functionality)
+      $('#print_results, #copy_results, #generate_share_link, #copy_share_link, #test_share_link, #close_share_preview').on('keydown', function(e) {
         // Activate on Enter or Space key (WCAG 2.2 AA requirement)
         if (e.which === 13 || e.which === 32) {
           e.preventDefault();
@@ -1001,8 +1071,8 @@
         }
       });
 
-      // WCAG 2.2 AA - Focus management and appearance
-      $('#print_results, #copy_results, #generate_email, #generate_share_link, #copy_email_content, #open_email_client, #close_email_preview, #copy_share_link, #test_share_link, #close_share_preview')
+      // WCAG 2.2 AA - Focus management and appearance (excluding disabled email functionality)
+      $('#print_results, #copy_results, #generate_share_link, #copy_share_link, #test_share_link, #close_share_preview')
         .on('focus', function() {
           $(this).addClass('focus-visible');
           // WCAG 2.2 AA - Focus Not Obscured - ensure focus is visible
@@ -1012,13 +1082,13 @@
           $(this).removeClass('focus-visible');
         });
 
-      // WCAG 2.2 AA - Consistent Help - provide help for complex interactions
+      // WCAG 2.2 AA - Consistent Help - provide help for complex interactions via title attributes
       $('[data-action]').each(function() {
         var action = $(this).data('action');
         var helpText = getHelpTextForAction(action);
         if (helpText) {
           $(this).attr('title', helpText);
-          $(this).addClass('help-available');
+          // Removed help-available class to clean up button appearance
         }
       });
 
@@ -1101,11 +1171,34 @@
     initKeyboardSupport();
     initTableNavigation();
     
+    // Initialize URL synchronization for bookmarking
+    initUrlSync();
+    
+    // Ensure email functionality is properly hidden from screen readers
+    disableEmailAccessibility();
+    
     // Restore state from share link if present
     $(document).ready(function() {
       // Small delay to ensure other scripts have initialized
       setTimeout(restoreFromShareLink, 500);
     });
+
+    // Function to properly disable email functionality for accessibility compliance
+    function disableEmailAccessibility() {
+      // Remove email elements from tab order and accessibility tree
+      $('#generate_email, #email-desc, #email_preview').attr({
+        'aria-hidden': 'true',
+        'tabindex': '-1'
+      });
+      
+      // Remove email-related buttons from tab order
+      $('#copy_email_content, #open_email_client, #close_email_preview').attr({
+        'aria-hidden': 'true',
+        'tabindex': '-1'
+      });
+      
+      console.log('Email functionality disabled for accessibility compliance');
+    }
 
     // WCAG 2.2 AA - Enhanced table navigation
     function initTableNavigation() {

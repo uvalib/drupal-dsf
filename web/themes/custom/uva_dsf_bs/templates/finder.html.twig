@@ -117,10 +117,11 @@
 							<i class="fa fa-link" aria-hidden="true"></i> Create Share Link
 						</button>
 						<span id="share-link-desc" class="sr-only">Creates a shareable link with your selected criteria and services</span>
-						<button type="button" id="generate_email" class="btn btn-secondary" aria-describedby="email-desc" data-action="email" style="display: none;">
+						{# Email functionality temporarily disabled - button and description hidden from accessibility tree #}
+						<button type="button" id="generate_email" class="btn btn-secondary" aria-describedby="email-desc" data-action="email" style="display: none;" aria-hidden="true" tabindex="-1">
 							<i class="fa fa-envelope" aria-hidden="true"></i> Generate Email
 						</button>
-						<span id="email-desc" class="sr-only" style="display: none;">Creates an email with your results that you can send or copy</span>
+						<span id="email-desc" class="sr-only" style="display: none;" aria-hidden="true">Creates an email with your results that you can send or copy</span>
 					</div>
 					<!-- WCAG 2.2 AA - Provide help text for complex interactions -->
 					<div class="mt-2 text-muted" id="results-help" aria-live="polite">
@@ -129,7 +130,7 @@
 					</div>
 				</div>
 
-				<div id="email_preview" class="email-preview" style="display: none;" role="region" aria-labelledby="email-preview-heading" aria-describedby="email-preview-instructions">
+				<div id="email_preview" class="email-preview" style="display: none;" aria-hidden="true" role="region" aria-labelledby="email-preview-heading" aria-describedby="email-preview-instructions">
 					<h4 id="email-preview-heading" tabindex="-1">Email Preview</h4>
 					<p class="text-muted" id="email-preview-instructions">Review the content below, then choose how to send it:</p>
 					<div class="alert alert-warning" role="alert" aria-live="polite">
