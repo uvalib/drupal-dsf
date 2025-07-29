@@ -50,7 +50,7 @@
         "drupal/twig_debugger": "^1.1",
         "drupal/uswds": "^3",
         "drush/drush": "^12.5",
-        "uvalib/cd-finder-uva": "dev-feature/share-link-functionality",
+        "uvalib/cd-finder-uva": "dev-master",
         "uvalib/uva_dsf_uswds": "dev-main"
     },
     "require-dev": {
