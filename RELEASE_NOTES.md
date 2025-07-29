@@ -1,7 +1,29 @@
 # Release Notes: Share Link Functionality
 
-**Version**: feature/share-link-functionality  
-**Date**: July 29, 2025  
+**Version**: feature/share-link-fu## 🔄 Behavioral Changes
+
+### User Experience
+- **Empty states**: Users now see helpful guidance instead of empty tables
+- **Context-aware messaging**: Different messages for different empty states (no services selected vs. services selected but not displayed)
+- **Sharing**: Users can easily share their filtered results via persistent URLs
+- **Email replacement**: Modern save/print/share options replace traditional email functionality
+- **Better feedback**: Improved visual and auditory feedback for screen reader users
+
+### Developer Experience
+- **Clear workflows**: Documented processes for multi-repository development
+- **Feature branch coordination**: Guidelines for maintaining synchronized branches
+- **Dependency management**: Clear instructions for composer-based module integration
+
+## 🐛 Bug Fixes
+
+### Empty State Message Issues
+- **Fixed print output criteria display**: Corrected DOM traversal to properly extract question and answer text from selected facets
+- **Fixed comparison table empty states**: Added logic to detect when services are selected but none are visible in the comparison table
+- **Improved label text extraction**: Enhanced text extraction to exclude checkbox elements and provide cleaner output
+- **Fixed repetitive empty state messages**: Eliminated duplicate messages and improved context-aware messaging that updates all HTML elements (title, main text, help text) instead of just one paragraph
+- **Removed inaccurate directional references**: Changed messaging from "section below" to contextually appropriate language when the message appears within the same section
+
+## 🔧 Technical Changes**Date**: July 29, 2025  
 **Type**: Feature Enhancement  
 
 ## Overview
@@ -11,10 +33,13 @@ This release introduces significant user experience improvements to the UVA Libr
 ## 🚀 New Features
 
 ### 1. Empty State Management
+
 - **Added comprehensive empty state messaging** when no services are selected for comparison
+- **Enhanced comparison table empty states** with context-aware messaging:
+  - When no services selected: "Please select services from the list above to compare"
+  - When services selected but none visible in comparison: "Please check services in Comparing Services section"
 - **Accessible design** with proper ARIA attributes (role="status", aria-live="polite")
-- **User-friendly messaging**: "No services selected. Please select services from the list above to compare their features and details."
-- **Dynamic visibility**: Automatically shows/hides based on service selection state
+- **Dynamic visibility**: Automatically shows/hides based on both service selection and comparison visibility states
 
 ### 2. URL Persistence & Sharing
 - **Persistent URLs** that preserve user selections and criteria
@@ -58,14 +83,15 @@ This release introduces significant user experience improvements to the UVA Libr
 - `web/themes/custom/uva_dsf_bs/uva_dsf_bs.libraries.yml` - Library configuration
 
 ### Finder Module (cd-finder-uva)
-**Files Modified: 4 files (+172 -10 lines)**
+**Files Modified: 4 files (+191 -21 lines)**
 
 #### Core Changes
-- `js/app.js` - Major enhancements (+103 lines):
-  - Added `updateEmptyStateMessage()` function
+- `js/app.js` - Major enhancements (+122 lines):
+  - Added `updateEmptyStateMessage()` function with context-aware messaging
   - Email functionality disabled, replaced with informative messaging
   - Integration hooks for URL persistence functionality
   - Enhanced event handling for all user interactions
+  - **Latest Fix**: Improved empty state messaging to prevent duplication and provide accurate context
 
 #### Supporting Changes
 - `README.md` - UVA customization documentation (+57 lines)
