@@ -27,7 +27,8 @@
       // Get selected facets/criteria
       $('.facet:checked').each(function() {
         var label = $(this).closest('label').text().trim();
-        var question = $(this).closest('fieldset').prev('h4').text().trim();
+        // Navigate up to the li, then find the h4 within the question-wrapper
+        var question = $(this).closest('li').find('.question-wrapper h4').text().trim();
         data.selectedCriteria.push({
           question: question,
           answer: label
