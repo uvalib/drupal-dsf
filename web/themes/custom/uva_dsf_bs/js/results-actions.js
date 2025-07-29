@@ -773,51 +773,49 @@
       $('#email_preview').slideUp();
     });
 
-    // Generate share link functionality
-    $('#generate_share_link').on('click', function() {
-      var shareUrl = createShareableUrl();
-      
-      $('#share_link_url').val(shareUrl);
-      $('#share_link_preview').slideDown();
-      
-      // Focus management for accessibility
-      setTimeout(function() {
-        $('#share_link_preview h4').focus();
-      }, 300);
-      
-      announceToScreenReader('Share link created successfully. You can now copy or test the link.');
-    });
+    // Initialize persistent share link display
+    function initPersistentShareLink() {
+      const persistentUrlInput = $('#persistent_share_url');
+      const copyPersistentButton = $('#copy_persistent_link');
+      const persistentCopyFeedback = $('#persistent_copy_feedback');
 
-    // Copy share link functionality
-    $('#copy_share_link').on('click', function() {
-      var shareUrl = $('#share_link_url').val();
-      
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(shareUrl).then(function() {
-          showShareCopyFeedback();
-        }).catch(function() {
+      // Update persistent share link display
+      function updatePersistentShareLink() {
+        try {
+          const shareUrl = createShareableUrl(false); // Don't include timestamp for persistent link
+          persistentUrlInput.val(shareUrl);
+        } catch (error) {
+          console.error('Error updating persistent share link:', error);
+          persistentUrlInput.val(window.location.href);
+        }
+      }
+
+      // Copy persistent share link
+      copyPersistentButton.on('click', function() {
+        var shareUrl = persistentUrlInput.val();
+        
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(shareUrl).then(function() {
+            persistentCopyFeedback.show();
+            setTimeout(() => persistentCopyFeedback.hide(), 3000);
+            announceToScreenReader('Share link copied to clipboard successfully.');
+          }).catch(function() {
+            fallbackCopyToClipboard(shareUrl);
+          });
+        } else {
           fallbackCopyToClipboard(shareUrl);
-        });
-      } else {
-        fallbackCopyToClipboard(shareUrl);
-      }
-    });
+        }
+      });
 
-    // Test share link functionality
-    $('#test_share_link').on('click', function() {
-      var shareUrl = $('#share_link_url').val();
-      if (shareUrl) {
-        window.open(shareUrl, '_blank');
-        announceToScreenReader('Share link opened in new tab for testing.');
-      } else {
-        announceToScreenReader('No share link available to test.');
-      }
-    });
+      // Initial update
+      updatePersistentShareLink();
 
-    // Close share link preview
-    $('#close_share_preview').on('click', function() {
-      $('#share_link_preview').slideUp();
-    });
+      // Return the update function so it can be called when selections change
+      return updatePersistentShareLink;
+    }
+
+    // Initialize persistent share link
+    var updatePersistentLink = initPersistentShareLink();
 
     // Function to create a shareable URL with current state
     function createShareableUrl(includeTimestamp) {
@@ -826,7 +824,7 @@
       }
       
       var currentUrl = window.location.href.split('?')[0]; // Base URL without query params
-      var params = new URLSearchParams();
+      var queryParts = [];
       
       // Get current facet selections (matching app.js structure)
       var selectedFacets = [];
@@ -838,7 +836,8 @@
       });
       
       if (selectedFacets.length > 0) {
-        params.set('facets', selectedFacets.join(','));
+        // Use simple comma-separated format without encoding
+        queryParts.push('facets=' + selectedFacets.join(','));
       }
       
       // Get selected services for comparison (matching app.js structure)
@@ -852,23 +851,24 @@
       });
       
       if (selectedServices.length > 0) {
-        params.set('services', selectedServices.join(','));
+        // Use simple comma-separated format without encoding
+        queryParts.push('services=' + selectedServices.join(','));
       }
       
       // Add timestamp for cache busting and tracking (only for explicit share links)
       if (includeTimestamp) {
-        params.set('shared', Date.now());
+        queryParts.push('shared=' + Date.now());
       } else {
         // For browser URL updates, preserve existing shared timestamp if present
         var currentParams = new URLSearchParams(window.location.search);
         if (currentParams.has('shared')) {
-          params.set('shared', currentParams.get('shared'));
+          queryParts.push('shared=' + currentParams.get('shared'));
         }
       }
       
       var shareUrl = currentUrl;
-      if (params.toString()) {
-        shareUrl += '?' + params.toString();
+      if (queryParts.length > 0) {
+        shareUrl += '?' + queryParts.join('&');
       }
       
       return shareUrl;
@@ -891,6 +891,11 @@
           
           // Optional: Announce to screen readers for debugging (can be removed in production)
           // announceToScreenReader('Page URL updated to reflect current selections');
+        }
+        
+        // Update the persistent share link display
+        if (typeof updatePersistentLink === 'function') {
+          updatePersistentLink();
         }
       } catch (error) {
         // Fail silently if History API is not supported
@@ -915,11 +920,20 @@
         setTimeout(updateBrowserUrl, 100);
       });
       
+      // Listen for custom event when filters are cleared
+      $(document).on('filtersCleared', function() {
+        setTimeout(updateBrowserUrl, 100);
+      });
+      
       // Initial URL update on page load (after restoration)
       setTimeout(function() {
         updateBrowserUrl();
       }, 1000);
     }
+
+    // Make functions available globally for other scripts
+    window.updateBrowserUrl = updateBrowserUrl;
+    window.updatePersistentLink = updatePersistentLink;
 
     // Show share copy feedback
     function showShareCopyFeedback() {
@@ -951,29 +965,25 @@
         
         announceToScreenReader('Loading shared comparison setup...');
         
-        // Restore criteria selections
-        if (urlParams.has('criteria')) {
-          var criteria = urlParams.get('criteria').split(',');
-          criteria.forEach(function(criterion) {
-            var parts = criterion.split(':');
-            if (parts.length === 2) {
-              var questionId = parts[0];
-              var value = parts[1];
-              
-              // Find and check the appropriate input
-              var selector = '[name="' + questionId + '"][value="' + value + '"], ' +
-                           '[data-question-id="' + questionId + '"][value="' + value + '"]';
-              $(selector).prop('checked', true).trigger('change');
-            }
+        // Restore facet selections (matching app.js expectations)
+        if (urlParams.has('facets')) {
+          var facets = urlParams.get('facets').split(',');
+          facets.forEach(function(facetId) {
+            // Find and check the appropriate facet input by ID
+            var selector = '#facet-' + facetId + ', [facetid="' + facetId + '"]';
+            $(selector).prop('checked', true).trigger('change');
           });
         }
         
-        // Restore service selections
+        // Restore service selections (matching app.js expectations)
         if (urlParams.has('services')) {
           var services = urlParams.get('services').split(',');
           services.forEach(function(serviceId) {
-            var selector = '[value="' + serviceId + '"], [data-service-id="' + serviceId + '"]';
-            $(selector).prop('checked', true).trigger('change');
+            // Find service panel and check its checkbox
+            var servicePanel = $('#service-' + serviceId);
+            if (servicePanel.length > 0) {
+              servicePanel.find('.cardcheckbox').prop('checked', true).trigger('change');
+            }
           });
         }
         
@@ -1061,7 +1071,7 @@
     // Enhanced keyboard navigation support for WCAG 2.2 AA accessibility
     function initKeyboardSupport() {
       // Add keyboard support for action buttons (excluding disabled email functionality)
-      $('#print_results, #copy_results, #generate_share_link, #copy_share_link, #test_share_link, #close_share_preview').on('keydown', function(e) {
+      $('#print_results, #copy_results, #copy_persistent_link').on('keydown', function(e) {
         // Activate on Enter or Space key (WCAG 2.2 AA requirement)
         if (e.which === 13 || e.which === 32) {
           e.preventDefault();
@@ -1072,7 +1082,7 @@
       });
 
       // WCAG 2.2 AA - Focus management and appearance (excluding disabled email functionality)
-      $('#print_results, #copy_results, #generate_share_link, #copy_share_link, #test_share_link, #close_share_preview')
+      $('#print_results, #copy_results, #copy_persistent_link')
         .on('focus', function() {
           $(this).addClass('focus-visible');
           // WCAG 2.2 AA - Focus Not Obscured - ensure focus is visible

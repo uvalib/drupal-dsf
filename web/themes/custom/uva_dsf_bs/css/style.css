@@ -750,3 +750,121 @@ a {
 .slick > div {
   margin: 0 15px;
 }
+
+/* Persistent Share Link Styling - WCAG 2.2 AA Compliant */
+.persistent-share-link {
+  border-top: 1px solid #dee2e6;
+  padding-top: 1rem;
+  margin-top: 1.5rem;
+}
+
+.persistent-share-link h4 {
+  color: #495057;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.persistent-share-link h4 .fa {
+  color: #007bff;
+  margin-right: 0.5rem;
+}
+
+.persistent-share-link .card {
+  border: 1px solid #dee2e6;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.persistent-share-link input[readonly] {
+  background-color: #f8f9fa;
+  cursor: text;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  word-break: break-all;
+}
+
+.persistent-share-link input[readonly]:focus {
+  background-color: #e9ecef;
+  border-color: #007bff;
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+.persistent-share-link .btn {
+  min-width: 44px; /* WCAG 2.2 AA target size requirement */
+  min-height: 44px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .persistent-share-link {
+    border-top-color: #000;
+  }
+  
+  .persistent-share-link .card {
+    border-color: #000;
+    background-color: #fff;
+  }
+  
+  .persistent-share-link input[readonly] {
+    background-color: #fff;
+    border-color: #000;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .persistent-share-link .alert {
+    transition: none;
+  }
+}
+
+/* Empty state message for comparison table */
+#empty-comparison-message {
+  border: 2px solid #d1ecf1;
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+
+#empty-comparison-message .fa {
+  color: #007BAC;
+  margin-bottom: 1rem;
+}
+
+#empty-comparison-message h4 {
+  color: #232D4B;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+#empty-comparison-message p {
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+#empty-comparison-message p:last-child {
+  margin-bottom: 0;
+}
+
+/* WCAG 2.2 AA - Enhanced focus states for empty state */
+#empty-comparison-message .fa:focus {
+  outline: 2px solid #007BAC;
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* Responsive adjustments for empty state */
+@media (max-width: 768px) {
+  #empty-comparison-message {
+    padding: 1.5rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+  
+  #empty-comparison-message .fa {
+    font-size: 1.5rem;
+  }
+}
