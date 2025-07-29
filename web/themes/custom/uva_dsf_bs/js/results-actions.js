@@ -26,13 +26,21 @@
 
       // Get selected facets/criteria
       $('.facet:checked').each(function() {
-        var label = $(this).closest('label').text().trim();
+        // Get the text content of the label, excluding the input element
+        var labelElement = $(this).closest('label');
+        var labelText = labelElement.contents().filter(function() {
+          return this.nodeType === 3; // Text nodes only
+        }).text().trim();
+        
         // Navigate up to the li, then find the h4 within the question-wrapper
         var question = $(this).closest('li').find('.question-wrapper h4').text().trim();
-        data.selectedCriteria.push({
-          question: question,
-          answer: label
-        });
+        
+        if (question && labelText) {
+          data.selectedCriteria.push({
+            question: question,
+            answer: labelText
+          });
+        }
       });
 
       // Get selected services from comparison chart
