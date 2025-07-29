@@ -5,6 +5,7 @@ global-styling:
     js/jquery.mustache.js: { weight: -48 }
     js/popper.min.js: { weight: -47 }
     js/bootstrap.min.js: { weight: -46 }
+    js/results-actions.js: { weight: -10 }
     # js/base.js: {}
     # js/custom.js: {}
     # js/app.js: {}
