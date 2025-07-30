@@ -1,181 +1,6 @@
 /*
 Theme Name: Bootstrap 4 Sass
-Des/* Screen reader only text - WCAG 2.2 AA compliant */
-.sr-only {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
-}
-
-/* WCAG 2.2 AA Focus indicators for keyboard navigation */
-.focus-visible,
-button:focus,
-.btn:focus,
-a:focus,
-input:focus,
-select:focus,
-textarea:focus {
-  outline: 2px solid #005fcc !important;
-  outline-offset: 2px !important;
-}
-
-/* WCAG 2.2 AA - Focus Not Obscured (Minimum) - Ensure focus indicators are not covered */
-.focus-visible,
-button:focus,
-.btn:focus,
-a:focus {
-  position: relative !important;
-  z-index: 1 !important;
-}
-
-/* High contrast focus for better visibility */
-@media (prefers-contrast: high) {
-  .focus-visible,
-  button:focus,
-  .btn:focus,
-  a:focus,
-  input:focus,
-  select:focus,
-  textarea:focus {
-    outline: 3px solid #0066ff !important;
-    outline-offset: 3px !important;
-    background-color: #ffffcc !important;
-  }
-}
-
-/* WCAG 2.2 AA - Dragging Movements - Ensure no dragging required */
-/* All interactive elements use click/tap instead of drag */
-.no-drag {
-  touch-action: manipulation !important;
-}
-
-/* WCAG 2.2 AA - Target Size (Minimum) - 24x24px minimum, we use 44x44px for AA+ */
-#results-actions-section button,
-#results-actions-section .btn,
-.btn-group button,
-.btn-group .btn,
-.btn-group a {
-  min-height: 44px !important;
-  min-width: 44px !important;
-  padding: 12px 16px !important;
-  margin: 2px !important; /* Spacing to prevent accidental activation */
-}
-
-/* WCAG 2.2 AA - Ensure adequate color contrast for all text (4.5:1 ratio) */
-#results-actions-section {
-  color: #000 !important;
-}
-
-#results-actions-section button,
-#results-actions-section .btn {
-  color: #000 !important;
-  border: 2px solid #333 !important;
-}
-
-/* WCAG 2.2 AA - Focus Appearance - Enhanced focus indicators */
-button:focus-visible,
-.btn:focus-visible,
-a:focus-visible {
-  outline: 2px solid #005fcc !important;
-  outline-offset: 2px !important;
-  box-shadow: 0 0 0 4px rgba(0, 95, 204, 0.25) !important;
-}
-
-/* WCAG 2.2 AA - Redundant Entry - Prevent unnecessary re-entry */
-.auto-complete-hint {
-  font-size: 0.9em !important;
-  color: #666 !important;
-  font-style: italic !important;
-}
-
-/* WCAG 2.2 AA - Accessible Authentication - Support for copy/paste */
-input[type="email"],
-input[type="password"],
-textarea {
-  /* Ensure copy/paste is never disabled */
-  -webkit-user-select: text !important;
-  -moz-user-select: text !important;
-  -ms-user-select: text !important;
-  user-select: text !important;
-}
-
-/* WCAG 2.2 AA - Responsive design improvements */
-@media (max-width: 768px) {
-  .btn-group {
-    display: flex !important;
-    flex-direction: column !important;
-    width: 100% !important;
-  }
-  
-  .btn-group .btn,
-  .btn-group button,
-  .btn-group a {
-    width: 100% !important;
-    margin-bottom: 8px !important;
-    border-radius: 4px !important;
-  }
-}
-
-/* WCAG 2.2 AA - Motion and animation preferences */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-  
-  .fadeIn,
-  .fadeOut,
-  .slideDown,
-  .slideUp {
-    animation: none !important;
-    transition: none !important;
-  }
-}
-
-/* Share link specific styling for better UX */
-.share-link-preview {
-  border: 1px solid #dee2e6;
-  border-radius: 0.375rem;
-  padding: 1.5rem;
-  margin-top: 1rem;
-  background-color: #f8f9fa;
-}
-
-.share-link-preview .form-control {
-  font-family: monospace;
-  font-size: 0.9rem;
-  word-break: break-all;
-  white-space: nowrap;
-  overflow-x: auto;
-}
-
-.share-link-preview .input-group {
-  margin-bottom: 0.5rem;
-}
-
-/* WCAG 2.2 AA - Ensure share link input is accessible */
-#share_link_url:focus {
-  outline: 2px solid #005fcc !important;
-  outline-offset: 2px !important;
-  box-shadow: 0 0 0 4px rgba(0, 95, 204, 0.25) !important;
-}
-
-/* Table navigation highlight styling */
-.table-nav-highlight {
-  background-color: #e3f2fd !important;
-  outline: 2px solid #1976d2 !important;
-  outline-offset: -2px !important;
-}
-
-/*
-Bootstrap 4 with Sass
+Description: Bootstrap 4 with Sass
 */
 /* VARIABLES */
 /* TYPOGRAPHY */
@@ -188,7 +13,6 @@ Bootstrap 4 with Sass
 [type=search] {
   outline-offset: inherit;
   -webkit-appearance: none;
-  appearance: none;
 }
 
 html {
@@ -207,19 +31,6 @@ html {
   left: 50%;
   transform: translateX(-50%);
   opacity: 1;
-}
-
-/* Screen reader only content - WCAG 2.0 AA compliance */
-.sr-only {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border: 0 !important;
 }
 
 /* MAIN */
@@ -423,45 +234,21 @@ footer a {
   box-shadow: 0 0 0 3px #fff;
   /* hover color */
 }
-/* Results actions styling */
-#app .results-actions {
-  margin: 20px 0;
+#app .email-options {
+  margin-bottom: 0.75em;
 }
-
-#app .results-actions .btn-group {
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-#app .results-actions .btn {
+#app .email-options legend {
+  font-size: 1em;
+  border-bottom: none;
   margin-bottom: 10px;
 }
-
-#app .email-preview {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #f8f9fa;
-  border-radius: 5px;
+#app .email-options label {
+  display: inline;
 }
-
-#app .email-preview .card {
-  margin: 15px 0;
-}
-
-#app .email-preview .card-header {
-  background-color: #e9ecef;
-  border-bottom: 1px solid #dee2e6;
-  padding: 10px 15px;
-}
-
-#app .email-preview .card-body {
-  padding: 15px;
-  max-height: 300px;
-  overflow-y: auto;
-}
-
-#app #copy_feedback {
-  margin-top: 15px;
+#app .email-options input[type=checkbox]:focus {
+  outline: 5px auto #007BAC;
+  /* hover color */
+  outline-offset: 1px;
 }
 #app fieldset label {
   font-size: 1rem;
@@ -751,30 +538,55 @@ a {
   margin: 0 15px;
 }
 
-/* Persistent Share Link Styling - WCAG 2.2 AA Compliant */
-.persistent-share-link {
+/* ==================================================
+   NEW FINDER UI FEATURES - WCAG 2.2 AA COMPLIANT
+   ==================================================
+   This section contains styles for new UI features only:
+   - Persistent share link functionality
+   - Empty state comparison message  
+   - Results actions (print, share, email)
+   
+   These styles are scoped to specific containers to avoid
+   conflicts with existing Cornell interface elements.
+   ================================================== */
+
+/* Screen reader only text for accessibility */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Persistent Share Link Styling - Scoped to #persistent_share_link */
+#persistent_share_link {
   border-top: 1px solid #dee2e6;
   padding-top: 1rem;
   margin-top: 1.5rem;
 }
 
-.persistent-share-link h4 {
+#persistent_share_link h4 {
   color: #495057;
   font-weight: 600;
   margin-bottom: 0.75rem;
 }
 
-.persistent-share-link h4 .fa {
+#persistent_share_link h4 .fa {
   color: #007bff;
   margin-right: 0.5rem;
 }
 
-.persistent-share-link .card {
+#persistent_share_link .card {
   border: 1px solid #dee2e6;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.persistent-share-link input[readonly] {
+#persistent_share_link input[readonly] {
   background-color: #f8f9fa;
   cursor: text;
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
@@ -783,43 +595,27 @@ a {
   word-break: break-all;
 }
 
-.persistent-share-link input[readonly]:focus {
+#persistent_share_link input[readonly]:focus {
   background-color: #e9ecef;
   border-color: #007bff;
   outline: 2px solid #007bff;
   outline-offset: 2px;
 }
 
-.persistent-share-link .btn {
-  min-width: 44px; /* WCAG 2.2 AA target size requirement */
+#persistent_share_link .btn {
+  min-width: 44px; /* WCAG 2.2 AA target size */
   min-height: 44px;
 }
 
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  .persistent-share-link {
-    border-top-color: #000;
-  }
-  
-  .persistent-share-link .card {
-    border-color: #000;
-    background-color: #fff;
-  }
-  
-  .persistent-share-link input[readonly] {
-    background-color: #fff;
-    border-color: #000;
-  }
+#persistent_share_link button:focus,
+#persistent_share_link .btn:focus,
+#persistent_share_link a:focus,
+#persistent_share_link input:focus {
+  outline: 2px solid #005fcc !important;
+  outline-offset: 2px !important;
 }
 
-/* Reduced motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  .persistent-share-link .alert {
-    transition: none;
-  }
-}
-
-/* Empty state message for comparison table */
+/* Empty Comparison Message - Scoped to #empty-comparison-message */
 #empty-comparison-message {
   border: 2px solid #d1ecf1;
   background-color: #f8f9fa;
@@ -849,14 +645,111 @@ a {
   margin-bottom: 0;
 }
 
-/* WCAG 2.2 AA - Enhanced focus states for empty state */
-#empty-comparison-message .fa:focus {
-  outline: 2px solid #007BAC;
-  outline-offset: 2px;
-  border-radius: 0.25rem;
+#empty-comparison-message a:focus {
+  outline: 2px solid #005fcc !important;
+  outline-offset: 2px !important;
 }
 
-/* Responsive adjustments for empty state */
+/* Results Actions - Scoped to .results-actions */
+.results-actions {
+  margin: 20px 0;
+}
+
+.results-actions .btn-group {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.results-actions .btn {
+  margin-bottom: 10px;
+  min-width: 44px; /* WCAG 2.2 AA target size */
+  min-height: 44px;
+}
+
+.results-actions button:focus,
+.results-actions .btn:focus,
+.results-actions a:focus,
+.results-actions input:focus,
+.results-actions select:focus,
+.results-actions textarea:focus {
+  outline: 2px solid #005fcc !important;
+  outline-offset: 2px !important;
+}
+
+.results-actions .email-preview {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+}
+
+.results-actions .email-preview .card {
+  margin: 15px 0;
+}
+
+.results-actions .email-preview .card-header {
+  background-color: #e9ecef;
+  border-bottom: 1px solid #dee2e6;
+  padding: 10px 15px;
+}
+
+.results-actions .email-preview .card-body {
+  padding: 15px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.results-actions #copy_feedback {
+  margin-top: 15px;
+}
+
+/* WCAG 2.2 AA Compliance - Scoped to new UI elements only */
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  #persistent_share_link {
+    border-top-color: #000;
+  }
+  
+  #persistent_share_link .card {
+    border-color: #000;
+    background-color: #fff;
+  }
+  
+  #persistent_share_link input[readonly] {
+    background-color: #fff;
+    border-color: #000;
+  }
+
+  #persistent_share_link button:focus,
+  #persistent_share_link .btn:focus,
+  #persistent_share_link a:focus,
+  #persistent_share_link input:focus,
+  #empty-comparison-message a:focus,
+  .results-actions button:focus,
+  .results-actions .btn:focus,
+  .results-actions a:focus,
+  .results-actions input:focus,
+  .results-actions select:focus,
+  .results-actions textarea:focus {
+    outline: 3px solid #0066ff !important;
+    outline-offset: 3px !important;
+    background-color: #ffffcc !important;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  #persistent_share_link .alert,
+  .results-actions * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Responsive adjustments for new UI elements */
 @media (max-width: 768px) {
   #empty-comparison-message {
     padding: 1.5rem;
@@ -867,4 +760,50 @@ a {
   #empty-comparison-message .fa {
     font-size: 1.5rem;
   }
+
+  .results-actions .btn-group {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  
+  .results-actions .btn-group .btn,
+  .results-actions .btn-group button,
+  .results-actions .btn-group a {
+    width: 100% !important;
+    margin-bottom: 8px !important;
+    border-radius: 4px !important;
+  }
 }
+
+/* Share link specific styling */
+.share-link-preview {
+  border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  background-color: #f8f9fa;
+}
+
+.share-link-preview .form-control {
+  font-family: monospace;
+  font-size: 0.9rem;
+  word-break: break-all;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.share-link-preview .input-group {
+  margin-bottom: 0.5rem;
+}
+
+/* Table navigation highlight styling for results */
+.table-nav-highlight {
+  background-color: #e3f2fd !important;
+  outline: 2px solid #1976d2 !important;
+  outline-offset: -2px !important;
+}
+
+/* ================================================== 
+   END NEW FINDER UI FEATURES
+   ================================================== */
