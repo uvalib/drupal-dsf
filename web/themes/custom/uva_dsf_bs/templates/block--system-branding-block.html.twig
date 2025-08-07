@@ -13,18 +13,26 @@
  */
 #}
 {% set attributes = attributes.addClass('site-branding') %}
+
 {% if site_logo or site_name %}
-	<a href="https://library.virginia.edu/" title="{{ 'University of Virginia Library homepage'|t }}" rel="home" class="navbar-brand">
+<a href="https://library.virginia.edu/" title="{{ 'University of Virginia Library homepage'|t }}" rel="home" class="navbar-brand">
 
-
-		{% if site_logo %}
-			<img src="{{ site_logo }}" alt="{{ 'University of Virginia Library logo'|t }}" class="img-fluid d-inline-block align-top"/>
-		{% endif %}
-		{{ site_name }}
-	</a>
+{% if site_logo %}
+<img src="{{ site_logo }}" alt="{{ 'University of Virginia Library logo'|t }}" class="img-fluid d-inline-block align-top"/>
 {% endif %}
+{{ site_name }}
+</a>
+{% endif %}
+
+{# Add development environment indicator - always show if in development #}
+{% if is_development %}
+<span class="dev-environment-badge" style="background-color: #b85450; color: white; padding: 5px 12px; font-size: 13px; font-weight: normal; border-radius: 4px; margin-left: 10px; vertical-align: middle;">
+DDEV DEVELOPMENT
+</span>
+{% endif %}
+
 {% if site_slogan %}
-	<div class="d-inline-block align-top site-name-slogan">
-		{{ site_slogan }}
-	</div>
+<div class="d-inline-block align-top site-name-slogan">
+{{ site_slogan }}
+</div>
 {% endif %}
