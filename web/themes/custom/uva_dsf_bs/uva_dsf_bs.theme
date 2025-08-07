@@ -37,11 +37,33 @@ function bootstrap_sass_form_system_theme_settings_alter(&$form, FormStateInterf
 function uva_dsf_bs_preprocess_block(&$variables) {
   if ($variables['plugin_id'] == 'system_branding_block') {
     // Check if we're in a development environment
-    $variables['is_development'] = (
-      getenv('IS_DDEV_PROJECT') === 'true' ||
+    $is_ddev = getenv('IS_DDEV_PROJECT') === 'true';
+    $is_staging = (
+      strpos(getenv('HOSTNAME'), '-dev') !== false ||
+      strpos(getenv('HOSTNAME'), '-staging') !== false ||
+      strpos(getenv('DEVOPS_LABEL'), 'staging') !== false
+    );
+    $is_other_dev = (
       getenv('APP_ENV') === 'dev' ||
       getenv('DRUPAL_ENV') === 'development' ||
       getenv('ENVIRONMENT') === 'development'
     );
+    
+    $variables['is_development'] = $is_ddev || $is_staging || $is_other_dev;
+    
+    // Set specific environment type for different messaging
+    if ($is_ddev) {
+      $variables['env_type'] = 'ddev';
+      $variables['env_label'] = 'DDEV DEVELOPMENT';
+      $variables['env_warning'] = 'Local development environment';
+    } elseif ($is_staging) {
+      $variables['env_type'] = 'staging';
+      $variables['env_label'] = 'STAGING';
+      $variables['env_warning'] = 'Changes may be lost when database is updated from production.';
+    } else {
+      $variables['env_type'] = 'development';
+      $variables['env_label'] = 'DEVELOPMENT';
+      $variables['env_warning'] = 'Development environment';
+    }
   }
 }

@@ -26,9 +26,18 @@
 
 {# Add development environment indicator - always show if in development #}
 {% if is_development %}
-<span class="dev-environment-badge" style="background-color: #b85450; color: white; padding: 5px 12px; font-size: 13px; font-weight: normal; border-radius: 4px; margin-left: 10px; vertical-align: middle;">
-DDEV DEVELOPMENT
-</span>
+<div class="dev-environment-warning" style="margin-left: 10px; display: inline-block; vertical-align: middle;">
+	<span class="dev-environment-badge" style="background-color: #b85450; color: white; padding: 5px 12px; font-size: 13px; font-weight: normal; border-radius: 4px;">
+		{{ env_label }}
+	</span>
+	<span style="color: #999; font-size: 11px; margin-left: 8px; font-style: italic;">
+		{% if env_type == 'staging' %}
+			{{ env_warning }}
+		{% else %}
+			Changes may be lost when database is updated from production.
+		{% endif %}
+	</span>
+</div>
 {% endif %}
 
 {% if site_slogan %}
