@@ -20,6 +20,7 @@ global-styling:
     component:
       css/bootstrap.css: {}
       css/style.css: {}
+      css/sitewide-alert-development.css: {}
   dependencies:
     # - core/jquery
     # - core/drupal

@@ -1,0 +1,39 @@
+/**
+ * Custom styling for development environment sitewide alerts
+ */
+
+/* Style the development environment alert */
+.sitewide-alert.alert-development {
+  background-color: #d73527 !important;
+  color: white !important;
+  border: 2px solid #b71c1c !important;
+  border-left: 5px solid #b71c1c !important;
+  font-weight: bold !important;
+  padding: 15px 20px !important;
+  margin: 0 !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+  text-align: center !important;
+}
+
+.sitewide-alert.alert-development .sitewide-alert__content {
+  color: white !important;
+  font-size: 14px !important;
+  font-weight: bold !important;
+}
+
+.sitewide-alert.alert-development .sitewide-alert__dismiss {
+  color: white !important;
+  opacity: 0.8 !important;
+}
+
+.sitewide-alert.alert-development .sitewide-alert__dismiss:hover {
+  opacity: 1 !important;
+  color: white !important;
+}
+
+/* Ensure it shows prominently in admin theme */
+.admin-toolbar .sitewide-alert.alert-development,
+body.admin-toolbar .sitewide-alert.alert-development {
+  position: relative !important;
+  z-index: 999 !important;
+}
