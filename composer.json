@@ -42,6 +42,7 @@
         "drupal/default_content_deploy": "^2.1",
         "drupal/devel": "^5.3",
         "drupal/hal": "^2.0",
+        "drupal/matomo": "^1.25",
         "drupal/paragraphs": "^1.15",
         "drupal/quickedit": "^1.0",
         "drupal/rdf": "^2.0",
