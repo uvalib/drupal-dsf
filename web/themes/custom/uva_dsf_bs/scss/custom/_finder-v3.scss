@@ -9,11 +9,17 @@
 [type="search"] {
   outline-offset: inherit;
   -webkit-appearance: none;
+  appearance: none;
 }
 
 html {
   font-size: 16px;
 }
+
+.dev-environment-badge {
+  background-color: $notifications-bg !important;
+}
+
 
 /* SKIP TO */
 .visually-hidden-focusable {
@@ -343,6 +349,7 @@ footer a {
   .service-panel {
     margin: 0.25em;
     width: calc(25% - 0.5em);
+    min-width: 179px;
     display: flex;
 
     &:focus-within {
