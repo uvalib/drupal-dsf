@@ -15,6 +15,10 @@ html {
   font-size: 16px;
 }
 
+.dev-environment-badge {
+  background-color: $notifications-bg;
+}
+
 /* SKIP TO */
 .visually-hidden-focusable {
   position: absolute;
