@@ -24,6 +24,18 @@ html {
   background-color: #B40000 !important;
 }
 
+/* LOG IN PAGE */
+.page-user-login {
+  padding: 0 1.5rem;
+}
+.page-user-login form {
+  margin-top: 2rem;
+  width: 85%;
+}
+.page-user-login input.form-submit {
+  background-color: #007BAC;
+}
+
 /* SKIP TO */
 .visually-hidden-focusable {
   position: absolute;
@@ -568,8 +580,8 @@ footer a {
 
 #persistent_share_link input[readonly]:focus {
   background-color: #ffffff;
-  border-color: #007bff;
-  outline: 2px solid #007bff;
+  border-color: #007BAC;
+  outline: 2px solid #007BAC;
   outline-offset: 2px;
 }
 
@@ -589,7 +601,7 @@ footer a {
 
 /* Empty Comparison Message - Scoped to #empty-comparison-message */
 #empty-comparison-message {
-  border: 2px solid #d1ecf1;
+  border: 2px solid #91D8F2;
   background-color: #ffffff;
   border-radius: 0.5rem;
   padding: 2rem;

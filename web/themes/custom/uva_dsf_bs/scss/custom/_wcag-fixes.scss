@@ -60,8 +60,8 @@
 
 #persistent_share_link input[readonly]:focus {
   background-color: $share-link-bg;
-  border-color: #007bff;
-  outline: 2px solid #007bff;
+  border-color: $share-link-border-focus;
+  outline: 2px solid $share-link-border-focus;
   outline-offset: 2px;
 }
 
@@ -81,7 +81,7 @@
 
 /* Empty Comparison Message - Scoped to #empty-comparison-message */
 #empty-comparison-message {
-  border: 2px solid #d1ecf1;
+  border: 2px solid $secondary-hover-bg;
   background-color: $share-link-bg;
   border-radius: 0.5rem;
   padding: 2rem;
