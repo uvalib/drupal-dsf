@@ -25,6 +25,7 @@ $color-o: #4f4f4f; // Subheadings
 $color-q: #737373; // Explanation Text
 $color-v: #262626; // ally text
 $color-w: #ffffff; // ally text light
+$color-1d: #555555; // text muted
 
 // Other
 $color-n: #232D4B; // Headings (brown)
@@ -68,6 +69,10 @@ $secondary-active-bg: $color-k; // Secondary Button Active Background
 $secondary-active-border: $color-d; // Secondary Button Active Border
 $secondary-active-text: $color-e; // Secondary Button Active Text
 
+// Persistent Share Link colors
+$share-link-border: $color-c; // Persistent Share Link border
+$share-link-bg: $color-c; // Persistent Share Link background
+
 // Footer and Navbar
 $footer-link-color: $color-f; // Footer Links
 $navbar-link-color: $color-g; // Navbar Link Default
@@ -88,6 +93,7 @@ $text-color-main: $color-g; // Text Color Main
 $text-color-secondary: $color-o; // Text Color Secondary
 $ally-text: $color-v; // ally text
 $ally-text-light: $color-w; // ally text light
+$text-muted: $color-1d; // Text Muted
 
 // Background colors
 $background-primary: $color-m; // Primary Background (e.g., hero, general background)
@@ -101,6 +107,8 @@ $service-panel-control-indicator-border-hover: $color-z; // Service Panel Contro
 $tool-tip-bg: $color-t; // Tool Tip Background
 $jump-to-chart-bg: $color-p; // Jump to Chart Background
 $table-header-bg: $color-1c; // Table Header Background
+$table-highlight-bg: $color-t; // Table Highlight Background
+$table-highlight-outline: $color-r; // Table Highlight Outline
 
 // Miscellaneous
 $notifications-bg: $color-f; // Notifications Background
@@ -108,3 +116,4 @@ $horizontal-rule-color: $color-m; // hr rules
 $tool-tip-icon: $color-e; // Tool Tip Background
 $service-panel-icon: $color-1a; // Service Panel icon
 $service-panel-icon-hover: $color-1b; // Service Panel icon & text hover
+$dark-border: $color-g; // Dark Border Color
