@@ -20,6 +20,24 @@ html {
   background-color: $notifications-bg !important;
 }
 
+/* LOG IN PAGE */
+.page-user-login {
+  padding: 0 1.5rem;
+
+  form {
+    margin-top: 2rem;
+    width: 85%;
+  }
+
+  input.form-submit {
+    background-color: $primary-bg;
+  }
+
+
+
+}
+
+
 
 /* SKIP TO */
 .visually-hidden-focusable {
