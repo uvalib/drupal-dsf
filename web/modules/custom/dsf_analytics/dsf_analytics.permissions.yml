@@ -1,0 +1,7 @@
+access dsf analytics:
+  title: 'Access DSF Analytics Dashboard'
+  description: 'View analytics data for the Digital Service Finder.'
+
+administer dsf analytics:
+  title: 'Administer DSF Analytics'
+  description: 'Configure DSF Analytics settings and data sources.'

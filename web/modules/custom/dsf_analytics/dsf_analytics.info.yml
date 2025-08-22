@@ -1,0 +1,7 @@
+name: DSF Analytics Dashboard
+description: 'Analytics dashboard for Digital Service Finder with Matomo integration'
+package: UVA DSF
+type: module
+core_version_requirement: ^9 || ^10
+dependencies:
+  - drupal:system

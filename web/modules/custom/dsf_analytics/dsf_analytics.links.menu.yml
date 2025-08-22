@@ -1,0 +1,13 @@
+dsf_analytics.settings:
+  title: 'DSF Analytics'
+  description: 'Configure DSF Analytics dashboard settings and data source.'
+  parent: system.admin_config_system
+  route_name: dsf_analytics.settings
+  weight: 10
+
+dsf_analytics.dashboard_link:
+  title: 'DSF Analytics Dashboard'
+  description: 'View analytics for the Digital Service Finder.'
+  parent: system.admin_reports
+  route_name: dsf_analytics.dashboard
+  weight: 10

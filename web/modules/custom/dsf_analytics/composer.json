@@ -1,0 +1,20 @@
+{
+  "name": "uva/dsf-analytics",
+  "type": "drupal-module",
+  "description": "DSF Analytics Dashboard module",
+  "require": {
+    "drush/drush": "^12"
+  },
+  "autoload": {
+    "psr-4": {
+      "Drupal\\dsf_analytics\\": "src/"
+    }
+  },
+  "extra": {
+    "drush": {
+      "services": {
+        "drush.services.yml": "^9 || ^10 || ^11 || ^12"
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{#
+/**
+ * @file
+ * Template for DSF Analytics Dashboard
+ * 
+ * This template provides a simple admin interface to view
+ * DSF usage analytics in human-readable format.
+ */
+#}
+
+<div class="dsf-admin-header">
+  <h2>Data Storage Finder Analytics</h2>
+  <p class="description">
+    View user behavior patterns and service popularity metrics from the DSF application.
+    Data is collected via Matomo analytics and shows aggregated usage patterns.
+  </p>
+</div>
+
+<div class="dsf-analytics-dashboard">
+  <!-- Dashboard content will be populated by JavaScript -->
+</div>
+
+<div class="dsf-analytics-footer">
+  <div class="analytics-info">
+    <h4>About This Data</h4>
+    <ul>
+      <li><strong>Privacy:</strong> All data is anonymized and aggregated</li>
+      <li><strong>Time Range:</strong> Default reports show the last 30 days</li>
+      <li><strong>Updates:</strong> Data refreshes every 24 hours</li>
+      <li><strong>Source:</strong> Matomo Analytics ({{ matomo_url }})</li>
+    </ul>
+  </div>
+  
+  <div class="analytics-actions">
+    <button type="button" class="btn btn-primary" onclick="DSFAnalytics.refreshDashboard()">
+      Refresh Data
+    </button>
+    <a href="{{ matomo_url }}" target="_blank" class="btn btn-secondary">
+      View Full Analytics
+    </a>
+  </div>
+</div>

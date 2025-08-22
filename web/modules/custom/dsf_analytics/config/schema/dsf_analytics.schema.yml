@@ -1,0 +1,10 @@
+dsf_analytics.settings:
+  type: config_object
+  label: 'DSF Analytics settings'
+  mapping:
+    data_mode:
+      type: string
+      label: 'Data mode (real or mock)'
+    api_token:
+      type: string
+      label: 'Matomo API token'

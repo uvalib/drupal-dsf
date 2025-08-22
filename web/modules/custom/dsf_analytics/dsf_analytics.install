@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the DSF Analytics module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function dsf_analytics_install() {
+  // Grant DSF Analytics permissions to the administrator role.
+  $permissions = [
+    'access dsf analytics',
+    'administer dsf analytics',
+  ];
+  
+  // Check if administrator role exists and grant permissions.
+  $role_storage = \Drupal::entityTypeManager()->getStorage('user_role');
+  $administrator_role = $role_storage->load('administrator');
+  
+  if ($administrator_role) {
+    foreach ($permissions as $permission) {
+      $administrator_role->grantPermission($permission);
+    }
+    $administrator_role->save();
+    
+    \Drupal::messenger()->addStatus(t('DSF Analytics permissions have been granted to the administrator role.'));
+  }
+  
+  // Set default configuration values.
+  $config = \Drupal::configFactory()->getEditable('dsf_analytics.settings');
+  $config->set('data_mode', 'real');
+  $config->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function dsf_analytics_uninstall() {
+  // Remove DSF Analytics permissions from all roles.
+  $permissions = [
+    'access dsf analytics',
+    'administer dsf analytics',
+  ];
+  
+  $role_storage = \Drupal::entityTypeManager()->getStorage('user_role');
+  $roles = $role_storage->loadMultiple();
+  
+  foreach ($roles as $role) {
+    foreach ($permissions as $permission) {
+      if ($role->hasPermission($permission)) {
+        $role->revokePermission($permission);
+        $role->save();
+      }
+    }
+  }
+  
+  // Remove configuration.
+  \Drupal::configFactory()->getEditable('dsf_analytics.settings')->delete();
+  
+  \Drupal::messenger()->addStatus(t('DSF Analytics permissions and configuration have been removed.'));
+}

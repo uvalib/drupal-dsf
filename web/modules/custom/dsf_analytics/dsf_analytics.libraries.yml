@@ -1,0 +1,36 @@
+dashboard:
+  js:
+    js/analytics-dashboard.js: {}
+  css:
+    theme:
+      css/analytics-dashboard.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - dsf_analytics/matomo_tracking
+
+matomo_tracking:
+  js:
+    js/matomo-tracking.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+
+matomo_integration:
+  js:
+    js/matomo-integration.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/once
+    - dsf_analytics/matomo_tracking
+
+matomo_complete:
+  dependencies:
+    - dsf_analytics/matomo_tracking
+    - dsf_analytics/matomo_integration

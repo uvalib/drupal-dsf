@@ -1,0 +1,6 @@
+services:
+  dsf_analytics.commands:
+    class: Drupal\dsf_analytics\Commands\DsfAnalyticsCommands
+    arguments: []
+    tags:
+      - { name: drush.command }

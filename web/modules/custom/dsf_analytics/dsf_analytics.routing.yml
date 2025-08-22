@@ -1,0 +1,47 @@
+dsf_analytics.dashboard:
+  path: '/admin/reports/dsf-analytics'
+  defaults:
+    _controller: '\Drupal\dsf_analytics\Controller\AnalyticsDashboardController::dashboard'
+    _title: 'DSF Analytics Dashboard'
+  requirements:
+    _permission: 'access dsf analytics'
+
+dsf_analytics.settings:
+  path: '/admin/config/system/dsf-analytics'
+  defaults:
+    _form: '\Drupal\dsf_analytics\Form\DsfAnalyticsSettingsForm'
+    _title: 'DSF Analytics Settings'
+  requirements:
+    _permission: 'administer dsf analytics'
+
+dsf_analytics.api.facet_stats:
+  path: '/admin/reports/dsf-analytics/api/facet-stats'
+  defaults:
+    _controller: '\Drupal\dsf_analytics\Controller\AnalyticsApiController::getFacetStats'
+  requirements:
+    _permission: 'access dsf analytics'
+  methods: [GET]
+
+dsf_analytics.api.service_stats:
+  path: '/admin/reports/dsf-analytics/api/service-stats'
+  defaults:
+    _controller: '\Drupal\dsf_analytics\Controller\AnalyticsApiController::getServiceStats'
+  requirements:
+    _permission: 'access dsf analytics'
+  methods: [GET]
+
+dsf_analytics.api.investigation_stats:
+  path: '/admin/reports/dsf-analytics/api/investigation-stats'
+  defaults:
+    _controller: '\Drupal\dsf_analytics\Controller\AnalyticsApiController::getInvestigationStats'
+  requirements:
+    _permission: 'access dsf analytics'
+  methods: [GET]
+
+dsf_analytics.api.matomo_proxy:
+  path: '/admin/reports/dsf-analytics/api/matomo'
+  defaults:
+    _controller: '\Drupal\dsf_analytics\Controller\AnalyticsApiController::matomoProxy'
+  requirements:
+    _permission: 'access dsf analytics'
+  methods: [GET]

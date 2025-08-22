@@ -1,0 +1,92 @@
+<?php
+
+/**
+ * @file
+ * Contains dsf_analytics.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function dsf_analytics_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.dsf_analytics':
+      return '<p>' . t('DSF Analytics Dashboard provides insights into how users interact with the Digital Service Finder.') . '</p>';
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function dsf_analytics_theme() {
+  return [
+    'dsf_analytics_dashboard' => [
+      'variables' => [
+        'matomo_enabled' => FALSE,
+        'matomo_site_id' => NULL,
+        'matomo_url' => NULL,
+      ],
+      'template' => 'dsf-analytics-dashboard',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function dsf_analytics_page_attachments(array &$attachments) {
+  $config = \Drupal::config('dsf_analytics.settings');
+  $matomo_enabled = $config->get('matomo_enabled') ?? FALSE;
+  
+  if (!$matomo_enabled) {
+    return;
+  }
+  
+  // Only attach Matomo tracking to specific pages
+  $current_path = \Drupal::service('path.current')->getPath();
+  $path_alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
+  
+  // Get configurable DSF pages
+  $dsf_pages_config = $config->get('dsf_pages') ?? "/dsf\n/digital-service-finder\n/services\n/find-services";
+  $dsf_pages = array_filter(array_map('trim', explode("\n", $dsf_pages_config)));
+  
+  // Check if current page is a DSF page
+  $is_dsf_page = FALSE;
+  foreach ($dsf_pages as $dsf_path) {
+    if (strpos($path_alias, $dsf_path) !== FALSE || strpos($current_path, $dsf_path) !== FALSE) {
+      $is_dsf_page = TRUE;
+      break;
+    }
+  }
+  
+  // Also check for DSF-related content types
+  $route_match = \Drupal::routeMatch();
+  if ($route_match->getRouteName() == 'entity.node.canonical') {
+    $node = $route_match->getParameter('node');
+    if ($node) {
+      $content_types_config = $config->get('content_types') ?? 'service,dsf_service,digital_service';
+      $content_types = array_filter(array_map('trim', explode(',', $content_types_config)));
+      
+      if (in_array($node->getType(), $content_types)) {
+        $is_dsf_page = TRUE;
+      }
+    }
+  }
+  
+  // Attach libraries if this is a DSF-related page
+  if ($is_dsf_page) {
+    $attachments['#attached']['library'][] = 'dsf_analytics/matomo_complete';
+    
+    // Pass configuration to JavaScript
+    $attachments['#attached']['drupalSettings']['dsfAnalytics'] = [
+      'matomo' => [
+        'enabled' => TRUE,
+        'siteId' => $config->get('matomo_site_id') ?? 1,
+        'url' => $config->get('matomo_url') ?? 'https://vah-analytics.lib.virginia.edu/',
+        'trackingMode' => $config->get('tracking_mode') ?? 'PROD',
+      ],
+    ];
+  }
+}
