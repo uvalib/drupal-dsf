@@ -5,7 +5,7 @@ PROJECT_ROOT=$(dirname "$SCRIPT_DIR")
 cd "$PROJECT_ROOT"  # Ensure we're in project root
 
 # Configuration
-HOSTS="dev:dsf-drupal-dev-0.internal.lib.virginia.edu"
+HOSTS="prod:dsf-drupal-0.internal.lib.virginia.edu dev:dsf-drupal-dev-0.internal.lib.virginia.edu"
 DEFAULT_ENV="dev"
 BACKUP_DIR="$PROJECT_ROOT/backups"
 DUMP_DIR="$PROJECT_ROOT/database/dumps"
