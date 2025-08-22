@@ -182,7 +182,7 @@
     
     if (data && data.length > 0) {
       html += '<table class="analytics-table">';
-      html += '<thead><tr><th>Item</th><th>Count</th><th>Percentage</th></tr></thead>';
+      html += '<thead><tr><th>Item</th><th class="item-count">Count</th><th class="item-percentage">Percentage</th></tr></thead>';
       html += '<tbody>';
       
       // Handle different Matomo data formats
@@ -226,44 +226,58 @@
 
   /**
    * Generate mock data for demonstration
-   * In production, replace with actual Matomo API calls
+   * Realistic DSF usage patterns for UVA academic environment
    */
   function generateMockData(sectionId) {
     const mockData = {
       'popular-criteria': [
-        { name: 'Data Type: Research Data', count: 245 },
-        { name: 'Storage Duration: Long-term', count: 198 },
-        { name: 'Access Level: Restricted', count: 156 },
-        { name: 'Data Size: Large (>1TB)', count: 134 },
-        { name: 'Backup Required: Yes', count: 112 }
+        { name: 'Access Level: Restricted', count: 892 },
+        { name: 'Data Type: Research Data', count: 756 },
+        { name: 'Storage Duration: Long-term', count: 634 },
+        { name: 'Backup Required: Yes', count: 587 },
+        { name: 'Data Size: Large (>1TB)', count: 445 },
+        { name: 'Collaboration Required: Yes', count: 398 },
+        { name: 'Compliance: FERPA', count: 334 },
+        { name: 'Geographic Location: US Only', count: 287 }
       ],
       'unpopular-criteria': [
-        { name: 'Data Type: Software', count: 12 },
-        { name: 'Access Level: Public', count: 18 },
-        { name: 'Storage Duration: Temporary', count: 23 },
-        { name: 'Data Size: Small (<1GB)', count: 31 },
-        { name: 'Geographic Location: International', count: 37 }
+        { name: 'Data Type: Administrative', count: 198 },
+        { name: 'Access Level: Departmental', count: 234 },
+        { name: 'Geographic Location: International', count: 156 },
+        { name: 'Storage Duration: Temporary', count: 123 },
+        { name: 'Data Size: Small (<1GB)', count: 98 },
+        { name: 'Backup Required: No', count: 76 },
+        { name: 'Access Level: Public', count: 54 },
+        { name: 'Compliance: None Required', count: 43 }
       ],
       'popular-services': [
-        { name: 'Research Data Repository', count: 189 },
-        { name: 'Secure Cloud Storage', count: 156 },
-        { name: 'High-Performance Computing Storage', count: 134 },
-        { name: 'Collaborative Workspace', count: 98 },
-        { name: 'Archive Service', count: 76 }
+        { name: 'Box Cloud Storage', count: 1456 },
+        { name: 'Libra Research Data Repository', count: 987 },
+        { name: 'Google Workspace for Education', count: 834 },
+        { name: 'HPC (Rivanna) Storage', count: 672 },
+        { name: 'Office 365 OneDrive', count: 589 },
+        { name: 'Fedora Research Repository', count: 445 },
+        { name: 'SharePoint Sites', count: 378 },
+        { name: 'Dataverse', count: 334 }
       ],
       'investigated-services': [
-        { name: 'Research Data Repository', count: 67 },
-        { name: 'Secure Cloud Storage', count: 45 },
-        { name: 'High-Performance Computing Storage', count: 34 },
-        { name: 'Collaborative Workspace', count: 28 },
-        { name: 'Archive Service', count: 19 }
+        { name: 'Box Cloud Storage', count: 234 },
+        { name: 'Libra Research Data Repository', count: 189 },
+        { name: 'HPC (Rivanna) Storage', count: 156 },
+        { name: 'Google Workspace for Education', count: 134 },
+        { name: 'Fedora Research Repository', count: 98 },
+        { name: 'Office 365 OneDrive', count: 87 },
+        { name: 'Dataverse', count: 76 },
+        { name: 'ORCID Integration', count: 54 }
       ],
       'engagement-patterns': [
-        { name: 'Facet Selections', count: 1234 },
-        { name: 'Service Views', count: 567 },
-        { name: 'Service Investigations', count: 234 },
-        { name: 'Comparison Chart Views', count: 123 },
-        { name: 'External Link Clicks', count: 89 }
+        { name: 'Facet Selections', count: 4567 },
+        { name: 'Service Views', count: 3234 },
+        { name: 'Service Investigations', count: 1876 },
+        { name: 'Service Comparisons', count: 987 },
+        { name: 'External Link Clicks', count: 654 },
+        { name: 'Help Documentation Views', count: 432 },
+        { name: 'Contact Form Submissions', count: 234 }
       ]
     };
     

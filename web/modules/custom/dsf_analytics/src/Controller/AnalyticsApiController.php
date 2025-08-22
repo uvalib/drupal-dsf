@@ -158,21 +158,21 @@ class AnalyticsApiController extends ControllerBase {
     // Return mock data for development/testing
     $data = [
       'most_popular' => [
-        ['facet' => 'College/School', 'value' => 'Engineering', 'selections' => 245],
-        ['facet' => 'Service Type', 'value' => 'Academic Support', 'selections' => 189],
-        ['facet' => 'Audience', 'value' => 'Students', 'selections' => 167],
-        ['facet' => 'Format', 'value' => 'Online', 'selections' => 134],
-        ['facet' => 'Cost', 'value' => 'Free', 'selections' => 98],
+        ['facet' => 'Access Level', 'value' => 'Restricted', 'selections' => 892],
+        ['facet' => 'Data Type', 'value' => 'Research Data', 'selections' => 756],
+        ['facet' => 'Storage Duration', 'value' => 'Long-term', 'selections' => 634],
+        ['facet' => 'Backup Required', 'value' => 'Yes', 'selections' => 587],
+        ['facet' => 'Data Size', 'value' => 'Large (>1TB)', 'selections' => 445],
       ],
       'least_popular' => [
-        ['facet' => 'Language', 'value' => 'Spanish', 'selections' => 12],
-        ['facet' => 'Service Type', 'value' => 'Equipment Rental', 'selections' => 8],
-        ['facet' => 'Accessibility', 'value' => 'Sign Language', 'selections' => 5],
-        ['facet' => 'Format', 'value' => 'Phone Only', 'selections' => 3],
-        ['facet' => 'Cost', 'value' => 'Premium', 'selections' => 2],
+        ['facet' => 'Compliance', 'value' => 'None Required', 'selections' => 43],
+        ['facet' => 'Access Level', 'value' => 'Public', 'selections' => 54],
+        ['facet' => 'Backup Required', 'value' => 'No', 'selections' => 76],
+        ['facet' => 'Data Size', 'value' => 'Small (<1GB)', 'selections' => 98],
+        ['facet' => 'Storage Duration', 'value' => 'Temporary', 'selections' => 123],
       ],
-      'total_selections' => 1467,
-      'unique_combinations' => 89,
+      'total_selections' => 4567,
+      'unique_combinations' => 287,
     ];
 
     return new JsonResponse([
@@ -199,21 +199,21 @@ class AnalyticsApiController extends ControllerBase {
     // Return mock data for development/testing
     $data = [
       'most_viewed' => [
-        ['service' => 'Library Research Support', 'views' => 342],
-        ['service' => 'Writing Center', 'views' => 298],
-        ['service' => 'Career Counseling', 'views' => 276],
-        ['service' => 'Mental Health Services', 'views' => 234],
-        ['service' => 'IT Help Desk', 'views' => 198],
+        ['service' => 'Box Cloud Storage', 'views' => 1456],
+        ['service' => 'Libra Research Data Repository', 'views' => 987],
+        ['service' => 'Google Workspace for Education', 'views' => 834],
+        ['service' => 'HPC (Rivanna) Storage', 'views' => 672],
+        ['service' => 'Office 365 OneDrive', 'views' => 589],
       ],
       'least_viewed' => [
-        ['service' => 'Specialized Equipment Lab', 'views' => 23],
-        ['service' => 'Graduate Housing', 'views' => 18],
-        ['service' => 'International Student Services', 'views' => 15],
-        ['service' => 'Alumni Mentoring', 'views' => 12],
-        ['service' => 'Emergency Financial Aid', 'views' => 8],
+        ['service' => 'ORCID Integration', 'views' => 287],
+        ['service' => 'Virginia Heritage', 'views' => 234],
+        ['service' => 'Research Collaboration Platform', 'views' => 198],
+        ['service' => 'Secure File Transfer', 'views' => 167],
+        ['service' => 'Data Visualization Tools', 'views' => 134],
       ],
-      'total_views' => 2847,
-      'unique_services_viewed' => 156,
+      'total_views' => 8234,
+      'unique_services_viewed' => 42,
     ];
 
     return new JsonResponse([
@@ -240,21 +240,21 @@ class AnalyticsApiController extends ControllerBase {
     // Return mock data for development/testing
     $data = [
       'details_views' => [
-        ['service' => 'Library Research Support', 'detail_views' => 89],
-        ['service' => 'Writing Center', 'detail_views' => 76],
-        ['service' => 'Career Counseling', 'detail_views' => 62],
-        ['service' => 'Mental Health Services', 'detail_views' => 54],
-        ['service' => 'IT Help Desk', 'detail_views' => 43],
+        ['service' => 'Box Cloud Storage', 'detail_views' => 234],
+        ['service' => 'Libra Research Data Repository', 'detail_views' => 189],
+        ['service' => 'HPC (Rivanna) Storage', 'detail_views' => 156],
+        ['service' => 'Google Workspace for Education', 'detail_views' => 134],
+        ['service' => 'Fedora Research Repository', 'detail_views' => 98],
       ],
       'comparisons' => [
-        ['services' => 'Library Research vs Writing Center', 'comparisons' => 34],
-        ['services' => 'Career Services vs Academic Advising', 'comparisons' => 28],
-        ['services' => 'Online vs In-Person Tutoring', 'comparisons' => 22],
-        ['services' => 'Free vs Paid Services', 'comparisons' => 19],
-        ['services' => 'Emergency vs Regular Financial Aid', 'comparisons' => 15],
+        ['services' => 'Box vs Google Workspace', 'comparisons' => 89],
+        ['services' => 'Libra vs Fedora Repository', 'comparisons' => 76],
+        ['services' => 'HPC vs Box Storage', 'comparisons' => 54],
+        ['services' => 'OneDrive vs Box', 'comparisons' => 43],
+        ['services' => 'Dataverse vs Libra', 'comparisons' => 32],
       ],
-      'external_clicks' => 456,
-      'average_investigation_depth' => 2.3,
+      'external_clicks' => 654,
+      'average_investigation_depth' => 3.2,
     ];
 
     return new JsonResponse([
@@ -777,44 +777,77 @@ class AnalyticsApiController extends ControllerBase {
    */
   private function getMockData($method) {
     switch ($method) {
-      case 'Actions.getPageUrls':
+      case 'Events.getAction':
+        // DSF Facet selections - realistic academic research needs
         return [
-          ['label' => '/digital-services', 'nb_visits' => 1250, 'nb_hits' => 2100],
-          ['label' => '/services/search', 'nb_visits' => 980, 'nb_hits' => 1654],
-          ['label' => '/services/categories', 'nb_visits' => 760, 'nb_hits' => 1230],
-          ['label' => '/contact', 'nb_visits' => 450, 'nb_hits' => 680],
-          ['label' => '/about', 'nb_visits' => 320, 'nb_hits' => 485],
+          ['label' => 'Selected_Access_Level_Restricted', 'nb_events' => 892],
+          ['label' => 'Selected_Data_Type_Research_Data', 'nb_events' => 756],
+          ['label' => 'Selected_Storage_Duration_Long_term', 'nb_events' => 634],
+          ['label' => 'Selected_Backup_Required_Yes', 'nb_events' => 587],
+          ['label' => 'Selected_Data_Size_Large', 'nb_events' => 445],
+          ['label' => 'Selected_Collaboration_Required_Yes', 'nb_events' => 398],
+          ['label' => 'Selected_Compliance_FERPA', 'nb_events' => 334],
+          ['label' => 'Selected_Geographic_Location_US_Only', 'nb_events' => 287],
+          ['label' => 'Selected_Access_Level_Departmental', 'nb_events' => 234],
+          ['label' => 'Selected_Data_Type_Administrative', 'nb_events' => 198],
+        ];
+
+      case 'Events.getName':
+        // Service views - actual UVA digital services
+        return [
+          ['label' => 'Box Cloud Storage', 'nb_events' => 1456],
+          ['label' => 'Libra Research Data Repository', 'nb_events' => 987],
+          ['label' => 'Google Workspace for Education', 'nb_events' => 834],
+          ['label' => 'HPC (Rivanna) Storage', 'nb_events' => 672],
+          ['label' => 'Office 365 OneDrive', 'nb_events' => 589],
+          ['label' => 'Fedora Research Repository', 'nb_events' => 445],
+          ['label' => 'SharePoint Sites', 'nb_events' => 378],
+          ['label' => 'Dataverse', 'nb_events' => 334],
+          ['label' => 'ORCID Integration', 'nb_events' => 287],
+          ['label' => 'Virginia Heritage', 'nb_events' => 234],
+        ];
+
+      case 'Events.getCategory':
+        // User engagement categories
+        return [
+          ['label' => 'DSF_Facets', 'nb_events' => 4567],
+          ['label' => 'DSF_Services', 'nb_events' => 3234],
+          ['label' => 'DSF_Service_Investigation', 'nb_events' => 1876],
+          ['label' => 'DSF_Comparisons', 'nb_events' => 987],
+          ['label' => 'DSF_External_Links', 'nb_events' => 654],
+        ];
+
+      case 'Actions.getPageUrls':
+        // DSF page views
+        return [
+          ['label' => '/digital-service-finder', 'nb_visits' => 2340, 'nb_hits' => 4567],
+          ['label' => '/digital-service-finder/results', 'nb_visits' => 1876, 'nb_hits' => 3234],
+          ['label' => '/digital-service-finder/service/box-storage', 'nb_visits' => 987, 'nb_hits' => 1234],
+          ['label' => '/digital-service-finder/service/libra-repository', 'nb_visits' => 756, 'nb_hits' => 987],
+          ['label' => '/digital-service-finder/compare', 'nb_visits' => 543, 'nb_hits' => 756],
         ];
 
       case 'Referrers.getSearchEngines':
         return [
-          ['label' => 'Google', 'nb_visits' => 2100],
-          ['label' => 'Bing', 'nb_visits' => 340],
-          ['label' => 'DuckDuckGo', 'nb_visits' => 120],
-          ['label' => 'Yahoo', 'nb_visits' => 80],
+          ['label' => 'Google', 'nb_visits' => 1876],
+          ['label' => 'Direct Access', 'nb_visits' => 1234],
+          ['label' => 'UVA Library Website', 'nb_visits' => 756],
+          ['label' => 'Bing', 'nb_visits' => 234],
+          ['label' => 'DuckDuckGo', 'nb_visits' => 123],
         ];
 
       case 'DevicesDetection.getOS':
         return [
-          ['label' => 'Windows', 'nb_visits' => 1850],
-          ['label' => 'macOS', 'nb_visits' => 1200],
-          ['label' => 'iOS', 'nb_visits' => 680],
-          ['label' => 'Android', 'nb_visits' => 490],
-          ['label' => 'Linux', 'nb_visits' => 180],
-        ];
-
-      case 'Events.getCategory':
-        return [
-          ['label' => 'DSF Service Views', 'nb_events' => 3200],
-          ['label' => 'Facet Selections', 'nb_events' => 2800],
-          ['label' => 'Service Comparisons', 'nb_events' => 850],
-          ['label' => 'Detail Views', 'nb_events' => 1100],
-          ['label' => 'External Links', 'nb_events' => 560],
+          ['label' => 'Windows', 'nb_visits' => 2134],
+          ['label' => 'macOS', 'nb_visits' => 1567],
+          ['label' => 'iOS', 'nb_visits' => 678],
+          ['label' => 'Android', 'nb_visits' => 456],
+          ['label' => 'Linux', 'nb_visits' => 234],
         ];
 
       default:
         return [
-          ['label' => 'Sample Data', 'value' => 100],
+          ['label' => 'Sample Data Available', 'value' => 1],
         ];
     }
   }

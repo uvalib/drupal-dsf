@@ -70,6 +70,11 @@
   border-bottom: 2px solid #e9ecef;
 }
 
+.analytics-table th.item-count,
+.analytics-table th.item-percentage {
+  text-align: right;
+}
+
 .analytics-table td {
   padding: 12px 15px;
   border-bottom: 1px solid #e9ecef;
