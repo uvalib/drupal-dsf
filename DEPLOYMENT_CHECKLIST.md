@@ -60,19 +60,16 @@ drush user:role:list administrator
 
 ### 4. Configuration
 ```bash
-# Set initial configuration to mock mode for safety
-drush dsf-data mock
+# Module will work without API token - shows sample data until configured
+# To enable real analytics data when ready:
 
-# Configure API token (when ready for real data)
+# Configure API token (OPTIONAL - can be done later)
 drush dsf-token YOUR_MATOMO_API_TOKEN
 
-# Test API connection
+# Test API connection (only if token configured)
 drush dsf-test
 
-# Switch to real data mode
-drush dsf-data real
-
-# Verify status
+# Verify current status (works with or without token)
 drush dsf-status
 ```
 
@@ -141,9 +138,11 @@ drush cr
 ## Expected Behavior After Deployment
 
 ### Initial State
+
 - Module installed and enabled
 - Dashboard accessible to administrators
-- Real data mode configured but showing "no data available"
+- **Sample data displayed** if no API token configured (EXPECTED - not an error)
+- Real data mode ready but showing "no data available" if API token is configured
 - This is EXPECTED because the tracking events haven't been deployed yet
 
 ### Once DSF Application Goes Live
@@ -163,20 +162,22 @@ drush cr
 ## Troubleshooting
 
 ### Common Issues
-1. **"No API token configured"**
+
+1. **Dashboard shows sample data**
+   - This is NORMAL behavior when no API token is configured
+   - Configure token when ready: `drush dsf-token YOUR_TOKEN`
+   - Or configure via admin interface
+
+2. **"No API token configured"**
    - Run: `drush dsf-token YOUR_TOKEN`
    - Or configure via admin interface
 
-2. **"Matomo module not configured"**
+3. **"Matomo module not configured"**
    - Configure base Matomo module first
    - Check URL and Site ID settings
 
-3. **Dashboard shows mock data**
-   - Check current mode: `drush dsf-status`
-   - Switch to real mode: `drush dsf-data real`
-
 4. **"No data available" in real mode**
-   - This is expected initially
+   - This is expected initially when API token is configured
    - Data will appear as users interact with DSF
 
 ### Log Monitoring
