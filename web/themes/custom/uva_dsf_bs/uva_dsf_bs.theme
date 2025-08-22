@@ -65,5 +65,12 @@ function uva_dsf_bs_preprocess_block(&$variables) {
       $variables['env_label'] = 'DEVELOPMENT';
       $variables['env_warning'] = 'Development environment';
     }
+
+    // Add admin analytics navigation variables
+    $current_user = \Drupal::currentUser();
+    $variables['logged_in'] = $current_user->isAuthenticated();
+    $variables['is_admin'] = $current_user->hasPermission('access dsf analytics') || 
+                            $current_user->hasPermission('administer dsf analytics') ||
+                            $current_user->hasPermission('administer site configuration');
   }
 }

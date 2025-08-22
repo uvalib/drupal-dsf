@@ -139,7 +139,7 @@ dsf_analytics/
 │   ├── Commands/
 │   │   └── DsfAnalyticsCommands.php            # Drush command implementation
 │   └── Form/
-│       └── AnalyticsSettingsForm.php           # Admin configuration form
+│       └── DsfAnalyticsSettingsForm.php        # Admin configuration form
 ├── templates/
 │   └── dsf-analytics-dashboard.html.twig       # Dashboard template
 ├── css/

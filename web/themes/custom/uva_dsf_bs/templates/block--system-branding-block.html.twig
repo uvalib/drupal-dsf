@@ -12,7 +12,7 @@
  * - site_slogan: Slogan for site as defined in Site information settings.
  */
 #}
-{% set attributes = attributes.addClass('site-branding') %}
+{% set attributes = attributes.addClass('site-branding').setAttribute('style', 'position: relative;') %}
 
 {% if site_logo or site_name %}
 <a href="https://library.virginia.edu/" title="{{ 'University of Virginia Library homepage'|t }}" rel="home" class="navbar-brand">
@@ -37,6 +37,50 @@
 			Changes may be lost when database is updated from production.
 		{% endif %}
 	</span>
+</div>
+{% endif %}
+
+{# Add DSF Analytics admin navigation for administrators #}
+{% if logged_in and is_admin %}
+<div class="admin-analytics-nav" style="position: absolute; right: 15px; top: 15px;">
+	<div class="dropdown" style="position: relative; display: inline-block;">
+		<span style="font-size: 12px; cursor: pointer; padding: 4px 8px; color: #333;" 
+		      onclick="toggleAnalyticsMenu(event)"
+		      id="analyticsMenuToggle">Analytics ▼</span>
+		<div id="analyticsMenu" 
+		     style="display: none; position: absolute; right: 0; top: 100%; background: white; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); min-width: 120px; z-index: 1000;">
+			<a href="/admin/reports/dsf-analytics" 
+			   style="display: block; padding: 8px 12px; text-decoration: none; color: #333; font-size: 12px; border-bottom: 1px solid #eee;"
+			   onmouseover="this.style.backgroundColor='#f5f5f5'" 
+			   onmouseout="this.style.backgroundColor='white'">Dashboard</a>
+			<a href="/admin/config/system/dsf-analytics" 
+			   style="display: block; padding: 8px 12px; text-decoration: none; color: #333; font-size: 12px;"
+			   onmouseover="this.style.backgroundColor='#f5f5f5'" 
+			   onmouseout="this.style.backgroundColor='white'">Settings</a>
+		</div>
+	</div>
+	<script>
+	function toggleAnalyticsMenu(event) {
+		event.stopPropagation();
+		var menu = document.getElementById('analyticsMenu');
+		var toggle = document.getElementById('analyticsMenuToggle');
+		if (menu.style.display === 'none') {
+			menu.style.display = 'block';
+			toggle.innerHTML = 'Analytics ▲';
+		} else {
+			menu.style.display = 'none';
+			toggle.innerHTML = 'Analytics ▼';
+		}
+	}
+	document.addEventListener('click', function() {
+		var menu = document.getElementById('analyticsMenu');
+		var toggle = document.getElementById('analyticsMenuToggle');
+		if (menu) {
+			menu.style.display = 'none';
+			toggle.innerHTML = 'Analytics ▼';
+		}
+	});
+	</script>
 </div>
 {% endif %}
 
