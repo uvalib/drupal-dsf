@@ -80,6 +80,14 @@ footer a {
   text-decoration: underline;
 }
 
+#app .intro-text>* {
+  margin: 1.5rem 0;
+  font-size: 1.3rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: $intro-text;
+}
+
 #bs-example-navbar-collapse-1 ul li a {
   color: $navbar-link-color;
 
