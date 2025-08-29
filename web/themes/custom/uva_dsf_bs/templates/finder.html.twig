@@ -2,12 +2,19 @@
 	<div class="row">
 		<div class="col-md-12 app-title">
 			<h1 class="title" id='pagetitle'>UVA Data Storage Finder</h1>
-			<p class="lead" id='pagesubtitle'>Find the right data storage solution for your research and projects.</p>
-
-			{# <p class="cert">
-																			<span class="fa fa-comments"></span>We welcome
-																			<a href="#">feedback</a>
-																			on this tool.</p> #}
+			{# <p class="lead" id='pagesubtitle'> #}
+			<p class="lead">The Data Storage Finder is designed to help you find and evaluate storage options at UVA.</p>
+			<div class="intro-text">
+				<p>To use:</p>
+				<ol>
+					<li>Answer questions on the left to describe your data and storage needs.</li>
+					<li>Select services on the right to compare.</li>
+					<li>View a side-by-side comparison at the bottom of the page.</li>
+				</ol>
+				<p>Questions? Contact
+					<a href="mailto:RC-DAC@virginia.edu">RC-DAC@virginia.edu.</a>
+				</p>
+			</div>
 		</div>
 	</div>
 
@@ -119,23 +126,27 @@
 				<div class="results-actions">
 					<div class="btn-group" role="group" aria-label="Save and share options">
 						<button type="button" id="print_results" class="btn btn-primary" aria-describedby="print-desc" data-action="print">
-							<i class="fa fa-print" aria-hidden="true"></i> Print Results
+							<i class="fa fa-print" aria-hidden="true"></i>
+							Print Results
 						</button>
 						<span id="print-desc" class="sr-only">Opens a print-friendly view of your results in a new window</span>
 						<button type="button" id="copy_results" class="btn btn-secondary" aria-describedby="copy-desc" data-action="copy">
-							<i class="fa fa-copy" aria-hidden="true"></i> Copy to Clipboard
+							<i class="fa fa-copy" aria-hidden="true"></i>
+							Copy to Clipboard
 						</button>
 						<span id="copy-desc" class="sr-only">Copies your results as text to the clipboard</span>
 						{# Email functionality temporarily disabled - button and description hidden from accessibility tree #}
 						<button type="button" id="generate_email" class="btn btn-secondary" aria-describedby="email-desc" data-action="email" style="display: none;" aria-hidden="true" tabindex="-1">
-							<i class="fa fa-envelope" aria-hidden="true"></i> Generate Email
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+							Generate Email
 						</button>
 						<span id="email-desc" class="sr-only" style="display: none;" aria-hidden="true">Creates an email with your results that you can send or copy</span>
 					</div>
 					<!-- WCAG 2.2 AA - Provide help text for complex interactions -->
 					<div class="mt-2 text-muted" id="results-help" aria-live="polite">
-						<small><i class="fa fa-info-circle" aria-hidden="true"></i> 
-						Use these buttons to save or share your comparison results. The shareable link below updates automatically as you make selections.</small>
+						<small>
+							<i class="fa fa-info-circle" aria-hidden="true"></i>
+							Use these buttons to save or share your comparison results. The shareable link below updates automatically as you make selections.</small>
 					</div>
 				</div>
 
@@ -144,12 +155,14 @@
 					<p class="text-muted" id="email-preview-instructions">Review the content below, then choose how to send it:</p>
 					<div class="alert alert-warning" role="alert" aria-live="polite">
 						<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-						<strong>Note:</strong> If the "Try Email Client" button doesn't work, this is common on Mac Chrome and other browsers. 
-						Simply use the "Copy Email Text" button instead to copy the content to your clipboard, then paste it into your email application.
+						<strong>Note:</strong>
+						If the "Try Email Client" button doesn't work, this is common on Mac Chrome and other browsers. 
+																																																Simply use the "Copy Email Text" button instead to copy the content to your clipboard, then paste it into your email application.
 						<!-- WCAG 2.2 AA - Provide accessible help -->
 						<div class="mt-2">
 							<button type="button" class="btn btn-sm btn-outline-secondary" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none';" aria-expanded="false" aria-controls="email-help-details">
-								<i class="fa fa-question-circle" aria-hidden="true"></i> Need more help?
+								<i class="fa fa-question-circle" aria-hidden="true"></i>
+								Need more help?
 							</button>
 							<div id="email-help-details" style="display: none;" class="mt-2 p-2 border-left">
 								<strong>Troubleshooting email sharing:</strong>
@@ -164,7 +177,8 @@
 					</div>
 					<div class="card" role="article" aria-labelledby="email-subject-heading">
 						<div class="card-header">
-							<strong id="email-subject-heading">Subject:</strong> <span id="email_subject">Data Storage Finder Results</span>
+							<strong id="email-subject-heading">Subject:</strong>
+							<span id="email_subject">Data Storage Finder Results</span>
 						</div>
 						<div class="card-body">
 							<div id="email_content" role="document" aria-label="Email content preview"></div>
@@ -173,25 +187,29 @@
 					<div class="mt-3">
 						<div class="btn-group" role="group" aria-label="Email sharing options">
 							<button type="button" id="copy_email_content" class="btn btn-primary" aria-describedby="copy-email-desc" data-action="copy-email">
-								<i class="fa fa-copy" aria-hidden="true"></i> Copy Email Text
+								<i class="fa fa-copy" aria-hidden="true"></i>
+								Copy Email Text
 							</button>
 							<span id="copy-email-desc" class="sr-only">Copies email content to clipboard for manual pasting - recommended method</span>
 							<a href="#" id="open_email_client" class="btn btn-secondary" aria-describedby="email-client-desc" role="button" data-action="open-email">
-								<i class="fa fa-external-link" aria-hidden="true"></i> Try Email Client
+								<i class="fa fa-external-link" aria-hidden="true"></i>
+								Try Email Client
 							</a>
 							<span id="email-client-desc" class="sr-only">Attempts to open your default email application (may not work on all systems)</span>
 						</div>
 						<button type="button" id="close_email_preview" class="btn btn-secondary ml-2" aria-label="Close email preview" data-action="close-preview">Close</button>
 					</div>
 					<div id="email_copy_feedback" class="alert alert-info mt-2" style="display: none;" role="status" aria-live="polite">
-						<i class="fa fa-info-circle" aria-hidden="true"></i> Email content copied to clipboard. You can paste it into your email client manually.
+						<i class="fa fa-info-circle" aria-hidden="true"></i>
+						Email content copied to clipboard. You can paste it into your email client manually.
 					</div>
 				</div>
 
 				<!-- Persistent Share Link Display -->
 				<div id="persistent_share_link" class="persistent-share-link mt-3" role="region" aria-labelledby="persistent-share-heading">
 					<h4 id="persistent-share-heading" class="h6 mb-2">
-						<i class="fa fa-link" aria-hidden="true"></i> Shareable Link
+						<i class="fa fa-link" aria-hidden="true"></i>
+						Shareable Link
 					</h4>
 					<div class="card">
 						<div class="card-body p-3">
@@ -202,20 +220,23 @@
 								<input type="text" class="form-control" id="persistent_share_url" readonly aria-label="Current shareable URL for this comparison" style="font-size: 14px; background-color: #f8f9fa;">
 								<div class="input-group-append">
 									<button type="button" id="copy_persistent_link" class="btn btn-primary" aria-describedby="copy-persistent-desc" data-action="copy-persistent">
-										<i class="fa fa-copy" aria-hidden="true"></i> Copy Link
+										<i class="fa fa-copy" aria-hidden="true"></i>
+										Copy Link
 									</button>
 								</div>
 							</div>
 							<span id="copy-persistent-desc" class="sr-only">Copies the current shareable link to clipboard</span>
 							<div id="persistent_copy_feedback" class="alert alert-success mt-2" style="display: none;" role="status" aria-live="polite">
-								<i class="fa fa-check-circle" aria-hidden="true"></i> Share link copied to clipboard!
+								<i class="fa fa-check-circle" aria-hidden="true"></i>
+								Share link copied to clipboard!
 							</div>
 						</div>
 					</div>
 				</div>
 
 				<div id="copy_feedback" class="alert alert-success mt-3" style="display: none;" role="status" aria-live="polite">
-					<i class="fa fa-check-circle" aria-hidden="true"></i> Results copied to clipboard!
+					<i class="fa fa-check-circle" aria-hidden="true"></i>
+					Results copied to clipboard!
 				</div>
 			</div>
 		</div>
@@ -224,9 +245,9 @@
 	{# jump to chart block used to live here #}
 
 	{# <div style="margin-top:25px;">
-							<p class="cert">
-								<span class="fa fa-comments"></span>We welcome
-								<a href="#">feedback</a>
-								on this tool.</p>
-						</div> #}
+														<p class="cert">
+															<span class="fa fa-comments"></span>We welcome
+															<a href="#">feedback</a>
+															on this tool.</p>
+													</div> #}
 </div>
