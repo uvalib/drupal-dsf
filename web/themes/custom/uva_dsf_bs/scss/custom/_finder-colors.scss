@@ -11,8 +11,8 @@ $color-e: #4F4F4F; // Secondary Button Text
 $color-k: #91D8F2; // Secondary Button Hover Background
 $color-l: #BFE7F7; // Secondary Button background
 
-// Footer and Notifications
-$color-f: #B40000; // Footer Links, Notifications Background
+// Notifications
+$color-f: #B40000; // Notifications Background
 
 // Background and Selection
 $color-m: #8693A7; // Primary Background (blue-gray)
@@ -26,6 +26,7 @@ $color-q: #737373; // Explanation Text
 $color-v: #262626; // ally text
 $color-w: #ffffff; // ally text light
 $color-1d: #555555; // text muted
+$color-1e: #dddddd; // light gray
 
 // Other
 $color-n: #232D4B; // Headings (brown)
@@ -74,8 +75,7 @@ $share-link-border: $color-c; // Persistent Share Link border
 $share-link-border-focus: $color-b; // Persistent Share Link border focus
 $share-link-bg: $color-c; // Persistent Share Link background
 
-// Footer and Navbar
-$footer-link-color: $color-f; // Footer Links
+// Navbar
 $navbar-link-color: $color-g; // Navbar Link Default
 $navbar-link-hover-color: $color-h; // Navbar Link Hover
 $navbar-link-active-color: $color-h; // Navbar Link Active
@@ -96,6 +96,10 @@ $ally-text: $color-v; // ally text
 $intro-text: $color-v; // intro text
 $ally-text-light: $color-w; // ally text light
 $text-muted: $color-1d; // Text Muted
+
+// Footer colors
+$footer-link-color: $color-p; // Footer Links
+$footer-border-top: $color-1e; // Footer Border Top
 
 // Background colors
 $background-primary: $color-m; // Primary Background (e.g., hero, general background)
