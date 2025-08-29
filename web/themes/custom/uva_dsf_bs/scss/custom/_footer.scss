@@ -1,0 +1,28 @@
+@use "./finder-colors" as *;
+@use "../mixins.scss" as *;
+
+footer {
+  border-top: 1px solid $footer-border-top;
+}
+
+.site-footer {
+
+
+  .uva-footer {
+    margin-bottom: 6rem;
+    // background-color: $footer-bg;
+    // color: $footer-text;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem 1rem 1rem;
+
+    p {
+      width: 75%;
+
+      a {
+        color: $footer-link-color;
+      }
+    }
+  }
+}
