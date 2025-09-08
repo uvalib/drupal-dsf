@@ -97,25 +97,17 @@ $databases = [];
 // - MYSQL_HOST, MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD, [optional] MYSQL_PORT
 // This allows Drush and Drupal to connect during deploy without committing creds.
 if (($envDbName = getenv('MYSQL_DATABASE')) !== false && $envDbName !== '') {
-  $envDbUser = getenv('MYSQL_USER') ?: '';
-  $envDbPass = getenv('MYSQL_PASSWORD') ?: '';
-  $envDbHost = getenv('MYSQL_HOST') ?: 'localhost';
-  $envDbPort = getenv('MYSQL_PORT');
-
-  $db = [
-    'database' => $envDbName,
-    'username' => $envDbUser,
-    'password' => $envDbPass,
-    'host' => $envDbHost,
-    'driver' => 'mysql',
+  $databases['default']['default'] = [
+    'database' => getenv('MYSQL_DATABASE'),
+    'username' => getenv('MYSQL_USER'),
+    'password' => getenv('MYSQL_PASSWORD'),
+    'host' => getenv('MYSQL_HOST'),
+    'port' => 3306,
     'prefix' => '',
     'collation' => 'utf8mb4_general_ci',
+    'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+    'driver' => 'mysql',
   ];
-  if ($envDbPort !== false && $envDbPort !== '') {
-    $db['port'] = (string) $envDbPort;
-  }
-
-  $databases['default']['default'] = $db;
 }
 
 /**
@@ -943,6 +935,11 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 # $settings['migrate_source_version'] = '';
 # $settings['migrate_file_public_path'] = '';
 # $settings['migrate_file_private_path'] = '';
+
+// DevOps and deployment settings
+$settings['devops_label'] = getenv('DEVOPS_LABEL') ?: "unknown";
+$settings['config_sync_directory'] = '/opt/drupal/config/sync';
+$settings['default_content_deploy_content_directory'] = '/opt/drupal/content_deploy';
 
 // Automatically generated include for settings managed by ddev.
 if (getenv('IS_DDEV_PROJECT') == 'true' && file_exists(__DIR__ . '/settings.ddev.php')) {
