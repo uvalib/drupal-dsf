@@ -34,6 +34,9 @@ RUN 	mkdir /opt/drupal/util \
 	&& ln -sf /opt/drupal/util/drupal-dsf/content_deploy /opt/drupal/content_deploy \
 	&& ln -sf /opt/drupal/util/drupal-dsf/web/themes/custom/uva_dsf_bs /opt/drupal/web/themes/custom/uva_dsf_bs
 
+# Ensure Apache serves our code from /opt/drupal/web (canonical docroot)
+RUN rm -rf /var/www/html && ln -s /opt/drupal/web /var/www/html
+
 
 # RUN chown -R www-data:www-data /opt/drupal/web/sites/default/files
 # install other dependancies
