@@ -20,7 +20,7 @@ WORKDIR $APP_HOME
 
 # Move in necessary assets
 COPY package/data/container_bash_profile /root/.profile
-COPY package/data/files/opt/drupal/web/sites/default/settings.php /opt/drupal/web/sites/default/settings.php
+COPY web/sites/default/settings.php /opt/drupal/web/sites/default/settings.php
 
 # github checkout drupal-dh dir and symlink appropriate directories
 RUN 	mkdir /opt/drupal/util \
