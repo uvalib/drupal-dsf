@@ -712,6 +712,48 @@ $settings['update_free_access'] = FALSE;
 # $config['system.site']['name'] = 'My Drupal site';
 # $config['user.settings']['anonymous'] = 'Visitor';
 
+// Matomo and DSF Analytics configuration overrides via environment variables.
+// These keep site IDs, URLs, and tokens out of exported config and Git.
+// Set these per-environment (ddev, dev, prod) in the host/web server env.
+//
+// Expected env vars:
+// - MATOMO_URL (e.g., https://analytics.lib.virginia.edu/)
+// - MATOMO_SITE_ID (numeric)
+// - MATOMO_API_TOKEN (secret token for API proxy)
+// - DSF_MATOMO_ENABLED (true/false)
+// - DSF_DATA_MODE (mock|real)
+// - DSF_TRACKING_MODE (DEBUG|PROD)
+//
+// Note: Only apply overrides if an env var is actually set, to allow
+// environments without these settings to fall back gracefully.
+// Matomo core module settings.
+if (($matomo_url = getenv('MATOMO_URL')) !== false && $matomo_url !== '') {
+  $config['matomo.settings']['url_https'] = $matomo_url;
+}
+if (($matomo_site_id = getenv('MATOMO_SITE_ID')) !== false && $matomo_site_id !== '') {
+  $config['matomo.settings']['site_id'] = (int) $matomo_site_id;
+}
+
+// DSF Analytics custom module settings.
+if (($dsf_matomo_enabled = getenv('DSF_MATOMO_ENABLED')) !== false && $dsf_matomo_enabled !== '') {
+  $config['dsf_analytics.settings']['matomo_enabled'] = in_array(strtolower((string) $dsf_matomo_enabled), ['1', 'true', 'yes', 'on'], true);
+}
+if (($dsf_data_mode = getenv('DSF_DATA_MODE')) !== false && $dsf_data_mode !== '') {
+  $config['dsf_analytics.settings']['data_mode'] = $dsf_data_mode;
+}
+if (($dsf_tracking_mode = getenv('DSF_TRACKING_MODE')) !== false && $dsf_tracking_mode !== '') {
+  $config['dsf_analytics.settings']['tracking_mode'] = $dsf_tracking_mode;
+}
+if (($matomo_url = getenv('MATOMO_URL')) !== false && $matomo_url !== '') {
+  $config['dsf_analytics.settings']['matomo_url'] = $matomo_url;
+}
+if (($matomo_site_id = getenv('MATOMO_SITE_ID')) !== false && $matomo_site_id !== '') {
+  $config['dsf_analytics.settings']['matomo_site_id'] = (int) $matomo_site_id;
+}
+if (($matomo_api_token = getenv('MATOMO_API_TOKEN')) !== false && $matomo_api_token !== '') {
+  $config['dsf_analytics.settings']['api_token'] = $matomo_api_token;
+}
+
 /**
  * Load services definition file.
  */
