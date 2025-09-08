@@ -314,7 +314,8 @@ if (($envDbName = getenv('MYSQL_DATABASE')) !== false && $envDbName !== '') {
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = '';
+// Set hash_salt from environment variable or use fallback for staging/dev
+$settings['hash_salt'] = getenv('DRUPAL_HASH_SALT') ?: '20ce1beb3a7a323804782fcc795ed1cf';
 
 /**
  * Deployment identifier.
