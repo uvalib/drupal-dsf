@@ -92,6 +92,32 @@
  */
 $databases = [];
 
+// Configure default database connection from environment variables when provided.
+// Expected variables (provided by infrastructure/container env):
+// - MYSQL_HOST, MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD, [optional] MYSQL_PORT
+// This allows Drush and Drupal to connect during deploy without committing creds.
+if (($envDbName = getenv('MYSQL_DATABASE')) !== false && $envDbName !== '') {
+  $envDbUser = getenv('MYSQL_USER') ?: '';
+  $envDbPass = getenv('MYSQL_PASSWORD') ?: '';
+  $envDbHost = getenv('MYSQL_HOST') ?: 'localhost';
+  $envDbPort = getenv('MYSQL_PORT');
+
+  $db = [
+    'database' => $envDbName,
+    'username' => $envDbUser,
+    'password' => $envDbPass,
+    'host' => $envDbHost,
+    'driver' => 'mysql',
+    'prefix' => '',
+    'collation' => 'utf8mb4_general_ci',
+  ];
+  if ($envDbPort !== false && $envDbPort !== '') {
+    $db['port'] = (string) $envDbPort;
+  }
+
+  $databases['default']['default'] = $db;
+}
+
 /**
  * Customizing database settings.
  *
