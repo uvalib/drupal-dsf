@@ -53,17 +53,19 @@ class AnalyticsApiController extends ControllerBase {
     $config = \Drupal::config('dsf_analytics.settings');
     $data_mode = $config->get('data_mode') ?: 'mock';
     
-    // Check if we should use real data
+    // Return mock data if not in real mode
     if ($data_mode !== 'real') {
       $method = $request->query->get('method', 'unknown');
       return new JsonResponse([
-        'error' => 'DSF Analytics Matomo not configured',
+        'success' => TRUE,
         'mock' => TRUE,
-        'data' => $this->getMockData($method)
+        'data' => $this->getMockData($method),
+        'data_mode' => $data_mode,
+        'message' => 'Displaying demo data (data mode: ' . $data_mode . ')'
       ]);
     }
 
-    // Check if API token is configured
+    // Real data mode - check if API token is configured
     $api_token = $config->get('api_token');
     if (empty($api_token)) {
       return new JsonResponse([

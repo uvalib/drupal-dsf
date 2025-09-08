@@ -27,6 +27,9 @@ function dsf_analytics_theme() {
         'matomo_enabled' => FALSE,
         'matomo_site_id' => NULL,
         'matomo_url' => NULL,
+        'dsf_tracking_enabled' => FALSE,
+        'data_mode' => 'mock',
+        'can_administer' => FALSE,
       ],
       'template' => 'dsf-analytics-dashboard',
     ],
@@ -87,6 +90,7 @@ function dsf_analytics_page_attachments(array &$attachments) {
         'url' => $config->get('matomo_url') ?? 'https://vah-analytics.lib.virginia.edu/',
         'trackingMode' => $config->get('tracking_mode') ?? 'PROD',
       ],
+      'dataMode' => $config->get('data_mode') ?? 'mock',
     ];
   }
 }

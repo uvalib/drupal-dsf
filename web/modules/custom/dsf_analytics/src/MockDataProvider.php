@@ -12,29 +12,34 @@ class MockDataProvider {
    *
    * @param string $method
    *   The API method name (e.g., 'Events.getAction').
+   * @param array $params
+   *   Optional parameters including date range.
    *
    * @return array
    *   Mock data array with appropriate structure.
    */
-  public static function getMockData($method) {
+  public static function getMockData($method, $params = []) {
+    // Calculate scaling factor based on time range.
+    $scaleFactor = self::getScalingFactor($params);
+
     switch ($method) {
       case 'Events.getAction':
-        return self::getFacetSelectionData();
+        return self::getFacetSelectionData($scaleFactor);
 
       case 'Events.getName':
-        return self::getServiceViewData();
+        return self::getServiceViewData($scaleFactor);
 
       case 'Events.getCategory':
-        return self::getEngagementCategoryData();
+        return self::getEngagementCategoryData($scaleFactor);
 
       case 'Actions.getPageUrls':
-        return self::getPageViewData();
+        return self::getPageViewData($scaleFactor);
 
       case 'Referrers.getSearchEngines':
-        return self::getReferrerData();
+        return self::getReferrerData($scaleFactor);
 
       case 'DevicesDetection.getOS':
-        return self::getDeviceData();
+        return self::getDeviceData($scaleFactor);
 
       default:
         return [
@@ -44,13 +49,104 @@ class MockDataProvider {
   }
 
   /**
+   * Calculate scaling factor based on time range.
+   *
+   * @param array $params
+   *   Parameters that may include period, date, etc.
+   *
+   * @return float
+   *   Scaling factor for the data.
+   */
+  private static function getScalingFactor($params) {
+    // Default to 7-day baseline.
+    $scaleFactor = 1.0;
+
+    if (isset($params['date'])) {
+      $date = $params['date'];
+
+      // Handle specific date ranges.
+      if (strpos($date, ',') !== false) {
+        // Custom date range format: start,end.
+        [$start, $end] = explode(',', $date);
+        $startDate = new \DateTime($start);
+        $endDate = new \DateTime($end);
+        $days = $startDate->diff($endDate)->days + 1;
+
+        // Scale relative to 7-day baseline.
+        $scaleFactor = $days / 7.0;
+      }
+      else {
+        // Predefined ranges.
+        switch ($date) {
+          case 'today':
+            $scaleFactor = 1.0 / 7.0;
+            break;
+
+          case 'yesterday':
+            $scaleFactor = 1.0 / 7.0;
+            break;
+
+          case 'last7':
+            $scaleFactor = 1.0;
+            break;
+
+          case 'last30':
+            $scaleFactor = 30.0 / 7.0;
+            break;
+
+          case 'last90':
+            $scaleFactor = 90.0 / 7.0;
+            break;
+
+          case 'last6':
+            $scaleFactor = 180.0 / 7.0;
+            break;
+
+          case 'lastyear':
+            $scaleFactor = 365.0 / 7.0;
+            break;
+
+          default:
+            $scaleFactor = 1.0;
+        }
+      }
+    }
+    elseif (isset($params['period'])) {
+      // Legacy period-based scaling.
+      switch ($params['period']) {
+        case 'day':
+          $scaleFactor = 1.0;
+          break;
+
+        case 'week':
+          $scaleFactor = 7.0;
+          break;
+
+        case 'month':
+          $scaleFactor = 30.0 / 7.0;
+          break;
+
+        default:
+          $scaleFactor = 1.0;
+      }
+    }
+
+    // Add some randomness for realism (±20%).
+    $randomFactor = 0.8 + (mt_rand() / mt_getrandmax()) * 0.4;
+    return $scaleFactor * $randomFactor;
+  }
+
+  /**
    * Get facet selection tracking data.
+   *
+   * @param float $scaleFactor
+   *   Factor to scale the data by.
    *
    * @return array
    *   Array of facet selection statistics.
    */
-  private static function getFacetSelectionData() {
-    return [
+  private static function getFacetSelectionData($scaleFactor = 1.0) {
+    $baseData = [
       ['label' => 'Selected_Access_Level_Restricted', 'nb_events' => 892],
       ['label' => 'Selected_Data_Type_Research_Data', 'nb_events' => 756],
       ['label' => 'Selected_Storage_Duration_Long_term', 'nb_events' => 634],
@@ -62,6 +158,8 @@ class MockDataProvider {
       ['label' => 'Selected_Access_Level_Departmental', 'nb_events' => 234],
       ['label' => 'Selected_Data_Type_Administrative', 'nb_events' => 198],
     ];
+
+    return self::scaleData($baseData, $scaleFactor);
   }
 
   /**

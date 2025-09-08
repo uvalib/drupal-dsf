@@ -90,6 +90,12 @@
 
       // Attach event listeners for DSF-specific tracking
       this.attachTrackingListeners(context);
+      
+      // Initialize workflow tracking on first load
+      if (!window.dsfWorkflowInitialized) {
+        window.DSFWorkflowTracker.init();
+        window.dsfWorkflowInitialized = true;
+      }
     },
 
     /**
@@ -329,6 +335,593 @@
       ]);
 
       console.log(`Tracked custom event: ${category} > ${action} > ${name} (${value})`);
+    },
+
+    /**
+     * Track workflow progression through DSF stages
+     */
+    trackWorkflowStage: function (stage, data) {
+      if (!MATOMO_CONFIG.enabled) return;
+
+      const stageData = data || {};
+      let eventName = stage;
+      let eventValue = 1;
+
+      switch (stage) {
+        case 'questions_started':
+          eventName = 'Questions Phase Started';
+          eventValue = stageData.totalQuestions || 1;
+          break;
+        case 'questions_completed':
+          eventName = `Questions Completed (${stageData.answeredCount}/${stageData.totalQuestions})`;
+          eventValue = stageData.answeredCount || 1;
+          break;
+        case 'results_reviewed':
+          eventName = `Results Reviewed (${stageData.resultCount} services)`;
+          eventValue = stageData.resultCount || 0;
+          break;
+        case 'selection_phase':
+          eventName = `Service Selection (${stageData.selectedCount} chosen)`;
+          eventValue = stageData.selectedCount || 0;
+          break;
+        case 'comparison_started':
+          eventName = `Comparison Started (${stageData.serviceCount} services)`;
+          eventValue = stageData.serviceCount || 0;
+          break;
+        case 'investigation_deep':
+          eventName = `Deep Investigation (${stageData.investigatedCount} services)`;
+          eventValue = stageData.investigatedCount || 0;
+          break;
+        case 'findings_recorded':
+          eventName = `Findings Recorded (${stageData.recordMethod})`;
+          eventValue = stageData.itemsRecorded || 1;
+          break;
+        case 'workflow_completed':
+          eventName = `Workflow Completed (${stageData.totalDuration}s)`;
+          eventValue = stageData.totalDuration || 1;
+          break;
+      }
+
+      _paq.push([
+        'trackEvent',
+        'DSF_Workflow',
+        stage,
+        eventName,
+        eventValue
+      ]);
+
+      // Set custom dimension for workflow stage tracking
+      _paq.push(['setCustomDimension', 6, stage]);
+
+      console.log(`Tracked workflow stage: ${stage} - ${eventName}`);
+    },
+
+    /**
+     * Track session-level selection behavior
+     */
+    trackSelectionSession: function (sessionData) {
+      if (!MATOMO_CONFIG.enabled) return;
+
+      const servicesSelected = sessionData.selectedServices || [];
+      const selectionTime = sessionData.timeSpent || 0;
+      const selectionMethod = sessionData.method || 'individual'; // 'individual', 'batch', 'filtered'
+
+      _paq.push([
+        'trackEvent',
+        'DSF_Selection_Session',
+        'Multi_Service_Selection',
+        `${servicesSelected.length} services | ${selectionMethod} | ${selectionTime}s`,
+        servicesSelected.length
+      ]);
+
+      // Track selection patterns
+      if (servicesSelected.length > 1) {
+        _paq.push([
+          'trackEvent',
+          'DSF_Selection_Session',
+          'Selection_Pattern',
+          `Services: ${servicesSelected.join(', ')}`,
+          servicesSelected.length
+        ]);
+      }
+
+      console.log(`Tracked selection session: ${servicesSelected.length} services selected via ${selectionMethod}`);
+    },
+
+    /**
+     * Track comparison session analysis
+     */
+    trackComparisonSession: function (comparisonData) {
+      if (!MATOMO_CONFIG.enabled) return;
+
+      const servicesCompared = comparisonData.services || [];
+      const comparisonDuration = comparisonData.duration || 0;
+      const criteriaFocused = comparisonData.criteriaViewed || [];
+      const outcome = comparisonData.outcome || 'abandoned'; // 'completed', 'abandoned', 'narrowed'
+
+      _paq.push([
+        'trackEvent',
+        'DSF_Comparison_Session',
+        'Comparison_Analysis',
+        `${servicesCompared.length} services | ${outcome} | ${comparisonDuration}s`,
+        comparisonDuration
+      ]);
+
+      // Track comparison effectiveness
+      if (criteriaFocused.length > 0) {
+        _paq.push([
+          'trackEvent',
+          'DSF_Comparison_Session',
+          'Criteria_Focus',
+          `Focused on: ${criteriaFocused.join(', ')}`,
+          criteriaFocused.length
+        ]);
+      }
+
+      console.log(`Tracked comparison session: ${servicesCompared.length} services compared, outcome: ${outcome}`);
+    },
+
+    /**
+     * Track investigation depth and research intensity
+     */
+    trackInvestigationSession: function (investigationData) {
+      if (!MATOMO_CONFIG.enabled) return;
+
+      const serviceId = investigationData.serviceId;
+      const serviceName = investigationData.serviceName;
+      const actionsPerformed = investigationData.actions || []; // ['details_viewed', 'documentation_opened', 'external_links_followed']
+      const timeSpent = investigationData.timeSpent || 0;
+      const investigationDepth = investigationData.depth || 'surface'; // 'surface', 'moderate', 'deep'
+
+      _paq.push([
+        'trackEvent',
+        'DSF_Investigation_Session',
+        'Investigation_Depth',
+        `${serviceName} | ${investigationDepth} | ${actionsPerformed.length} actions | ${timeSpent}s`,
+        timeSpent
+      ]);
+
+      // Track specific investigation actions
+      actionsPerformed.forEach(action => {
+        _paq.push([
+          'trackEvent',
+          'DSF_Investigation_Session',
+          'Investigation_Action',
+          `${serviceName} | ${action}`,
+          1
+        ]);
+      });
+
+      console.log(`Tracked investigation session: ${serviceName} - ${investigationDepth} investigation with ${actionsPerformed.length} actions`);
+    },
+
+    /**
+     * Track findings recording and saving behavior
+     */
+    trackFindingsRecording: function (recordingData) {
+      if (!MATOMO_CONFIG.enabled) return;
+
+      const method = recordingData.method || 'unknown'; // 'bookmark', 'print', 'email', 'export', 'notes'
+      const itemsRecorded = recordingData.items || [];
+      const recordingContext = recordingData.context || 'general'; // 'comparison', 'investigation', 'results'
+
+      _paq.push([
+        'trackEvent',
+        'DSF_Findings_Recording',
+        'Record_Method',
+        `${method} | ${itemsRecorded.length} items | ${recordingContext}`,
+        itemsRecorded.length
+      ]);
+
+      // Track what types of information are being saved
+      if (itemsRecorded.length > 0) {
+        _paq.push([
+          'trackEvent',
+          'DSF_Findings_Recording',
+          'Content_Saved',
+          `Items: ${itemsRecorded.join(', ')} | Method: ${method}`,
+          itemsRecorded.length
+        ]);
+      }
+
+      console.log(`Tracked findings recording: ${method} used to save ${itemsRecorded.length} items from ${recordingContext}`);
+    },
+
+    /**
+     * Track accessibility and usability interactions
+     */
+    trackAccessibilityUsage: function (feature, context) {
+      if (!MATOMO_CONFIG.enabled) return;
+
+      _paq.push([
+        'trackEvent',
+        'DSF_Accessibility',
+        'Feature_Used',
+        `${feature} | ${context}`,
+        1
+      ]);
+
+      console.log(`Tracked accessibility feature: ${feature} in ${context}`);
+    },
+
+    /**
+     * Track error conditions and user frustration indicators
+     */
+    trackUserFrustration: function (indicator, details) {
+      if (!MATOMO_CONFIG.enabled) return;
+
+      _paq.push([
+        'trackEvent',
+        'DSF_User_Experience',
+        'Frustration_Indicator',
+        `${indicator} | ${details}`,
+        1
+      ]);
+
+      console.log(`Tracked frustration indicator: ${indicator} - ${details}`);
+    },
+
+    /**
+     * Track performance and technical issues
+     */
+    trackPerformanceIssue: function (issueType, metrics) {
+      if (!MATOMO_CONFIG.enabled) return;
+
+      _paq.push([
+        'trackEvent',
+        'DSF_Performance',
+        'Issue_Detected',
+        `${issueType} | ${JSON.stringify(metrics)}`,
+        metrics.value || 1
+      ]);
+
+      console.log(`Tracked performance issue: ${issueType}`, metrics);
+    }
+  };
+
+  // Make DSF Matomo Tracker available globally
+  window.DSFMatomoTracker = Drupal.behaviors.dsfMatomoTracking;
+
+  /**
+   * DSF Workflow Session Manager
+   * Tracks the complete user journey through the DSF process
+   */
+  window.DSFWorkflowTracker = {
+    session: {
+      startTime: Date.now(),
+      currentStage: 'landing',
+      questionsAnswered: 0,
+      totalQuestions: 0,
+      servicesViewed: [],
+      servicesSelected: [],
+      servicesCompared: [],
+      servicesInvestigated: [],
+      findingsRecorded: [],
+      stageTransitions: []
+    },
+
+    /**
+     * Initialize workflow tracking
+     */
+    init: function() {
+      this.session.startTime = Date.now();
+      this.trackStageTransition('landing');
+      
+      // Set up automatic workflow detection
+      this.setupWorkflowDetection();
+    },
+
+    /**
+     * Track transition between workflow stages
+     */
+    trackStageTransition: function(newStage) {
+      const previousStage = this.session.currentStage;
+      const transitionTime = Date.now();
+      
+      this.session.stageTransitions.push({
+        from: previousStage,
+        to: newStage,
+        timestamp: transitionTime
+      });
+      
+      this.session.currentStage = newStage;
+      
+      // Track the workflow stage
+      window.DSFMatomoTracker.trackWorkflowStage(newStage, this.getStageData(newStage));
+    },
+
+    /**
+     * Get relevant data for current stage
+     */
+    getStageData: function(stage) {
+      switch(stage) {
+        case 'questions_started':
+          return { totalQuestions: this.session.totalQuestions };
+        case 'questions_completed':
+          return { 
+            answeredCount: this.session.questionsAnswered,
+            totalQuestions: this.session.totalQuestions 
+          };
+        case 'results_reviewed':
+          return { resultCount: this.session.servicesViewed.length };
+        case 'selection_phase':
+          return { selectedCount: this.session.servicesSelected.length };
+        case 'comparison_started':
+          return { serviceCount: this.session.servicesCompared.length };
+        case 'investigation_deep':
+          return { investigatedCount: this.session.servicesInvestigated.length };
+        case 'findings_recorded':
+          return { 
+            itemsRecorded: this.session.findingsRecorded.length,
+            recordMethod: 'multiple' 
+          };
+        case 'workflow_completed':
+          return { 
+            totalDuration: Math.round((Date.now() - this.session.startTime) / 1000) 
+          };
+        default:
+          return {};
+      }
+    },
+
+    /**
+     * Setup automatic workflow stage detection
+     */
+    setupWorkflowDetection: function() {
+      const self = this;
+      
+      // Detect when user starts answering questions
+      $(document).on('change', '.facet input, .facet select', function() {
+        if (self.session.currentStage === 'landing') {
+          self.trackStageTransition('questions_started');
+        }
+        
+        self.session.questionsAnswered++;
+        
+        // Check if questions phase is complete (heuristic: 3+ criteria selected)
+        if (self.session.questionsAnswered >= 3 && self.session.currentStage === 'questions_started') {
+          self.trackStageTransition('questions_completed');
+        }
+      });
+
+      // Detect when results are being reviewed
+      $(document).on('click', '.service-card', function() {
+        const serviceId = $(this).data('service-id');
+        if (serviceId && !self.session.servicesViewed.includes(serviceId)) {
+          self.session.servicesViewed.push(serviceId);
+          
+          if (self.session.currentStage === 'questions_completed') {
+            self.trackStageTransition('results_reviewed');
+          }
+        }
+      });
+
+      // Detect service selection phase
+      $(document).on('change', '.cardcheckbox, .service-checkbox', function() {
+        const serviceId = $(this).closest('.service-card').data('service-id');
+        const isSelected = $(this).is(':checked');
+        
+        if (isSelected && serviceId) {
+          if (!self.session.servicesSelected.includes(serviceId)) {
+            self.session.servicesSelected.push(serviceId);
+          }
+          
+          if (self.session.currentStage === 'results_reviewed') {
+            self.trackStageTransition('selection_phase');
+          }
+        } else if (!isSelected && serviceId) {
+          const index = self.session.servicesSelected.indexOf(serviceId);
+          if (index > -1) {
+            self.session.servicesSelected.splice(index, 1);
+          }
+        }
+      });
+
+      // Detect comparison phase
+      $(document).on('change', '.compare-checkbox', function() {
+        const serviceId = $(this).closest('.service-card').data('service-id');
+        const isSelected = $(this).is(':checked');
+        
+        if (isSelected && serviceId) {
+          if (!self.session.servicesCompared.includes(serviceId)) {
+            self.session.servicesCompared.push(serviceId);
+          }
+          
+          if (self.session.servicesCompared.length >= 2 && self.session.currentStage === 'selection_phase') {
+            self.trackStageTransition('comparison_started');
+          }
+        }
+      });
+
+      // Detect deep investigation phase
+      $(document).on('click', '.btn-details, .service-details-link', function() {
+        const serviceId = $(this).closest('.service-card').data('service-id');
+        if (serviceId && !self.session.servicesInvestigated.includes(serviceId)) {
+          self.session.servicesInvestigated.push(serviceId);
+          
+          if (self.session.servicesInvestigated.length >= 1 && 
+              ['comparison_started', 'selection_phase'].includes(self.session.currentStage)) {
+            self.trackStageTransition('investigation_deep');
+          }
+        }
+      });
+
+      // Detect findings recording
+      $(document).on('click', '.btn-print, .btn-export, .btn-bookmark, .btn-share', function() {
+        const action = $(this).text().toLowerCase();
+        self.session.findingsRecorded.push(action);
+        
+        if (self.session.currentStage === 'investigation_deep') {
+          self.trackStageTransition('findings_recorded');
+        }
+      });
+
+      // Track workflow completion (heuristic: external link clicked after investigation)
+      $(document).on('click', '.service-link, .external-link', function() {
+        if (self.session.currentStage === 'investigation_deep' || 
+            self.session.currentStage === 'findings_recorded') {
+          self.trackStageTransition('workflow_completed');
+        }
+      });
+
+      // Track additional UI interactions that affect user workflow
+      
+      // Clear Filters button - indicates user is refining search
+      $(document).on('click', '.btn-clear-filters', function() {
+        window.DSFMatomoTracker.trackCustomEvent('DSF_Interface', 'Clear_Filters', 'User reset all filters', 1);
+      });
+
+      // Select All / Clear Selections buttons - batch operations
+      $(document).on('click', '.btn-select-all, .selectall-button', function() {
+        window.DSFMatomoTracker.trackCustomEvent('DSF_Interface', 'Select_All', 'Batch select all services', 1);
+        // This might trigger selection phase
+        if (self.session.currentStage === 'results_reviewed') {
+          self.trackStageTransition('selection_phase');
+        }
+      });
+
+      $(document).on('click', '.btn-select-none, .clear-button', function() {
+        window.DSFMatomoTracker.trackCustomEvent('DSF_Interface', 'Clear_Selections', 'Batch clear selections', 1);
+      });
+
+      // Compare Results button - explicit comparison trigger
+      $(document).on('click', '.jump_button, .btn-compare', function() {
+        const selectedCount = $('.cardcheckbox:checked, .service-checkbox:checked').length;
+        window.DSFMatomoTracker.trackCustomEvent('DSF_Interface', 'Compare_Button_Clicked', `${selectedCount} services selected`, selectedCount);
+        
+        if (selectedCount >= 2 && self.session.currentStage === 'selection_phase') {
+          self.trackStageTransition('comparison_started');
+        }
+      });
+
+      // Feedback link - user seeking help
+      $(document).on('click', 'a[href*="feedback"]', function() {
+        window.DSFMatomoTracker.trackCustomEvent('DSF_Help', 'Feedback_Link', 'User clicked feedback link', 1);
+      });
+
+      // Navigation and header links
+      $(document).on('click', '.navbar-brand', function() {
+        window.DSFMatomoTracker.trackCustomEvent('DSF_Navigation', 'Home_Logo_Click', 'Return to library homepage', 1);
+      });
+
+      // Admin/analytics links (for staff usage tracking)
+      $(document).on('click', 'a[href*="dsf-analytics"]', function() {
+        window.DSFMatomoTracker.trackCustomEvent('DSF_Admin', 'Analytics_Dashboard', 'Staff accessed analytics', 1);
+      });
+
+      $(document).on('click', 'a[href*="dsf-analytics-settings"]', function() {
+        window.DSFMatomoTracker.trackCustomEvent('DSF_Admin', 'Analytics_Settings', 'Staff accessed settings', 1);
+      });
+
+      // Track keyboard navigation (accessibility)
+      $(document).on('keydown', function(e) {
+        if (e.key === 'Tab') {
+          // Track heavy keyboard navigation (accessibility usage)
+          if (!self.keyboardNavCount) self.keyboardNavCount = 0;
+          self.keyboardNavCount++;
+          
+          // Report after significant keyboard usage
+          if (self.keyboardNavCount === 20) {
+            window.DSFMatomoTracker.trackAccessibilityUsage('Keyboard_Navigation', 'Heavy_Tab_Usage');
+          }
+        }
+      });
+
+      // Track mobile/touch interactions
+      $(document).on('touchstart', '.service-card, .facet, button', function() {
+        if (!self.touchInteractionTracked) {
+          window.DSFMatomoTracker.trackCustomEvent('DSF_Device', 'Touch_Interaction', 'Mobile/tablet usage detected', 1);
+          self.touchInteractionTracked = true;
+        }
+      });
+
+      // Track rapid filter changes (potential frustration)
+      let filterChangeCount = 0;
+      let filterChangeTimer = null;
+      
+      $(document).on('change', '.facet input, .facet select', function() {
+        filterChangeCount++;
+        
+        // Reset timer
+        if (filterChangeTimer) clearTimeout(filterChangeTimer);
+        
+        filterChangeTimer = setTimeout(function() {
+          if (filterChangeCount >= 5) {
+            window.DSFMatomoTracker.trackUserFrustration('Rapid_Filter_Changes', `${filterChangeCount} changes in 30 seconds`);
+          }
+          filterChangeCount = 0;
+        }, 30000); // 30 second window
+      });
+
+      // Track back button usage (potential navigation issues)
+      $(window).on('popstate', function() {
+        window.DSFMatomoTracker.trackUserFrustration('Back_Button_Usage', 'User used browser back button');
+      });
+
+      // Track long page dwell time without interaction (potential confusion)
+      let dwellTimer = null;
+      let hasInteracted = false;
+      
+      $(document).on('click change scroll', function() {
+        hasInteracted = true;
+        if (dwellTimer) clearTimeout(dwellTimer);
+        
+        // Reset dwell tracking after interaction
+        dwellTimer = setTimeout(function() {
+          if (!hasInteracted) {
+            window.DSFMatomoTracker.trackUserFrustration('Long_Dwell_No_Interaction', 'User inactive for 3+ minutes');
+          }
+          hasInteracted = false;
+        }, 180000); // 3 minutes
+      });
+
+      // Track JavaScript errors that might affect user experience
+      window.addEventListener('error', function(e) {
+        window.DSFMatomoTracker.trackPerformanceIssue('JavaScript_Error', {
+          message: e.message,
+          filename: e.filename,
+          line: e.lineno,
+          value: 1
+        });
+      });
+
+      // Track slow performance (if Performance API available)
+      if (window.performance && window.performance.timing) {
+        $(window).on('load', function() {
+          const loadTime = window.performance.timing.loadEventEnd - window.performance.timing.navigationStart;
+          
+          if (loadTime > 5000) { // Slow load (5+ seconds)
+            window.DSFMatomoTracker.trackPerformanceIssue('Slow_Page_Load', {
+              loadTime: loadTime,
+              value: Math.round(loadTime / 1000)
+            });
+          }
+        });
+      }
+    },
+
+    /**
+     * Manual workflow stage setting (for explicit stage transitions)
+     */
+    setStage: function(stage) {
+      this.trackStageTransition(stage);
+    },
+
+    /**
+     * Get current workflow summary
+     */
+    getWorkflowSummary: function() {
+      return {
+        duration: Math.round((Date.now() - this.session.startTime) / 1000),
+        currentStage: this.session.currentStage,
+        questionsAnswered: this.session.questionsAnswered,
+        servicesViewed: this.session.servicesViewed.length,
+        servicesSelected: this.session.servicesSelected.length,
+        servicesCompared: this.session.servicesCompared.length,
+        servicesInvestigated: this.session.servicesInvestigated.length,
+        findingsRecorded: this.session.findingsRecorded.length,
+        stageTransitions: this.session.stageTransitions
+      };
     }
   };
 

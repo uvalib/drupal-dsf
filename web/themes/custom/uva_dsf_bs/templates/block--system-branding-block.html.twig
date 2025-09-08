@@ -41,7 +41,7 @@
 {% endif %}
 
 {# Add DSF Analytics admin navigation for administrators #}
-{% if logged_in and is_admin %}
+{% if logged_in and dsf_analytics_enabled and (user.hasPermission('access dsf analytics') or user.hasPermission('administer dsf analytics')) %}
 <div class="admin-analytics-nav" style="position: absolute; right: 15px; top: 15px;">
 	<div class="dropdown" style="position: relative; display: inline-block;">
 		<span style="font-size: 12px; cursor: pointer; padding: 4px 8px; color: #333;" 
@@ -49,14 +49,18 @@
 		      id="analyticsMenuToggle">Analytics ▼</span>
 		<div id="analyticsMenu" 
 		     style="display: none; position: absolute; right: 0; top: 100%; background: white; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); min-width: 120px; z-index: 1000;">
+			{% if user.hasPermission('access dsf analytics') %}
 			<a href="/admin/reports/dsf-analytics" 
-			   style="display: block; padding: 8px 12px; text-decoration: none; color: #333; font-size: 12px; border-bottom: 1px solid #eee;"
+			   style="display: block; padding: 8px 12px; text-decoration: none; color: #333; font-size: 12px;{% if user.hasPermission('administer dsf analytics') %} border-bottom: 1px solid #eee;{% endif %}"
 			   onmouseover="this.style.backgroundColor='#f5f5f5'" 
 			   onmouseout="this.style.backgroundColor='white'">Dashboard</a>
+			{% endif %}
+			{% if user.hasPermission('administer dsf analytics') %}
 			<a href="/admin/config/system/dsf-analytics" 
 			   style="display: block; padding: 8px 12px; text-decoration: none; color: #333; font-size: 12px;"
 			   onmouseover="this.style.backgroundColor='#f5f5f5'" 
 			   onmouseout="this.style.backgroundColor='white'">Settings</a>
+			{% endif %}
 		</div>
 	</div>
 	<script>

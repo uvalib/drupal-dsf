@@ -6,7 +6,72 @@
 **Type**: Single Page Application (SPA) built on Drupal  
 **Primary Purpose**: Help users find appropriate data storage solutions based on their specific criteria and requirements  
 **Architecture**: jQuery-based SPA with Mustache.js templating, REST API backend, Bootstrap 4 UI  
+**Application Name**: Data Storage Finder (DSF)  
+**Type**: Single Page Application (SPA) built on Drupal  
+**Primary Purpose**: Help users find appropriate data storage solutions based on their specific criteria and requirements  
+**Architecture**: jQuery-based SPA with Mustache.js templating, REST API backend, Bootstrap 4 UI  
 **Development Environment**: DDEV (Docker-based local development)  
+
+## 🔍 WCAG 2.2 Accessibility Compliance
+
+**CRITICAL REQUIREMENT**: All DSF components and enhancements MUST maintain WCAG 2.2 Level AA compliance.
+
+### Accessibility Standards Applied
+- **Semantic HTML**: Proper heading hierarchy, meaningful element structure
+- **Color Contrast**: Minimum 4.5:1 ratio for normal text, 3:1 for large text
+- **Keyboard Navigation**: All interactive elements accessible via Tab, Enter, Space
+- **Screen Reader Support**: ARIA labels, roles, and properties where needed
+- **Focus Management**: Visible focus indicators, logical tab order
+- **Alternative Text**: Meaningful descriptions for non-text content
+- **Error Handling**: Clear, descriptive error messages with recovery guidance
+
+### Recent Accessibility Enhancements
+- **Alert Boxes**: Use proper ARIA roles and live regions for status updates
+- **Button Labels**: Descriptive text with icons for context (not just icons)
+- **Color Independence**: Status information conveyed through text, not just color
+- **Responsive Design**: Usable at 320px width and 200% zoom
+- **Form Labels**: Explicit association between labels and form controls
+
+### Testing Requirements
+- **Automated**: Run axe-core or similar accessibility scanner
+- **Manual**: Test with keyboard-only navigation
+- **Screen Reader**: Verify with NVDA, JAWS, or VoiceOver
+- **Zoom**: Test at 200% zoom level minimum
+- **Color**: Verify interface works in high contrast mode
+
+## Analytics Integration (NEW - August 2025)
+
+### Recent Improvements & Code Cleanup
+
+#### DSF Analytics Module Enhancements (August 2025)
+- **Mock Data Abstraction**: Created `MockDataProvider.php` class for centralized mock data management with realistic UVA digital services sample data
+- **Admin UI Integration**: Added permission-based analytics menu in header template (`block--system-branding-block.html.twig`) with conditional display
+- **Configuration Form Cleanup**: Consolidated to single active form (`DsfAnalyticsSettingsForm.php`), removed orphaned `AnalyticsSettingsForm.php`
+- **Enhanced Dashboard Alerts**: Implemented prominent alert-style status indicators without emoticons, using Bootstrap alert components with color-coded warnings
+- **Always-Visible Settings Access**: Added permanent "Analytics Settings" button for administrators regardless of system status
+- **WCAG 2.2 Compliance**: Maintained accessibility standards throughout all UI enhancements
+- **Comprehensive Code Review**: Systematic cleanup of extraneous files and inconsistencies
+- **Configuration Consistency**: Fixed naming inconsistencies between schema and implementation
+- **Route Optimization**: Removed duplicate API routes, streamlined endpoint architecture
+- **UX Improvements**: Enhanced `drush dsf-data` command to show status by default instead of changing settings
+- **Theme Separation**: Moved analytics dashboard from theme to proper Drupal module structure
+- **Documentation Updates**: Comprehensive updates to reflect current architecture
+
+#### Recent Dashboard Enhancements
+- **Alert Box System**: Clean professional alerts for DSF tracking status, data mode warnings, and success states
+- **Contextual Action Buttons**: Status-specific buttons (Enable Tracking, Switch to Live Data, Configure Settings)
+- **Permission-Based Display**: Settings links and admin controls only visible to users with `administer dsf analytics` permission
+- **Visual Hierarchy**: Prominent headings, clear typography, consistent Bootstrap styling with shadows and colored borders
+- **Accessibility Compliance**: WCAG 2.2 standards maintained throughout enhanced interface
+- **Keyboard Navigation**: All interactive elements accessible via keyboard
+- **Screen Reader Support**: Proper ARIA labels and semantic HTML structure
+- **Color Contrast**: All text meets WCAG 2.2 Level AA contrast requirements
+
+#### MockDataProvider Implementation
+- **Realistic Sample Data**: UVA-specific service examples (Rivanna HPC, Value, Ivy VM, Qumulo, etc.)
+- **Complete API Coverage**: Supports all dashboard endpoints with proper data structures
+- **Easy Testing**: Simplified development workflow with representative data
+- **Production Integration**: Seamless switching between mock and real data modes  
 
 ## Analytics Integration (NEW - August 2025)
 
@@ -21,11 +86,13 @@ dsf_analytics/
 ├── src/Controller/AnalyticsApiController.php     - REST API endpoints for dashboard data
 ├── src/Controller/AnalyticsDashboardController.php - Dashboard page controller  
 ├── src/Commands/DsfAnalyticsCommands.php         - Drush management commands
-├── src/Form/AnalyticsSettingsForm.php            - Admin configuration interface
+├── src/Form/DsfAnalyticsSettingsForm.php         - Active admin configuration interface
+├── src/MockDataProvider.php                      - Centralized mock data management
 ├── js/analytics-dashboard.js                     - Dashboard interactivity
 ├── js/matomo-tracking.js                         - Core tracking functionality
 ├── js/matomo-integration.js                      - Event delegation and conflict avoidance
-├── templates/dsf-analytics-dashboard.html.twig   - WCAG 2.2 compliant dashboard
+├── templates/dsf-analytics-dashboard.html.twig   - Enhanced dashboard with prominent alerts
+├── templates/block--system-branding-block.html.twig - Header analytics menu for admins
 └── css/analytics-dashboard.css                   - Accessible styling
 ```
 
@@ -415,12 +482,30 @@ drush dsf-data  # Shows current mode + available options
 - **Updated**: Documentation to reflect current implementation
 
 #### Production-Ready Status
+- ✅ **Mock Data Abstraction**: Complete with `MockDataProvider.php` class
+- ✅ **Admin Header Menu**: Permission-based analytics dropdown in site header  
+- ✅ **Enhanced Dashboard**: Professional alert boxes with prominent status indicators
+- ✅ **Always-Visible Settings**: Permanent settings access for administrators
+- ✅ **Configuration Cleanup**: Single active settings form, orphaned files removed
 - ✅ **Real API Integration**: Live connection to `analytics.lib.virginia.edu`
 - ✅ **Comprehensive Error Handling**: Graceful fallbacks and detailed error messages
 - ✅ **Accessibility Compliance**: WCAG 2.2 Level AA throughout
 - ✅ **Security Validation**: API token validation with real-time testing
 - ✅ **Performance Optimization**: Cached responses and efficient data processing
 - ✅ **Clean Architecture**: Single source of truth, no duplicate implementations
+
+#### Key Files Modified in Latest Session
+```
+# Core files - current state
+/web/modules/custom/dsf_analytics/src/MockDataProvider.php                    # NEW: Mock data abstraction
+/web/modules/custom/dsf_analytics/src/Form/DsfAnalyticsSettingsForm.php      # ACTIVE: Main config form
+/web/modules/custom/dsf_analytics/src/Controller/AnalyticsDashboardController.php # Enhanced with status vars
+/web/modules/custom/dsf_analytics/templates/dsf-analytics-dashboard.html.twig # Professional alert boxes
+/web/themes/custom/uva_dsf_bs/templates/block--system-branding-block.html.twig # Header analytics menu
+
+# Removed files - no longer needed
+/web/modules/custom/dsf_analytics/src/Form/AnalyticsSettingsForm.php         # DELETED: Orphaned form
+```
 
 ## Development Environment Setup
 
@@ -459,6 +544,240 @@ ddev ssh
 ddev xdebug on    # Enable Xdebug for debugging
 ddev xdebug off   # Disable Xdebug  
 ```
+
+## Module Management & Status Checking
+
+### Drush Version Information
+**Current Version**: Drush 12.5.3.0  
+**Important**: Command syntax and options may vary between drush versions. Always check `ddev drush COMMAND --help` for current syntax.
+
+### Common Drush Command Patterns & Gotchas
+
+#### Command Naming Conventions
+```bash
+# Modern drush uses : notation for namespaced commands
+ddev drush pm:list       # NOT drush pm-list
+ddev drush pm:enable     # NOT drush pm-enable  
+ddev drush cache:rebuild # NOT drush cache-rebuild
+
+# But aliases still work
+ddev drush pml           # Alias for pm:list
+ddev drush en            # Alias for pm:enable
+ddev drush cr            # Alias for cache:rebuild
+```
+
+#### Getting Help for Commands
+```bash
+# Always check help when unsure
+ddev drush COMMAND --help
+ddev drush pml --help
+ddev drush config:get --help
+
+# List all available commands
+ddev drush list
+
+# Search for commands
+ddev drush list | grep config
+```
+
+#### Output Format Options
+Most drush commands support multiple output formats:
+```bash
+--format=table    # Default human-readable format (NOT line-based)
+--format=list     # Line-based output (good for scripts)
+--format=json     # JSON format (structured data)
+--format=yaml     # YAML format
+--format=csv      # CSV format
+--format=string   # Single value output
+```
+
+### Checking Module Status with Drush
+
+**IMPORTANT**: The default `drush pml` (pm:list) output is table-formatted and NOT line-based. Using `grep` on table output will cause misinterpretation of module status.
+
+#### Reliable Line-Based Module Status Commands
+
+```bash
+# Check if a specific module exists
+ddev drush pml --filter="name=MODULE_NAME" --field=name
+# Returns: "MODULE_NAME" if exists, empty if doesn't exist
+
+# Check specific module status  
+ddev drush pml --filter="name=MODULE_NAME" --field=status
+# Returns: "Enabled" or "Disabled"
+
+# Check if module is specifically enabled
+ddev drush pml --status=enabled --filter="name=MODULE_NAME" --field=name
+# Returns: "MODULE_NAME" if enabled, empty if disabled
+
+# Simple boolean test pattern
+ddev drush pml --status=enabled --filter="name=MODULE_NAME" --field=name | grep -q MODULE_NAME && echo "enabled" || echo "disabled"
+```
+
+#### DSF Analytics Module Examples
+
+```bash
+# Check if dsf_analytics module exists
+ddev drush pml --filter="name=dsf_analytics" --field=name
+
+# Check dsf_analytics status
+ddev drush pml --filter="name=dsf_analytics" --field=status
+
+# Test if dsf_analytics is enabled
+ddev drush pml --status=enabled --filter="name=dsf_analytics" --field=name
+
+# Simple boolean check
+ddev drush pml --status=enabled --filter="name=dsf_analytics" --field=name | grep -q dsf_analytics && echo "enabled" || echo "disabled"
+```
+
+#### Get All Enabled Modules (Line-Based)
+
+```bash
+# Get clean list of all enabled module names
+ddev drush pml --status=enabled --field=name
+
+# Get enabled modules with status
+ddev drush pml --status=enabled --format=list
+
+# Get all modules in JSON format
+ddev drush pml --format=json
+```
+
+#### Why This Matters
+
+- **Table Format**: Default `drush pml` uses table formatting with columns
+- **Parsing Issues**: Using `grep` on table output can match partial strings in wrong columns
+- **Reliable Results**: Using `--field` and `--filter` options provides clean, parseable output
+- **Automation**: These commands work reliably in scripts and conditional checks
+
+### Module Enable/Disable Commands
+
+```bash
+# Enable module
+ddev drush en MODULE_NAME -y
+
+# Disable module  
+ddev drush pmu MODULE_NAME -y
+
+# Enable DSF Analytics
+ddev drush en dsf_analytics -y
+
+# Disable DSF Analytics
+ddev drush pmu dsf_analytics -y
+```
+
+### Common Configuration Management Commands
+
+```bash
+# Get configuration value
+ddev drush config:get CONFIG_NAME
+ddev drush config:get system.theme
+ddev drush config:get matomo.settings
+
+# Set configuration value
+ddev drush config:set CONFIG_NAME KEY VALUE -y
+ddev drush config:set system.theme default uva_dsf_bs -y
+
+# Delete configuration
+ddev drush config:delete CONFIG_NAME -y
+
+# Export/Import configuration
+ddev drush config:export     # Export all config to sync directory
+ddev drush config:import     # Import config from sync directory
+
+# List all configuration
+ddev drush config:list | grep PATTERN
+```
+
+### Database Operations
+
+```bash
+# Clear all caches (most common)
+ddev drush cache:rebuild     # Full cache rebuild
+ddev drush cr               # Alias for cache:rebuild
+
+# Database updates
+ddev drush updatedb         # Run pending database updates
+ddev drush updb            # Alias for updatedb
+
+# SQL operations
+ddev drush sql:dump > backup.sql      # Create database backup
+ddev drush sql:query "SELECT * FROM config WHERE name LIKE '%theme%'"
+
+# Status and information
+ddev drush status          # Site status information
+ddev drush core:status     # Core status
+```
+
+### User and Permission Commands
+
+```bash
+# User operations
+ddev drush user:login       # Generate one-time login link
+ddev drush uli             # Alias for user:login
+
+# Check user permissions
+ddev drush eval "print_r(\Drupal::currentUser()->getPermissions());"
+
+# Check if user has specific permission
+ddev drush eval "echo \Drupal::currentUser()->hasPermission('administer dsf analytics') ? 'yes' : 'no';"
+```
+
+### Content and Entity Management
+
+```bash
+# Clear specific caches
+ddev drush cache:clear drush    # Clear drush cache
+ddev drush cache:clear theme    # Clear theme cache
+
+# Entity operations
+ddev drush entity:list         # List entity types
+ddev drush field:list         # List fields
+```
+
+### Drush Evaluation (Powerful but Use Carefully)
+
+```bash
+# Execute PHP code in Drupal context
+ddev drush eval "CODE_HERE"
+
+# Examples:
+ddev drush eval "echo \Drupal::service('module_handler')->moduleExists('dsf_analytics') ? 'enabled' : 'disabled';"
+ddev drush eval "print_r(\Drupal::config('system.theme')->get());"
+```
+
+### Command Troubleshooting Tips
+
+#### When Commands Fail
+1. **Check command syntax**: `ddev drush COMMAND --help`
+2. **Verify command exists**: `ddev drush list | grep COMMAND`
+3. **Check drush version**: Commands change between versions
+4. **Clear drush cache**: `ddev drush cache:clear drush`
+5. **Check permissions**: Some commands require specific Drupal permissions
+
+#### Common Gotchas
+- **Table vs Line Output**: Default output is often table-formatted (not grep-friendly)
+- **Argument vs Option**: Some commands take arguments, others take options
+- **Aliases**: Commands may have shorter aliases (cr, en, pmu, etc.)
+- **Context**: Drush runs in Drupal context - some commands need bootstrapped site
+
+#### Best Practices
+- **Always use `--help`** when unsure about command syntax
+- **Use `--format=list`** for script-friendly output  
+- **Use `-y` flag** to avoid interactive prompts in scripts
+- **Test commands** in development before running in production
+- **Check return codes** in scripts: `$?` will be 0 for success, non-zero for failure
+
+### DSF-Specific Drush Commands
+
+```bash
+# DSF Analytics custom commands (when module is enabled)
+ddev drush dsf-status                    # Check DSF analytics status
+ddev drush dsf-data                      # Show/configure data mode
+ddev drush dsf-token YOUR_TOKEN          # Set API token
+ddev drush dsf-test                      # Test API connection
+
+# Enable DSF Analytics
 
 ## Common Development Patterns
 

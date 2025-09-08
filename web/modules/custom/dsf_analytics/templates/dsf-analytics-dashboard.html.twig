@@ -9,15 +9,552 @@
 #}
 
 <div class="dsf-admin-header">
-  <h2>Data Storage Finder Analytics</h2>
-  <p class="description">
-    View user behavior patterns and service popularity metrics from the DSF application.
-    Data is collected via Matomo analytics and shows aggregated usage patterns.
-  </p>
+  <div class="d-flex justify-content-between align-items-start">
+    <div>
+      <h2>Data Storage Finder Analytics</h2>
+      <p class="description">
+        View user behavior patterns and service popularity metrics from the DSF application.
+        Data is collected via Matomo analytics and shows aggregated usage patterns.
+      </p>
+    </div>
+    
+    {# Settings link positioned to the right #}
+    {% if can_administer %}
+    <div class="ml-auto">
+      <a href="/admin/config/system/dsf-analytics" class="btn btn-outline-primary btn-sm">
+        <i class="fas fa-cog mr-1"></i>Settings
+      </a>
+    </div>
+    {% endif %}
+  </div>
+  
+  {# Only show alerts when there are actual issues #}
+  {# Alert Box: DSF Tracking Status - only show if disabled #}
+  {% if not dsf_tracking_enabled %}
+  <div class="alert alert-danger shadow-sm" style="border-left: 4px solid #dc3545; margin: 20px 0;">
+    <div class="d-flex align-items-center">
+      <div class="mr-3">
+        <i class="fas fa-exclamation-triangle fa-2x text-danger"></i>
+      </div>
+      <div class="flex-grow-1">
+        <h4 class="alert-heading mb-2">DSF Tracking Disabled</h4>
+        <p class="mb-2">Digital Service Finder interactions are not being tracked. User behavior data will not be collected.</p>
+        {% if can_administer %}
+        <a href="/admin/config/system/dsf-analytics" class="btn btn-danger btn-sm">
+          <i class="fas fa-cog mr-1"></i>Enable DSF Tracking
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  
+  {# Alert Box: Mock Data Warning - only show if not in real mode #}
+  {% if data_mode != 'real' %}
+  <div class="alert alert-warning shadow-sm" style="border-left: 4px solid #ffc107; margin: 20px 0;">
+    <div class="d-flex align-items-center">
+      <div class="mr-3">
+        <i class="fas fa-info-circle fa-2x text-warning"></i>
+      </div>
+      <div class="flex-grow-1">
+        <h4 class="alert-heading mb-2">Displaying Sample Data</h4>
+        <p class="mb-2">Dashboard is showing mock data for demonstration purposes. Switch to live data mode to view real analytics.</p>
+        {% if can_administer %}
+        <a href="/admin/config/system/dsf-analytics" class="btn btn-warning btn-sm">
+          <i class="fas fa-exchange-alt mr-1"></i>Switch to Live Data
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+{# Enhanced Analytics Header with Key Metrics #}
+<div class="dsf-analytics-header mb-4">
+  <div class="row">
+    <div class="col-md-8">
+      <h4 class="mb-0">Analytics Overview</h4>
+      <div id="time-range-info" class="text-muted small mt-1">
+        Showing data for the last 7 days
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="time-range-controls float-right">
+        <div class="time-range-selector">
+          <select class="form-control dsf-time-range-select" style="width: auto; display: inline-block;">
+            <optgroup label="Quick Ranges">
+              <option value="today">Today</option>
+              <option value="yesterday">Yesterday</option>
+              <option value="last7days" selected>Last 7 Days</option>
+              <option value="last30days">Last 30 Days</option>
+              <option value="last90days">Last 90 Days</option>
+              <option value="last6months">Last 6 Months</option>
+              <option value="lastyear">Last Year</option>
+            </optgroup>
+            <optgroup label="This Period">
+              <option value="thisweek">This Week</option>
+              <option value="thismonth">This Month</option>
+              <option value="thisquarter">This Quarter</option>
+              <option value="thisyear">This Year</option>
+            </optgroup>
+            <optgroup label="Previous Period">
+              <option value="lastweek">Last Week</option>
+              <option value="lastmonth">Last Month</option>
+              <option value="lastquarter">Last Quarter</option>
+              <option value="previousyear">Previous Year</option>
+            </optgroup>
+            <optgroup label="Academic Calendar">
+              <option value="semester_fall">Fall Semester</option>
+              <option value="semester_spring">Spring Semester</option>
+              <option value="semester_summer">Summer Session</option>
+              <option value="academic_year">Academic Year</option>
+            </optgroup>
+            <option value="custom">Custom Date Range...</option>
+          </select>
+          
+          <div class="custom-date-range mt-2" id="custom-date-range" style="display: none;">
+            <div class="row">
+              <div class="col-md-6">
+                <label for="start-date" class="sr-only">Start Date</label>
+                <input type="date" id="start-date" class="form-control form-control-sm" placeholder="Start Date">
+              </div>
+              <div class="col-md-6">
+                <label for="end-date" class="sr-only">End Date</label>
+                <input type="date" id="end-date" class="form-control form-control-sm" placeholder="End Date">
+              </div>
+            </div>
+            <div class="mt-2">
+              <button type="button" class="btn btn-primary btn-sm" id="apply-custom-range">Apply Range</button>
+              <button type="button" class="btn btn-secondary btn-sm" id="cancel-custom-range">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# Expandable KPI Sections with Integrated Top 10 Tables #}
+<div class="dsf-expandable-kpis">
+  
+  {# KPI 1: User Engagement #}
+  <div class="kpi-section" data-kpi="user-engagement">
+    <button class="kpi-header" 
+            id="kpi-user-engagement-button"
+            type="button" 
+            data-toggle="collapse" 
+            data-target="#kpi-user-engagement" 
+            aria-expanded="false" 
+            aria-controls="kpi-user-engagement"
+            aria-label="Toggle User Engagement details">
+      <div class="kpi-summary">
+        <div class="kpi-icon" aria-hidden="true"><i class="fas fa-users"></i></div>
+        <div class="kpi-main">
+          <div class="kpi-title">User Engagement</div>
+          <div class="kpi-metrics">
+            <span class="kpi-value" id="kpi-unique-users">-</span> <span class="kpi-label">unique users</span>
+            <span class="kpi-divider" aria-hidden="true">•</span>
+            <span class="kpi-value" id="kpi-total-sessions">-</span> <span class="kpi-label">sessions</span>
+          </div>
+          <div class="kpi-trend" id="trend-user-engagement"></div>
+        </div>
+        <div class="kpi-expand-icon" aria-hidden="true">
+          <i class="fas fa-chevron-right"></i>
+        </div>
+      </div>
+    </button>
+    <div class="collapse kpi-details" id="kpi-user-engagement" aria-labelledby="kpi-user-engagement-button">
+      <div class="kpi-content" role="region" aria-label="User Engagement details">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="detail-section">
+              <h6><i class="fas fa-university mr-2"></i>Top Departments</h6>
+              <input type="text" class="form-control form-control-sm dsf-table-search mb-2" 
+                     data-table="departments" placeholder="Search departments...">
+              <div class="table-responsive">
+                <table class="table table-sm dsf-sortable-table" id="table-departments" data-category="departments" role="table" aria-label="Top Departments by Users">
+                  <thead>
+                    <tr>
+                      <th class="sortable" data-column="rank" role="columnheader" tabindex="0" aria-sort="none">#</th>
+                      <th class="sortable" data-column="department" role="columnheader" tabindex="0" aria-sort="none">Department</th>
+                      <th class="sortable" data-column="users" role="columnheader" tabindex="0" aria-sort="none">Users</th>
+                      <th class="sortable" data-column="engagement" role="columnheader" tabindex="0" aria-sort="none">Engagement</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td colspan="4" class="text-center">Loading...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="detail-section">
+              <h6><i class="fas fa-clock mr-2"></i>Peak Usage Times</h6>
+              <div class="weekly-heatmap-container">
+                <canvas id="weekly-usage-heatmap" width="400" height="200" 
+                        role="img" aria-label="Weekly usage pattern heatmap showing peak activity times"></canvas>
+                <div class="heatmap-legend mt-2">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="small text-muted">Low Activity</span>
+                    <div class="legend-scale d-flex">
+                      <div class="legend-color" style="background-color: #ebedf0;"></div>
+                      <div class="legend-color" style="background-color: #c6e48b;"></div>
+                      <div class="legend-color" style="background-color: #7bc96f;"></div>
+                      <div class="legend-color" style="background-color: #239a3b;"></div>
+                      <div class="legend-color" style="background-color: #196127;"></div>
+                    </div>
+                    <span class="small text-muted">High Activity</span>
+                  </div>
+                </div>
+                
+                {# Statistical tables for busiest and least busy times #}
+                <div class="row mt-3">
+                  <div class="col-md-6">
+                    <h7 class="small font-weight-bold text-success"><i class="fas fa-chart-line mr-1"></i>Top 5 Busiest Times</h7>
+                    <div class="table-responsive">
+                      <table class="table table-sm table-borderless" id="busiest-times-table">
+                        <thead class="thead-light">
+                          <tr>
+                            <th class="small">Time</th>
+                            <th class="small">Day</th>
+                            <th class="small">Activity</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr><td colspan="3" class="text-center small">Loading...</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <h7 class="small font-weight-bold text-primary"><i class="fas fa-chart-line-down mr-1"></i>Top 5 Quietest Times</h7>
+                    <div class="table-responsive">
+                      <table class="table table-sm table-borderless" id="quietest-times-table">
+                        <thead class="thead-light">
+                          <tr>
+                            <th class="small">Time</th>
+                            <th class="small">Day</th>
+                            <th class="small">Activity</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr><td colspan="3" class="text-center small">Loading...</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {# KPI 2: Service Discovery #}
+  <div class="kpi-section" data-kpi="service-discovery">
+    <button class="kpi-header" 
+            id="kpi-service-discovery-button"
+            type="button" 
+            data-toggle="collapse" 
+            data-target="#kpi-service-discovery" 
+            aria-expanded="false" 
+            aria-controls="kpi-service-discovery"
+            aria-label="Toggle Service Discovery details">
+      <div class="kpi-summary">
+        <div class="kpi-icon" aria-hidden="true"><i class="fas fa-search"></i></div>
+        <div class="kpi-main">
+          <div class="kpi-title">Service Discovery</div>
+          <div class="kpi-metrics">
+            <span class="kpi-value" id="kpi-services-investigated">-</span> <span class="kpi-label">services investigated</span>
+            <span class="kpi-divider" aria-hidden="true">•</span>
+            <span class="kpi-value" id="kpi-search-queries">-</span> <span class="kpi-label">searches</span>
+          </div>
+          <div class="kpi-trend" id="trend-service-discovery"></div>
+        </div>
+        <div class="kpi-expand-icon" aria-hidden="true">
+          <i class="fas fa-chevron-right"></i>
+        </div>
+      </div>
+    </button>
+    <div class="collapse kpi-details" id="kpi-service-discovery" aria-labelledby="kpi-service-discovery-button">
+      <div class="kpi-content" role="region" aria-label="Service Discovery details">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="detail-section">
+              <h6><i class="fas fa-trophy mr-2"></i>Popular Services</h6>
+              <input type="text" class="form-control form-control-sm dsf-table-search mb-2" 
+                     data-table="popular-services" placeholder="Search services...">
+              <div class="table-responsive">
+                <table class="table table-sm dsf-sortable-table" id="table-popular-services" data-category="popular-services">
+                  <thead>
+                    <tr>
+                      <th class="sortable" data-column="rank">#</th>
+                      <th class="sortable" data-column="name">Service</th>
+                      <th class="sortable" data-column="views">Views</th>
+                      <th class="sortable" data-column="trend">Trend</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td colspan="4" class="text-center">Loading...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="detail-section">
+              <h6><i class="fas fa-search mr-2"></i>Top Search Terms</h6>
+              <input type="text" class="form-control form-control-sm dsf-table-search mb-2" 
+                     data-table="search-terms" placeholder="Search terms...">
+              <div class="table-responsive">
+                <table class="table table-sm dsf-sortable-table" id="table-search-terms" data-category="search-terms">
+                  <thead>
+                    <tr>
+                      <th class="sortable" data-column="rank">#</th>
+                      <th class="sortable" data-column="term">Search Term</th>
+                      <th class="sortable" data-column="searches">Count</th>
+                      <th class="sortable" data-column="results">Avg Results</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td colspan="4" class="text-center">Loading...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {# KPI 3: Selection Success #}
+  <div class="kpi-section" data-kpi="selection-success">
+    <button class="kpi-header" 
+            id="kpi-selection-success-button"
+            type="button" 
+            data-toggle="collapse" 
+            data-target="#kpi-selection-success" 
+            aria-expanded="false" 
+            aria-controls="kpi-selection-success"
+            aria-label="Toggle Selection Success details">
+      <div class="kpi-summary">
+        <div class="kpi-icon" aria-hidden="true"><i class="fas fa-check-circle"></i></div>
+        <div class="kpi-main">
+          <div class="kpi-title">Selection Success</div>
+          <div class="kpi-metrics">
+            <span class="kpi-value" id="kpi-service-selections">-</span> <span class="kpi-label">selections made</span>
+            <span class="kpi-divider" aria-hidden="true">•</span>
+            <span class="kpi-value" id="kpi-filter-usage">-</span> <span class="kpi-label">filters used</span>
+          </div>
+          <div class="kpi-trend" id="trend-selection-success"></div>
+        </div>
+        <div class="kpi-expand-icon" aria-hidden="true">
+          <i class="fas fa-chevron-right"></i>
+        </div>
+      </div>
+    </button>
+    <div class="collapse kpi-details" id="kpi-selection-success" aria-labelledby="kpi-selection-success-button">
+      <div class="kpi-content" role="region" aria-label="Selection Success details">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="detail-section">
+              <h6><i class="fas fa-filter mr-2"></i>Filter Usage</h6>
+              <input type="text" class="form-control form-control-sm dsf-table-search mb-2" 
+                     data-table="filter-usage" placeholder="Search filters...">
+              <div class="table-responsive">
+                <table class="table table-sm dsf-sortable-table" id="table-filter-usage" data-category="filter-usage">
+                  <thead>
+                    <tr>
+                      <th class="sortable" data-column="rank">#</th>
+                      <th class="sortable" data-column="filter">Filter Type</th>
+                      <th class="sortable" data-column="usage">Usage</th>
+                      <th class="sortable" data-column="success">Success Rate</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td colspan="4" class="text-center">Loading...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="detail-section">
+              <h6><i class="fas fa-route mr-2"></i>User Journeys</h6>
+              <input type="text" class="form-control form-control-sm dsf-table-search mb-2" 
+                     data-table="user-journeys" placeholder="Search paths...">
+              <div class="table-responsive">
+                <table class="table table-sm dsf-sortable-table" id="table-user-journeys" data-category="user-journeys">
+                  <thead>
+                    <tr>
+                      <th class="sortable" data-column="rank">#</th>
+                      <th class="sortable" data-column="path">User Path</th>
+                      <th class="sortable" data-column="frequency">Frequency</th>
+                      <th class="sortable" data-column="conversion">Success</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td colspan="4" class="text-center">Loading...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {# Additional Analytics Section #}
+  <div class="kpi-section" data-kpi="additional-insights">
+    <button class="kpi-header" 
+            id="kpi-additional-insights-button"
+            type="button" 
+            data-toggle="collapse" 
+            data-target="#kpi-additional-insights" 
+            aria-expanded="false" 
+            aria-controls="kpi-additional-insights"
+            aria-label="Toggle Additional Insights details">
+      <div class="kpi-summary">
+        <div class="kpi-icon" aria-hidden="true"><i class="fas fa-chart-line"></i></div>
+        <div class="kpi-main">
+          <div class="kpi-title">Additional Insights</div>
+          <div class="kpi-metrics">
+            <span class="kpi-label">System performance, trends, and detailed breakdowns</span>
+          </div>
+          <div class="kpi-trend" id="trend-additional-insights"></div>
+        </div>
+        <div class="kpi-expand-icon" aria-hidden="true">
+          <i class="fas fa-chevron-right"></i>
+        </div>
+      </div>
+    </button>
+    <div class="collapse kpi-details" id="kpi-additional-insights" aria-labelledby="kpi-additional-insights-button">
+      <div class="kpi-content" role="region" aria-label="Additional Insights details">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="insight-cards">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="insight-card dsf-insight-card" data-insight="usage-patterns">
+                    <h6><i class="fas fa-route mr-2"></i>Most Common User Paths</h6>
+                    <div class="insight-content">
+                      <div class="loading-insight">Analyzing user journeys...</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="insight-card dsf-insight-card" data-insight="engagement-patterns">
+                    <h6><i class="fas fa-lightbulb mr-2"></i>Optimization Opportunities</h6>
+                    <div class="insight-content">
+                      <div class="loading-insight">Identifying improvement areas...</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <div class="insight-card dsf-insight-card" data-insight="workflow-stages">
+                    <h6><i class="fas fa-chart-line mr-2"></i>Service Effectiveness</h6>
+                    <div class="insight-content">
+                      <div class="loading-insight">Measuring service performance...</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="insight-card dsf-insight-card" data-insight="selection-sessions">
+                    <h6><i class="fas fa-smile mr-2"></i>User Experience Indicators</h6>
+                    <div class="insight-content">
+                      <div class="loading-insight">Evaluating user satisfaction...</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <div class="dsf-analytics-dashboard">
-  <!-- Dashboard content will be populated by JavaScript -->
+  <!-- Legacy dashboard content container (now hidden) -->
+</div>
+
+{# Enhanced Analytics Insights Section #}
+<div class="dsf-insights-section mt-5">
+  <h4>Actionable Insights</h4>
+  <div class="insights-container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="insight-card dsf-insight-card" data-insight="usage-patterns">
+          <h5><i class="fas fa-route mr-2"></i>Most Common User Paths</h5>
+          <div class="insight-content">
+            <div class="loading-insight">Analyzing user journeys...</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="insight-card dsf-insight-card" data-insight="engagement-patterns">
+          <h5><i class="fas fa-lightbulb mr-2"></i>Optimization Opportunities</h5>
+          <div class="insight-content">
+            <div class="loading-insight">Identifying improvement areas...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <div class="insight-card dsf-insight-card" data-insight="workflow-stages">
+          <h5><i class="fas fa-chart-line mr-2"></i>Service Effectiveness</h5>
+          <div class="insight-content">
+            <div class="loading-insight">Measuring service performance...</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="insight-card dsf-insight-card" data-insight="selection-sessions">
+          <h5><i class="fas fa-smile mr-2"></i>User Experience Indicators</h5>
+          <div class="insight-content">
+            <div class="loading-insight">Evaluating user satisfaction...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# Export and Reporting Tools #}
+<div class="dsf-export-section mt-5">
+  <h4>Reports & Export</h4>
+  <div class="export-controls">
+    <div class="btn-group mr-3">
+      <button type="button" class="btn btn-outline-primary dsf-export-btn" data-format="pdf">
+        <i class="fas fa-file-pdf mr-1"></i>Export PDF Report
+      </button>
+      <button type="button" class="btn btn-outline-primary dsf-export-btn" data-format="csv">
+        <i class="fas fa-file-csv mr-1"></i>Export CSV Data
+      </button>
+      <button type="button" class="btn btn-outline-primary dsf-export-btn" data-format="json">
+        <i class="fas fa-file-code mr-1"></i>Export JSON
+      </button>
+    </div>
+    <div class="btn-group mr-3">
+      <button type="button" class="btn btn-outline-secondary" onclick="DSFAnalytics.scheduleReport()">
+        <i class="fas fa-calendar mr-1"></i>Schedule Reports
+      </button>
+      <button type="button" class="btn btn-outline-secondary" onclick="DSFAnalytics.shareReport()">
+        <i class="fas fa-share mr-1"></i>Share Dashboard
+      </button>
+    </div>
+  </div>
 </div>
 
 <div class="dsf-analytics-footer">
@@ -25,15 +562,19 @@
     <h4>About This Data</h4>
     <ul>
       <li><strong>Privacy:</strong> All data is anonymized and aggregated</li>
-      <li><strong>Time Range:</strong> Default reports show the last 30 days</li>
-      <li><strong>Updates:</strong> Data refreshes every 24 hours</li>
+      <li><strong>Time Range:</strong> Currently showing {{ current_time_range }}</li>
+      <li><strong>Updates:</strong> Data is processed in near real-time by Matomo</li>
       <li><strong>Source:</strong> Matomo Analytics ({{ matomo_url }})</li>
+      <li><strong>Last Refresh:</strong> <span id="last-refresh-time">{{ "now"|date("M j, Y g:i A") }}</span></li>
     </ul>
   </div>
   
   <div class="analytics-actions">
     <button type="button" class="btn btn-primary" onclick="DSFAnalytics.refreshDashboard()">
       Refresh Data
+    </button>
+    <button type="button" class="btn btn-outline-primary" id="auto-refresh-toggle" onclick="DSFAnalytics.toggleAutoRefresh()">
+      Enable Auto-Refresh
     </button>
     <a href="{{ matomo_url }}" target="_blank" class="btn btn-secondary">
       View Full Analytics

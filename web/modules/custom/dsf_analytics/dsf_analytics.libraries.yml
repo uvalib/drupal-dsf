@@ -4,6 +4,8 @@ dashboard:
   css:
     theme:
       css/analytics-dashboard.css: {}
+      # FontAwesome 6 for icons
+      https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css: { type: external }
   dependencies:
     - core/jquery
     - core/drupal

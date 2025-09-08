@@ -72,5 +72,9 @@ function uva_dsf_bs_preprocess_block(&$variables) {
     $variables['is_admin'] = $current_user->hasPermission('access dsf analytics') || 
                             $current_user->hasPermission('administer dsf analytics') ||
                             $current_user->hasPermission('administer site configuration');
+    
+    // Check if DSF Analytics module is enabled
+    $module_handler = \Drupal::service('module_handler');
+    $variables['dsf_analytics_enabled'] = $module_handler->moduleExists('dsf_analytics');
   }
 }
