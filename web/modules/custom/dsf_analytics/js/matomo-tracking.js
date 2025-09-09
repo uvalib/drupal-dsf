@@ -331,20 +331,60 @@
     trackFacetSelection: function (facetType, facetValue, isSelected) {
       if (!MATOMO_CONFIG.enabled) return;
 
+      // Clean up facet type to be more readable
+      const cleanFacetType = this.cleanFacetType(facetType);
+      const cleanFacetValue = this.cleanFacetValue(facetValue);
+      
       const action = isSelected ? 'Selected' : 'Deselected';
       const eventData = [
         'trackEvent',
         'DSF_Facets',
-        `${action}_${facetType}`,
-        facetValue,
+        `${action}_${cleanFacetType}`,
+        cleanFacetValue,
         isSelected ? 1 : 0
       ];
 
       if (this.safeTrack(eventData, 'facet selection')) {
         // Set custom dimensions for detailed analysis (if supported)
-        this.safeTrack(['setCustomDimension', 1, facetType], 'facet type dimension');
-        this.safeTrack(['setCustomDimension', 2, facetValue], 'facet value dimension');
+        this.safeTrack(['setCustomDimension', 1, cleanFacetType], 'facet type dimension');
+        this.safeTrack(['setCustomDimension', 2, cleanFacetValue], 'facet value dimension');
       }
+    },
+
+    /**
+     * Clean up facet type to be more readable
+     */
+    cleanFacetType: function(facetType) {
+      if (!facetType || facetType === 'unknown') return 'Unknown_Facet';
+      
+      // Convert common facet types to readable names
+      const facetTypeMap = {
+        'facet-1': 'Storage_Type',
+        'facet-2': 'Data_Size',
+        'facet-3': 'Security_Level',
+        'facet-4': 'Access_Type',
+        'facet-5': 'Cost_Model',
+        'storage-type': 'Storage_Type',
+        'data-size': 'Data_Size',
+        'security-level': 'Security_Level',
+        'access-type': 'Access_Type',
+        'cost-model': 'Cost_Model'
+      };
+      
+      return facetTypeMap[facetType] || facetType.replace(/[-_]/g, '_').replace(/facet/i, 'Facet');
+    },
+
+    /**
+     * Clean up facet value to be more readable
+     */
+    cleanFacetValue: function(facetValue) {
+      if (!facetValue) return 'Unknown_Value';
+      
+      // Clean up common values
+      return facetValue
+        .replace(/[-_]/g, ' ')
+        .replace(/\b\w/g, l => l.toUpperCase())
+        .trim();
     },
 
     /**
@@ -353,18 +393,52 @@
     trackServiceInteraction: function (serviceId, serviceName, actionType) {
       if (!MATOMO_CONFIG.enabled) return;
 
+      // Clean up service data to be more readable
+      const cleanServiceName = this.cleanServiceName(serviceName);
+      const cleanActionType = this.cleanActionType(actionType);
+      
       const eventData = [
         'trackEvent',
         'DSF_Services',
-        `Service_${actionType}`,
-        `${serviceName} (${serviceId})`,
+        `Service_${cleanActionType}`,
+        cleanServiceName,
         1
       ];
 
       if (this.safeTrack(eventData, 'service interaction')) {
         // Set custom dimensions for service analysis
-        this.safeTrack(['setCustomDimension', 3, `${serviceName} (${serviceId})`], 'service info dimension');
+        this.safeTrack(['setCustomDimension', 3, `${cleanServiceName} (ID: ${serviceId})`], 'service info dimension');
       }
+    },
+
+    /**
+     * Clean up service name to be more readable
+     */
+    cleanServiceName: function(serviceName) {
+      if (!serviceName || serviceName === 'Unknown Service') return 'Unknown_Service';
+      
+      // Clean up service names
+      return serviceName
+        .replace(/[-_]/g, ' ')
+        .replace(/\b\w/g, l => l.toUpperCase())
+        .trim();
+    },
+
+    /**
+     * Clean up action type to be more readable
+     */
+    cleanActionType: function(actionType) {
+      if (!actionType) return 'Unknown_Action';
+      
+      const actionTypeMap = {
+        'selection': 'Selection',
+        'view': 'View',
+        'click': 'Click',
+        'hover': 'Hover',
+        'focus': 'Focus'
+      };
+      
+      return actionTypeMap[actionType] || actionType.replace(/[-_]/g, '_').replace(/\b\w/g, l => l.toUpperCase());
     },
 
     /**
@@ -384,18 +458,40 @@
         return;
       }
 
+      // Clean up investigation data
+      const cleanServiceName = this.cleanServiceName(serviceName);
+      const cleanInvestigationType = this.cleanInvestigationType(investigationType);
+
       _paq.push([
         'trackEvent',
         'DSF_Service_Investigation',
-        investigationType,
-        `${serviceName} (ID: ${serviceId})`,
+        cleanInvestigationType,
+        cleanServiceName,
         1
       ]);
 
       // Track investigation depth
-      _paq.push(['setCustomDimension', 4, investigationType]);
+      _paq.push(['setCustomDimension', 4, cleanInvestigationType]);
 
-      console.log(`DSF Analytics: Tracked service investigation: ${investigationType} on ${serviceName} (${serviceId})`);
+      console.log(`DSF Analytics: Tracked service investigation: ${cleanInvestigationType} on ${cleanServiceName} (${serviceId})`);
+    },
+
+    /**
+     * Clean up investigation type to be more readable
+     */
+    cleanInvestigationType: function(investigationType) {
+      if (!investigationType) return 'Unknown_Investigation';
+      
+      const investigationTypeMap = {
+        'details_view': 'Details_View',
+        'added_to_comparison': 'Added_To_Comparison',
+        'removed_from_comparison': 'Removed_From_Comparison',
+        'external_link_click': 'External_Link_Click',
+        'deep_dive': 'Deep_Dive',
+        'quick_view': 'Quick_View'
+      };
+      
+      return investigationTypeMap[investigationType] || investigationType.replace(/[-_]/g, '_').replace(/\b\w/g, l => l.toUpperCase());
     },
 
     /**
