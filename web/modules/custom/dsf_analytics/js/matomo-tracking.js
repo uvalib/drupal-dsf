@@ -26,6 +26,17 @@
     debug: drupalSettings.dsfAnalytics?.matomo?.trackingMode === 'DEBUG' || false
   };
 
+  // Enhanced debugging - always log configuration
+  console.log('DSF Analytics: Configuration loaded', {
+    config: MATOMO_CONFIG,
+    drupalSettings: {
+      dsfAnalytics: drupalSettings.dsfAnalytics,
+      matomo: drupalSettings.matomo
+    },
+    currentUrl: window.location.href,
+    currentPath: window.location.pathname
+  });
+
   // Initialize _paq if not already done by Matomo module
   window._paq = window._paq || [];
 
@@ -62,10 +73,15 @@
    */
   Drupal.behaviors.dsfMatomoTracking = {
     attach: function (context, settings) {
+      console.log('DSF Analytics: Behavior attach called', {
+        context: context,
+        settings: settings,
+        matomoConfig: MATOMO_CONFIG,
+        drupalSettings: drupalSettings
+      });
+
       if (!MATOMO_CONFIG.enabled) {
-        if (MATOMO_CONFIG.debug) {
-          console.log('DSF Matomo tracking disabled (no drupalSettings.matomo found)');
-        }
+        console.log('DSF Analytics: Tracking disabled - no drupalSettings.matomo found or not enabled');
         return;
       }
 
@@ -220,21 +236,33 @@
      * Safely push tracking events to Matomo
      */
     safeTrack: function(trackingData, description) {
+      console.log('DSF Analytics: safeTrack called', {
+        trackingData,
+        description,
+        matomoConfig: MATOMO_CONFIG,
+        _paqAvailable: !!window._paq
+      });
+
       if (!window._paq) {
-        if (MATOMO_CONFIG.debug) {
-          console.warn('DSF Matomo: _paq not available for', description);
-        }
+        console.warn('DSF Analytics: _paq not available for', description);
+        return false;
+      }
+
+      if (!MATOMO_CONFIG.enabled) {
+        console.log('DSF Analytics: Tracking disabled for', description);
         return false;
       }
 
       try {
         _paq.push(trackingData);
-        if (MATOMO_CONFIG.debug) {
-          console.log('DSF Matomo tracked:', description, trackingData);
-        }
+        console.log('DSF Analytics: Successfully tracked to Matomo:', description, {
+          trackingData,
+          matomoUrl: MATOMO_CONFIG.url,
+          siteId: MATOMO_CONFIG.siteId
+        });
         return true;
       } catch (error) {
-        console.error('DSF Matomo tracking error:', error, trackingData);
+        console.error('DSF Analytics: Tracking error:', error, trackingData);
         return false;
       }
     },
@@ -286,6 +314,19 @@
      * Track detailed service investigation events
      */
     trackServiceInvestigation: function (serviceId, serviceName, investigationType) {
+      console.log('DSF Analytics: trackServiceInvestigation called', {
+        serviceId,
+        serviceName,
+        investigationType,
+        matomoConfig: MATOMO_CONFIG,
+        _paqAvailable: !!window._paq
+      });
+
+      if (!MATOMO_CONFIG.enabled) {
+        console.log('DSF Analytics: Service investigation tracking disabled');
+        return;
+      }
+
       _paq.push([
         'trackEvent',
         'DSF_Service_Investigation',
@@ -297,13 +338,25 @@
       // Track investigation depth
       _paq.push(['setCustomDimension', 5, investigationType]);
 
-      console.log(`Tracked service investigation: ${investigationType} on ${serviceName} (${serviceId})`);
+      console.log(`DSF Analytics: Tracked service investigation: ${investigationType} on ${serviceName} (${serviceId})`);
     },
 
     /**
      * Track search and filter events
      */
     trackSearchEvent: function (eventType, data) {
+      console.log('DSF Analytics: trackSearchEvent called', {
+        eventType,
+        data,
+        matomoConfig: MATOMO_CONFIG,
+        _paqAvailable: !!window._paq
+      });
+
+      if (!MATOMO_CONFIG.enabled) {
+        console.log('DSF Analytics: Search event tracking disabled');
+        return;
+      }
+
       const searchData = data || {};
       const searchTerms = searchData.query || 'no_query';
       const filterCount = searchData.activeFilters || 0;
@@ -317,7 +370,7 @@
         resultCount
       ]);
 
-      console.log(`Tracked search event: ${eventType} with ${resultCount} results`);
+      console.log(`DSF Analytics: Tracked search event: ${eventType} with ${resultCount} results`);
     },
 
     /**
