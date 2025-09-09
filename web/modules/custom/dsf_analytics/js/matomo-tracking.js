@@ -156,9 +156,16 @@
      */
     attachTrackingListeners: function (context) {
       const self = this;
+      
+      console.log('DSF Analytics: attachTrackingListeners called', {
+        context: context,
+        contextLength: context.length,
+        contextType: context.constructor.name
+      });
 
       // Track facet selections (criteria popularity)
       const facetElements = once('matomo-facet-tracking', '.facet', context);
+      console.log('DSF Analytics: Found facet elements:', facetElements.length);
       facetElements.forEach(function(element) {
         $(element).on('change', function() {
           const facetElement = $(this);
@@ -172,6 +179,7 @@
 
       // Track service card interactions (what services people look at)
       const serviceElements = once('matomo-service-tracking', '.service-card, .cardcheckbox', context);
+      console.log('DSF Analytics: Found service elements:', serviceElements.length);
       serviceElements.forEach(function(element) {
         $(element).on('click change', function(e) {
           const serviceElement = $(this);
@@ -230,6 +238,43 @@
           self.trackServiceInteraction(serviceId, serviceName, 'external_link_click');
         });
       });
+      
+      // Set up a MutationObserver to watch for dynamically loaded content
+      if (typeof MutationObserver !== 'undefined') {
+        const observer = new MutationObserver(function(mutations) {
+          let shouldReattach = false;
+          mutations.forEach(function(mutation) {
+            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+              // Check if any new elements match our selectors
+              mutation.addedNodes.forEach(function(node) {
+                if (node.nodeType === 1) { // Element node
+                  if (node.matches && (node.matches('.facet') || node.matches('.service-card') || node.matches('.cardcheckbox'))) {
+                    shouldReattach = true;
+                  }
+                  // Also check children
+                  if (node.querySelector && (node.querySelector('.facet') || node.querySelector('.service-card') || node.querySelector('.cardcheckbox'))) {
+                    shouldReattach = true;
+                  }
+                }
+              });
+            }
+          });
+          
+          if (shouldReattach) {
+            console.log('DSF Analytics: New content detected, re-attaching listeners');
+            // Re-attach listeners to the document to catch new elements
+            self.attachTrackingListeners(document);
+          }
+        });
+        
+        // Start observing
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+        
+        console.log('DSF Analytics: MutationObserver set up to watch for new content');
+      }
     },
 
     /**
