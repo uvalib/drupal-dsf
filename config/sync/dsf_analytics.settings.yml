@@ -1,9 +1,0 @@
-data_mode: real
-api_token: 64d4d66b06e38385be0148777eba7064
-matomo_enabled: 1
-matomo_url: 'https://analytics.lib.virginia.edu/'
-matomo_site_id: '67'
-matomo_token: 64d4d66b06e38385be0148777eba7064
-tracking_mode: PROD
-dsf_pages: /dsf\n/digital-service-finder\n/services\n/find-services\n/finder\n/
-content_types: 'service,dsf_service,digital_service'
