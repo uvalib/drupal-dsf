@@ -44,27 +44,35 @@
    * Check if Matomo is already initialized by the Drupal module
    */
   function isMatomoAlreadyInitialized() {
+    console.log('DSF Analytics: Checking if Matomo already initialized...');
+    
     // Check for existing Matomo script
-    if (document.querySelector('script[src*="matomo.js"]')) {
+    const matomoScript = document.querySelector('script[src*="matomo.js"]');
+    console.log('DSF Analytics: Matomo script found:', !!matomoScript);
+    if (matomoScript) {
       return true;
     }
     
     // Check if _paq already has tracking calls
+    console.log('DSF Analytics: _paq exists:', !!window._paq, 'length:', window._paq ? window._paq.length : 0);
     if (window._paq && window._paq.length > 0) {
       // Look for common Matomo initialization calls
       for (let i = 0; i < window._paq.length; i++) {
         if (Array.isArray(window._paq[i]) && 
             (window._paq[i][0] === 'setTrackerUrl' || window._paq[i][0] === 'setSiteId')) {
+          console.log('DSF Analytics: Found Matomo initialization in _paq:', window._paq[i]);
           return true;
         }
       }
     }
     
     // Check for Matomo global variables
+    console.log('DSF Analytics: Piwik exists:', !!window.Piwik, 'Matomo exists:', !!window.Matomo);
     if (window.Piwik || window.Matomo) {
       return true;
     }
     
+    console.log('DSF Analytics: Matomo not initialized, will initialize');
     return false;
   }
 
@@ -86,10 +94,11 @@
       }
 
       // Check if we should initialize or extend existing Matomo
-      if (isMatomoAlreadyInitialized()) {
-        if (MATOMO_CONFIG.debug) {
-          console.log('DSF extending existing Matomo tracking (Drupal module detected)');
-        }
+      const matomoAlreadyInitialized = isMatomoAlreadyInitialized();
+      console.log('DSF Analytics: isMatomoAlreadyInitialized() returned:', matomoAlreadyInitialized);
+      
+      if (matomoAlreadyInitialized) {
+        console.log('DSF Analytics: Matomo already initialized, extending existing tracking');
         // Don't re-initialize, just attach our custom event listeners
         this.attachTrackingListeners(context);
         return;
@@ -132,15 +141,19 @@
       
       // Load Matomo script only if not already loaded
       if (!document.querySelector('script[src*="matomo.js"]')) {
+        console.log('DSF Analytics: Loading Matomo script from:', MATOMO_CONFIG.url + 'matomo.js');
         (function() {
           var u = MATOMO_CONFIG.url;
           _paq.push(['setTrackerUrl', u + 'matomo.php']);
           _paq.push(['setSiteId', MATOMO_CONFIG.siteId]);
           var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
           g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'matomo.js';
+          g.onload = function() { console.log('DSF Analytics: Matomo script loaded successfully'); };
+          g.onerror = function() { console.error('DSF Analytics: Failed to load Matomo script'); };
           s.parentNode.insertBefore(g, s);
         })();
       } else {
+        console.log('DSF Analytics: Matomo script already loaded, setting tracker settings');
         // Script already loaded, just set tracker settings
         _paq.push(['setTrackerUrl', MATOMO_CONFIG.url + 'matomo.php']);
         _paq.push(['setSiteId', MATOMO_CONFIG.siteId]);
