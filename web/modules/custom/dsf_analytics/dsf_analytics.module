@@ -43,6 +43,12 @@ function dsf_analytics_page_attachments(array &$attachments) {
   $config = \Drupal::config('dsf_analytics.settings');
   $matomo_enabled = $config->get('matomo_enabled') ?? FALSE;
   
+  // Convert string boolean values to actual booleans
+  if (is_string($matomo_enabled)) {
+    $matomo_enabled = in_array(strtolower($matomo_enabled), ['1', 'true', 'yes', 'on'], true);
+  }
+  
+  
   if (!$matomo_enabled) {
     return;
   }
@@ -52,13 +58,21 @@ function dsf_analytics_page_attachments(array &$attachments) {
   $path_alias = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
   
   // Get configurable DSF pages
-  $dsf_pages_config = $config->get('dsf_pages') ?? "/dsf\n/digital-service-finder\n/services\n/find-services";
+  $dsf_pages_config = $config->get('dsf_pages') ?? "/dsf\n/digital-service-finder\n/services\n/find-services\n/finder\n/";
+  // Handle both literal \n and actual newlines
+  $dsf_pages_config = str_replace('\\n', "\n", $dsf_pages_config);
   $dsf_pages = array_filter(array_map('trim', explode("\n", $dsf_pages_config)));
   
   // Check if current page is a DSF page
   $is_dsf_page = FALSE;
   foreach ($dsf_pages as $dsf_path) {
-    if (strpos($path_alias, $dsf_path) !== FALSE || strpos($current_path, $dsf_path) !== FALSE) {
+    // Remove leading slash for comparison
+    $dsf_path_clean = ltrim($dsf_path, '/');
+    $current_path_clean = ltrim($current_path, '/');
+    $path_alias_clean = ltrim($path_alias, '/');
+    
+    if ($path_alias_clean === $dsf_path_clean || $current_path_clean === $dsf_path_clean ||
+        strpos($path_alias_clean, $dsf_path_clean) === 0 || strpos($current_path_clean, $dsf_path_clean) === 0) {
       $is_dsf_page = TRUE;
       break;
     }

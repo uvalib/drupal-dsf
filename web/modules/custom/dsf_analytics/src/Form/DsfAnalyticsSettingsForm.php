@@ -138,7 +138,7 @@ class DsfAnalyticsSettingsForm extends ConfigFormBase {
       '#type' => 'textarea',
       '#title' => $this->t('DSF Pages'),
       '#description' => $this->t('Enter one path per line where DSF tracking should be enabled. Use paths like /dsf, /digital-service-finder, etc.'),
-      '#default_value' => $config->get('dsf_pages') ?? "/dsf\n/digital-service-finder\n/services\n/find-services",
+      '#default_value' => $config->get('dsf_pages') ?? "/dsf\n/digital-service-finder\n/services\n/find-services\n/finder\n/",
       '#rows' => 5,
     ];
 
