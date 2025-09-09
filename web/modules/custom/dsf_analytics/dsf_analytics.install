@@ -31,6 +31,7 @@ function dsf_analytics_install() {
   // Set default configuration values.
   $config = \Drupal::configFactory()->getEditable('dsf_analytics.settings');
   $config->set('data_mode', 'real');
+  $config->set('dsf_pages', "/dsf\n/digital-service-finder\n/services\n/find-services\n/finder\n/");
   $config->save();
 }
 
