@@ -363,8 +363,7 @@
 
       if (this.safeTrack(eventData, 'service interaction')) {
         // Set custom dimensions for service analysis
-        this.safeTrack(['setCustomDimension', 3, serviceId], 'service ID dimension');
-        this.safeTrack(['setCustomDimension', 4, serviceName], 'service name dimension');
+        this.safeTrack(['setCustomDimension', 3, `${serviceName} (${serviceId})`], 'service info dimension');
       }
     },
 
@@ -394,7 +393,7 @@
       ]);
 
       // Track investigation depth
-      _paq.push(['setCustomDimension', 5, investigationType]);
+      _paq.push(['setCustomDimension', 4, investigationType]);
 
       console.log(`DSF Analytics: Tracked service investigation: ${investigationType} on ${serviceName} (${serviceId})`);
     },
@@ -502,7 +501,7 @@
       ]);
 
       // Set custom dimension for workflow stage tracking
-      _paq.push(['setCustomDimension', 6, stage]);
+      _paq.push(['setCustomDimension', 5, stage]);
 
       console.log(`Tracked workflow stage: ${stage} - ${eventName}`);
     },
