@@ -149,6 +149,14 @@ class DsfAnalyticsSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('content_types') ?? 'service,dsf_service,digital_service',
     ];
 
+    $form['integration']['investigation_types'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Investigation Types'),
+      '#description' => $this->t('Enter investigation types in the format: machine_name|Human Readable Name (one per line). Example: details_view|Details View'),
+      '#default_value' => $this->formatInvestigationTypes($config->get('investigation_types') ?? []),
+      '#rows' => 6,
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -170,6 +178,7 @@ class DsfAnalyticsSettingsForm extends ConfigFormBase {
       ->set('tracking_mode', $form_state->getValue('tracking_mode'))
       ->set('dsf_pages', $form_state->getValue('dsf_pages'))
       ->set('content_types', $form_state->getValue('content_types'))
+      ->set('investigation_types', $this->parseInvestigationTypes($form_state->getValue('investigation_types')))
       ->save();
 
     // Also update the main Matomo module configuration for integration
@@ -180,6 +189,37 @@ class DsfAnalyticsSettingsForm extends ConfigFormBase {
       ->save();
 
     parent::submitForm($form, $form_state);
+  }
+
+  /**
+   * Format investigation types for display in textarea.
+   */
+  protected function formatInvestigationTypes(array $investigation_types) {
+    $lines = [];
+    foreach ($investigation_types as $machine_name => $human_name) {
+      $lines[] = $machine_name . '|' . $human_name;
+    }
+    return implode("\n", $lines);
+  }
+
+  /**
+   * Parse investigation types from textarea input.
+   */
+  protected function parseInvestigationTypes($textarea_value) {
+    $investigation_types = [];
+    $lines = explode("\n", $textarea_value);
+    
+    foreach ($lines as $line) {
+      $line = trim($line);
+      if (empty($line)) continue;
+      
+      $parts = explode('|', $line, 2);
+      if (count($parts) === 2) {
+        $investigation_types[trim($parts[0])] = trim($parts[1]);
+      }
+    }
+    
+    return $investigation_types;
   }
 
 }

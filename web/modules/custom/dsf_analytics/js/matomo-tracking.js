@@ -352,26 +352,21 @@
     },
 
     /**
-     * Clean up facet type to be more readable
+     * Clean up facet type to be more readable using dynamic labels
      */
     cleanFacetType: function(facetType) {
       if (!facetType || facetType === 'unknown') return 'Unknown_Facet';
       
-      // Convert common facet types to readable names
-      const facetTypeMap = {
-        'facet-1': 'Storage_Type',
-        'facet-2': 'Data_Size',
-        'facet-3': 'Security_Level',
-        'facet-4': 'Access_Type',
-        'facet-5': 'Cost_Model',
-        'storage-type': 'Storage_Type',
-        'data-size': 'Data_Size',
-        'security-level': 'Security_Level',
-        'access-type': 'Access_Type',
-        'cost-model': 'Cost_Model'
-      };
+      // Use dynamic labels from Drupal if available
+      if (MATOMO_CONFIG.labels && MATOMO_CONFIG.labels.facetTypes) {
+        const dynamicLabel = MATOMO_CONFIG.labels.facetTypes[facetType];
+        if (dynamicLabel) {
+          return dynamicLabel.replace(/[-_]/g, '_').replace(/\b\w/g, l => l.toUpperCase());
+        }
+      }
       
-      return facetTypeMap[facetType] || facetType.replace(/[-_]/g, '_').replace(/facet/i, 'Facet');
+      // Fallback to basic cleaning if no dynamic labels
+      return facetType.replace(/[-_]/g, '_').replace(/facet/i, 'Facet').replace(/\b\w/g, l => l.toUpperCase());
     },
 
     /**
@@ -412,12 +407,22 @@
     },
 
     /**
-     * Clean up service name to be more readable
+     * Clean up service name to be more readable using dynamic labels
      */
     cleanServiceName: function(serviceName) {
       if (!serviceName || serviceName === 'Unknown Service') return 'Unknown_Service';
       
-      // Clean up service names
+      // Use dynamic labels from Drupal if available
+      if (MATOMO_CONFIG.labels && MATOMO_CONFIG.labels.serviceNames) {
+        // Try to find service by name first
+        for (const [serviceId, dynamicName] of Object.entries(MATOMO_CONFIG.labels.serviceNames)) {
+          if (dynamicName === serviceName) {
+            return dynamicName.replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()).trim();
+          }
+        }
+      }
+      
+      // Fallback to basic cleaning
       return serviceName
         .replace(/[-_]/g, ' ')
         .replace(/\b\w/g, l => l.toUpperCase())
@@ -477,21 +482,21 @@
     },
 
     /**
-     * Clean up investigation type to be more readable
+     * Clean up investigation type to be more readable using dynamic labels
      */
     cleanInvestigationType: function(investigationType) {
       if (!investigationType) return 'Unknown_Investigation';
       
-      const investigationTypeMap = {
-        'details_view': 'Details_View',
-        'added_to_comparison': 'Added_To_Comparison',
-        'removed_from_comparison': 'Removed_From_Comparison',
-        'external_link_click': 'External_Link_Click',
-        'deep_dive': 'Deep_Dive',
-        'quick_view': 'Quick_View'
-      };
+      // Use dynamic labels from Drupal if available
+      if (MATOMO_CONFIG.labels && MATOMO_CONFIG.labels.investigationTypes) {
+        const dynamicLabel = MATOMO_CONFIG.labels.investigationTypes[investigationType];
+        if (dynamicLabel) {
+          return dynamicLabel.replace(/[-_]/g, '_').replace(/\b\w/g, l => l.toUpperCase());
+        }
+      }
       
-      return investigationTypeMap[investigationType] || investigationType.replace(/[-_]/g, '_').replace(/\b\w/g, l => l.toUpperCase());
+      // Fallback to basic cleaning
+      return investigationType.replace(/[-_]/g, '_').replace(/\b\w/g, l => l.toUpperCase());
     },
 
     /**
