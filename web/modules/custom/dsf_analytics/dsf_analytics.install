@@ -57,8 +57,15 @@ function dsf_analytics_uninstall() {
     }
   }
   
-  // Remove configuration.
-  \Drupal::configFactory()->getEditable('dsf_analytics.settings')->delete();
+  // Remove all DSF Analytics configuration.
+  $config = \Drupal::configFactory()->getEditable('dsf_analytics.settings');
+  $config->delete();
   
-  \Drupal::messenger()->addStatus(t('DSF Analytics permissions and configuration have been removed.'));
+  // Clear any cached configuration.
+  \Drupal::service('config.factory')->reset('dsf_analytics.settings');
+  
+  // Clear all caches to remove any cached module data.
+  drupal_flush_all_caches();
+  
+  \Drupal::messenger()->addStatus(t('DSF Analytics permissions, configuration, and all cached data have been completely removed.'));
 }
