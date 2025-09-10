@@ -153,7 +153,7 @@ class DsfAnalyticsSettingsForm extends ConfigFormBase {
       '#type' => 'textarea',
       '#title' => $this->t('Investigation Types'),
       '#description' => $this->t('Enter investigation types in the format: machine_name|Human Readable Name (one per line). Example: details_view|Details View'),
-      '#default_value' => $this->formatInvestigationTypes($config->get('investigation_types') ?? []),
+      '#default_value' => $this->formatInvestigationTypes($config->get('investigation_types') ?? $this->getDefaultInvestigationTypes()),
       '#rows' => 6,
     ];
 
@@ -189,6 +189,20 @@ class DsfAnalyticsSettingsForm extends ConfigFormBase {
       ->save();
 
     parent::submitForm($form, $form_state);
+  }
+
+  /**
+   * Get default investigation types.
+   */
+  protected function getDefaultInvestigationTypes() {
+    return [
+      'details_view' => 'Details View',
+      'added_to_comparison' => 'Added To Comparison',
+      'removed_from_comparison' => 'Removed From Comparison',
+      'external_link_click' => 'External Link Click',
+      'deep_dive' => 'Deep Dive',
+      'quick_view' => 'Quick View',
+    ];
   }
 
   /**

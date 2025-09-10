@@ -32,6 +32,14 @@ function dsf_analytics_install() {
   $config = \Drupal::configFactory()->getEditable('dsf_analytics.settings');
   $config->set('data_mode', 'real');
   $config->set('dsf_pages', "/dsf\n/digital-service-finder\n/services\n/find-services\n/finder\n/");
+  $config->set('investigation_types', [
+    'details_view' => 'Details View',
+    'added_to_comparison' => 'Added To Comparison',
+    'removed_from_comparison' => 'Removed From Comparison',
+    'external_link_click' => 'External Link Click',
+    'deep_dive' => 'Deep Dive',
+    'quick_view' => 'Quick View',
+  ]);
   $config->save();
 }
 
