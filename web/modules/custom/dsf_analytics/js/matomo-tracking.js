@@ -40,6 +40,22 @@
     browser: getBrowserInfo()
   });
 
+  // Test Matomo server connectivity
+  if (MATOMO_CONFIG.matomo.enabled) {
+    const testUrl = MATOMO_CONFIG.matomo.url + 'matomo.php';
+    console.log('DSF Analytics: Testing Matomo connectivity to', testUrl, 'Browser:', getBrowserInfo());
+    
+    // Test with a simple fetch request
+    fetch(testUrl, {
+      method: 'GET',
+      mode: 'no-cors' // This will always succeed but won't give us response details
+    }).then(() => {
+      console.log('DSF Analytics: Matomo server reachable (no-cors mode)', 'Browser:', getBrowserInfo());
+    }).catch(error => {
+      console.error('DSF Analytics: Matomo server unreachable', error, 'Browser:', getBrowserInfo());
+    });
+  }
+
   // Browser detection for debugging
   function getBrowserInfo() {
     const ua = navigator.userAgent;
@@ -349,7 +365,28 @@
       }
 
       try {
+        console.log('DSF Analytics: About to push to _paq', {
+          _paqLength: _paq.length,
+          trackingData,
+          browser: getBrowserInfo()
+        });
+        
         _paq.push(trackingData);
+        
+        console.log('DSF Analytics: Pushed to _paq, new length:', _paq.length, {
+          trackingData,
+          browser: getBrowserInfo()
+        });
+        
+        // Check if the event was processed by Matomo
+        setTimeout(function() {
+          console.log('DSF Analytics: _paq state after 2 seconds', {
+            _paqLength: _paq.length,
+            description,
+            browser: getBrowserInfo()
+          });
+        }, 2000);
+        
         console.log('DSF Analytics: Successfully tracked to Matomo:', description, {
           trackingData,
           matomoUrl: MATOMO_CONFIG.url,
