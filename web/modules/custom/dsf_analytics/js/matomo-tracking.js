@@ -41,8 +41,8 @@
   });
 
   // Test Matomo server connectivity
-  if (MATOMO_CONFIG.matomo && MATOMO_CONFIG.matomo.enabled) {
-    const testUrl = MATOMO_CONFIG.matomo.url + 'matomo.php';
+  if (MATOMO_CONFIG.enabled) {
+    const testUrl = MATOMO_CONFIG.url + 'matomo.php';
     console.log('DSF Analytics: Testing Matomo connectivity to', testUrl, 'Browser:', getBrowserInfo());
     
     // Test with a simple fetch request
