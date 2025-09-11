@@ -40,11 +40,50 @@
     browser: getBrowserInfo()
   });
 
-  // Ensure _paq exists - initialize if Matomo hasn't loaded yet
-  if (typeof _paq === 'undefined') {
-    console.log('DSF Analytics: _paq not found, initializing fallback array', 'Browser:', getBrowserInfo());
-    window._paq = window._paq || [];
+  // Debug: Log initial _paq state and check for Matomo scripts
+  console.log('DSF Analytics: Initial _paq state', {
+    _paqType: typeof _paq,
+    _paqIsArray: Array.isArray(_paq),
+    _paqValue: _paq,
+    _paqConstructor: _paq ? _paq.constructor.name : 'N/A',
+    browser: getBrowserInfo()
+  });
+
+  // Check for Matomo scripts in the DOM
+  const matomoScripts = document.querySelectorAll('script[src*="matomo"], script[src*="analytics"]');
+  console.log('DSF Analytics: Found Matomo scripts', {
+    count: matomoScripts.length,
+    scripts: Array.from(matomoScripts).map(s => s.src),
+    browser: getBrowserInfo()
+  });
+
+  // Check if _paq has any properties that might give us a clue
+  if (_paq && typeof _paq === 'object') {
+    console.log('DSF Analytics: _paq object properties', {
+      keys: Object.keys(_paq),
+      values: Object.values(_paq),
+      browser: getBrowserInfo()
+    });
   }
+
+  // Ensure _paq exists and is an array - initialize if Matomo hasn't loaded yet
+  if (typeof _paq === 'undefined' || !Array.isArray(_paq)) {
+    console.log('DSF Analytics: _paq not found or not an array, initializing fallback array', {
+      _paqType: typeof _paq,
+      _paqIsArray: Array.isArray(_paq),
+      _paqValue: _paq,
+      browser: getBrowserInfo()
+    });
+    window._paq = [];
+  }
+
+  // Debug: Log final _paq state after our fix
+  console.log('DSF Analytics: Final _paq state after fix', {
+    _paqType: typeof _paq,
+    _paqIsArray: Array.isArray(_paq),
+    _paqLength: _paq ? _paq.length : 'N/A',
+    browser: getBrowserInfo()
+  });
 
   // Test Matomo server connectivity
   if (MATOMO_CONFIG.enabled) {
