@@ -118,6 +118,8 @@ function dsf_analytics_page_attachments(array &$attachments) {
   
   // Attach libraries if this is a DSF-related page
   if ($is_dsf_page) {
+    // Debug: Log that we're attaching the library
+    \Drupal::logger('dsf_analytics')->info('Attaching DSF Analytics library to page: @path', ['@path' => $current_path]);
     $attachments['#attached']['library'][] = 'dsf_analytics/matomo_complete';
     
     // Pass configuration to JavaScript
