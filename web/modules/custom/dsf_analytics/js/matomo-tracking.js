@@ -40,6 +40,12 @@
     browser: getBrowserInfo()
   });
 
+  // Ensure _paq exists - initialize if Matomo hasn't loaded yet
+  if (typeof _paq === 'undefined') {
+    console.log('DSF Analytics: _paq not found, initializing fallback array', 'Browser:', getBrowserInfo());
+    window._paq = window._paq || [];
+  }
+
   // Test Matomo server connectivity
   if (MATOMO_CONFIG.enabled) {
     const testUrl = MATOMO_CONFIG.url + 'matomo.php';
@@ -366,14 +372,16 @@
 
       try {
         console.log('DSF Analytics: About to push to _paq', {
-          _paqLength: _paq.length,
+          _paqType: typeof _paq,
+          _paqIsArray: Array.isArray(_paq),
+          _paqLength: _paq ? _paq.length : 'N/A',
           trackingData,
           browser: getBrowserInfo()
         });
         
         _paq.push(trackingData);
         
-        console.log('DSF Analytics: Pushed to _paq, new length:', _paq.length, {
+        console.log('DSF Analytics: Pushed to _paq, new length:', _paq ? _paq.length : 'N/A', {
           trackingData,
           browser: getBrowserInfo()
         });
@@ -381,7 +389,9 @@
         // Check if the event was processed by Matomo
         setTimeout(function() {
           console.log('DSF Analytics: _paq state after 2 seconds', {
-            _paqLength: _paq.length,
+            _paqType: typeof _paq,
+            _paqIsArray: Array.isArray(_paq),
+            _paqLength: _paq ? _paq.length : 'N/A',
             description,
             browser: getBrowserInfo()
           });
