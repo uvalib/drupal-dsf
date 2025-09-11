@@ -23,7 +23,8 @@
     enabled: drupalSettings.dsfAnalytics?.matomo?.enabled || 
              (drupalSettings.matomo ? true : false),
     trackingMode: drupalSettings.dsfAnalytics?.matomo?.trackingMode || 'PROD',
-    debug: drupalSettings.dsfAnalytics?.matomo?.trackingMode === 'DEBUG' || false
+    debug: drupalSettings.dsfAnalytics?.matomo?.trackingMode === 'DEBUG' || false,
+    labels: drupalSettings.dsfAnalytics?.labels || null
   };
 
   // Enhanced debugging - always log configuration
@@ -183,7 +184,13 @@
         $(element).on('change', function() {
           const facetElement = $(this);
           const facetType = facetElement.attr('name') || facetElement.closest('.facet-group').data('facet-type') || 'unknown';
-          const facetValue = facetElement.val() || facetElement.text().trim();
+          // Prefer human-readable label when value is a boolean/"on"
+          const inputId = facetElement.attr('id');
+          const explicitLabel = inputId ? $(`label[for="${inputId}"]`).text().trim() : '';
+          const surroundingLabel = facetElement.closest('label').text().trim();
+          const optionText = facetElement.is('option') ? facetElement.text().trim() : '';
+          const rawValue = facetElement.val();
+          const facetValue = explicitLabel || surroundingLabel || optionText || (typeof rawValue === 'string' ? rawValue : (rawValue ? String(rawValue) : '')) || facetElement.text().trim();
           const isChecked = facetElement.is(':checked') || facetElement.is(':selected');
 
           self.trackFacetSelection(facetType, facetValue, isChecked);
@@ -407,8 +414,14 @@
     trackServiceInteraction: function (serviceId, serviceName, actionType) {
       if (!MATOMO_CONFIG.enabled) return;
 
+      // Prefer dynamic service name by ID if available
+      let resolvedServiceName = serviceName;
+      if (serviceId && MATOMO_CONFIG.labels && MATOMO_CONFIG.labels.serviceNames && MATOMO_CONFIG.labels.serviceNames[String(serviceId)]) {
+        resolvedServiceName = MATOMO_CONFIG.labels.serviceNames[String(serviceId)];
+      }
+
       // Clean up service data to be more readable
-      const cleanServiceName = this.cleanServiceName(serviceName);
+      const cleanServiceName = this.cleanServiceName(resolvedServiceName);
       const cleanActionType = this.cleanActionType(actionType);
       
       const eventData = [
