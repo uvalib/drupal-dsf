@@ -919,6 +919,143 @@
     },
 
     /**
+     * Setup chart viewing tracking
+     */
+    setupChartViewingTracking: function() {
+      const self = this;
+      let chartViewingStartTime = null;
+      let chartViewingDuration = 0;
+      let chartInView = false;
+      let chartViewingTimer = null;
+      let lastChartViewingEvent = 0;
+      
+      // Function to check if chart is in viewport
+      function isChartInView() {
+        const chartElements = document.querySelectorAll('.comparison-chart, .chart-container, .visualization, [data-chart], .results-chart');
+        if (chartElements.length === 0) return false;
+        
+        for (let element of chartElements) {
+          const rect = element.getBoundingClientRect();
+          const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+          const windowWidth = window.innerWidth || document.documentElement.clientWidth;
+          
+          // Check if element is visible and in viewport
+          if (rect.top < windowHeight && rect.bottom > 0 && 
+              rect.left < windowWidth && rect.right > 0 &&
+              rect.height > 0 && rect.width > 0) {
+            return true;
+          }
+        }
+        return false;
+      }
+      
+      // Function to start tracking chart viewing
+      function startChartViewing() {
+        if (!chartInView) {
+          chartInView = true;
+          chartViewingStartTime = Date.now();
+          console.log('DSF Analytics: Chart viewing started');
+          
+          // Track chart view start
+          window.DSFMatomoTracker.trackCustomEvent('DSF_Chart_Viewing', 'Chart_View_Started', 'User scrolled to comparison chart', 1);
+        }
+      }
+      
+      // Function to stop tracking chart viewing
+      function stopChartViewing() {
+        if (chartInView) {
+          chartInView = false;
+          if (chartViewingStartTime) {
+            chartViewingDuration = Date.now() - chartViewingStartTime;
+            console.log('DSF Analytics: Chart viewing ended, duration:', chartViewingDuration + 'ms');
+            
+            // Track chart view duration
+            window.DSFMatomoTracker.trackCustomEvent('DSF_Chart_Viewing', 'Chart_View_Ended', 
+              `Duration: ${Math.round(chartViewingDuration / 1000)}s`, Math.round(chartViewingDuration / 1000));
+            
+            chartViewingStartTime = null;
+          }
+        }
+      }
+      
+      // Function to track ongoing chart engagement
+      function trackChartEngagement() {
+        if (chartInView) {
+          const now = Date.now();
+          // Only track engagement every 5 seconds to avoid spam
+          if (now - lastChartViewingEvent > 5000) {
+            lastChartViewingEvent = now;
+            const currentDuration = now - chartViewingStartTime;
+            
+            // Track different engagement levels
+            if (currentDuration > 30000) { // 30+ seconds
+              window.DSFMatomoTracker.trackCustomEvent('DSF_Chart_Viewing', 'Chart_Deep_Engagement', 
+                `Extended viewing: ${Math.round(currentDuration / 1000)}s`, Math.round(currentDuration / 1000));
+            } else if (currentDuration > 10000) { // 10+ seconds
+              window.DSFMatomoTracker.trackCustomEvent('DSF_Chart_Viewing', 'Chart_Moderate_Engagement', 
+                `Moderate viewing: ${Math.round(currentDuration / 1000)}s`, Math.round(currentDuration / 1000));
+            }
+          }
+        }
+      }
+      
+      // Scroll event handler
+      function handleScroll() {
+        const chartVisible = isChartInView();
+        
+        if (chartVisible && !chartInView) {
+          startChartViewing();
+        } else if (!chartVisible && chartInView) {
+          stopChartViewing();
+        }
+        
+        // Track ongoing engagement while chart is in view
+        if (chartVisible) {
+          trackChartEngagement();
+        }
+      }
+      
+      // Throttled scroll handler (max once per 100ms)
+      let scrollTimeout;
+      $(window).on('scroll', function() {
+        if (scrollTimeout) clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(handleScroll, 100);
+      });
+      
+      // Also check on page load and resize
+      $(document).ready(function() {
+        handleScroll();
+      });
+      
+      $(window).on('resize', function() {
+        handleScroll();
+      });
+      
+      // Track when user interacts with chart elements
+      $(document).on('click hover focus', '.comparison-chart, .chart-container, .visualization, [data-chart], .results-chart', function() {
+        if (chartInView) {
+          window.DSFMatomoTracker.trackCustomEvent('DSF_Chart_Viewing', 'Chart_Interaction', 
+            'User interacted with chart element', 1);
+        }
+      });
+      
+      // Track chart zoom/pan if supported
+      $(document).on('wheel', '.comparison-chart, .chart-container, .visualization, [data-chart], .results-chart', function(e) {
+        if (chartInView) {
+          window.DSFMatomoTracker.trackCustomEvent('DSF_Chart_Viewing', 'Chart_Zoom_Pan', 
+            'User zoomed/panned chart', 1);
+        }
+      });
+      
+      // Track when user scrolls away from chart after viewing
+      $(window).on('beforeunload', function() {
+        if (chartInView) {
+          stopChartViewing();
+        }
+      });
+    },
+
+    /**
      * Setup automatic workflow stage detection
      */
     setupWorkflowDetection: function() {
@@ -1017,6 +1154,9 @@
           self.trackStageTransition('workflow_completed');
         }
       });
+
+      // Track chart viewing behavior
+      this.setupChartViewingTracking();
 
       // Track additional UI interactions that affect user workflow
       
