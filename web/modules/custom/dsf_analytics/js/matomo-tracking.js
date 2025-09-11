@@ -13,18 +13,18 @@
 
   // Get Matomo configuration from DSF Analytics module settings
   const MATOMO_CONFIG = {
-    url: drupalSettings.dsfAnalytics?.matomo?.url || 
-         drupalSettings.matomo?.url_https || 
-         drupalSettings.matomo?.url_http || 
+    url: (drupalSettings.dsfAnalytics && drupalSettings.dsfAnalytics.matomo && drupalSettings.dsfAnalytics.matomo.url) || 
+         (drupalSettings.matomo && drupalSettings.matomo.url_https) || 
+         (drupalSettings.matomo && drupalSettings.matomo.url_http) || 
          'https://vah-analytics.lib.virginia.edu/',
-    siteId: drupalSettings.dsfAnalytics?.matomo?.siteId || 
-            drupalSettings.matomo?.site_id || 
+    siteId: (drupalSettings.dsfAnalytics && drupalSettings.dsfAnalytics.matomo && drupalSettings.dsfAnalytics.matomo.siteId) || 
+            (drupalSettings.matomo && drupalSettings.matomo.site_id) || 
             1,
-    enabled: drupalSettings.dsfAnalytics?.matomo?.enabled || 
+    enabled: (drupalSettings.dsfAnalytics && drupalSettings.dsfAnalytics.matomo && drupalSettings.dsfAnalytics.matomo.enabled) || 
              (drupalSettings.matomo ? true : false),
-    trackingMode: drupalSettings.dsfAnalytics?.matomo?.trackingMode || 'PROD',
-    debug: drupalSettings.dsfAnalytics?.matomo?.trackingMode === 'DEBUG' || false,
-    labels: drupalSettings.dsfAnalytics?.labels || null
+    trackingMode: (drupalSettings.dsfAnalytics && drupalSettings.dsfAnalytics.matomo && drupalSettings.dsfAnalytics.matomo.trackingMode) || 'PROD',
+    debug: (drupalSettings.dsfAnalytics && drupalSettings.dsfAnalytics.matomo && drupalSettings.dsfAnalytics.matomo.trackingMode === 'DEBUG') || false,
+    labels: (drupalSettings.dsfAnalytics && drupalSettings.dsfAnalytics.labels) || null
   };
 
   // Enhanced debugging - always log configuration
@@ -35,8 +35,20 @@
       matomo: drupalSettings.matomo
     },
     currentUrl: window.location.href,
-    currentPath: window.location.pathname
+    currentPath: window.location.pathname,
+    userAgent: navigator.userAgent,
+    browser: getBrowserInfo()
   });
+
+  // Browser detection for debugging
+  function getBrowserInfo() {
+    const ua = navigator.userAgent;
+    if (ua.indexOf('Chrome') > -1) return 'Chrome';
+    if (ua.indexOf('Firefox') > -1) return 'Firefox';
+    if (ua.indexOf('Safari') > -1) return 'Safari';
+    if (ua.indexOf('Edge') > -1) return 'Edge';
+    return 'Unknown';
+  }
 
   // Initialize _paq if not already done by Matomo module
   window._paq = window._paq || [];
@@ -205,7 +217,24 @@
           const serviceElement = $(this);
           const serviceCard = serviceElement.closest('.service-card');
           const serviceId = serviceCard.data('service-id') || serviceCard.find('[data-service-id]').data('service-id');
-          const serviceName = serviceCard.find('.service-title, .card-title').text().trim();
+          
+          // Try multiple selectors for service name
+          let serviceName = serviceCard.find('.service-title').text().trim() ||
+                           serviceCard.find('.card-title').text().trim() ||
+                           serviceCard.find('h3').text().trim() ||
+                           serviceCard.find('h4').text().trim() ||
+                           serviceCard.find('.title').text().trim() ||
+                           serviceCard.find('[class*="title"]').text().trim() ||
+                           serviceCard.find('a').text().trim() ||
+                           'Unknown Service';
+          
+          console.log('DSF Analytics: Service interaction detected', {
+            serviceId: serviceId,
+            serviceName: serviceName,
+            element: serviceElement[0],
+            cardHtml: serviceCard.html().substring(0, 200)
+          });
+          
           const actionType = e.type === 'change' ? 'selection' : 'view';
 
           self.trackServiceInteraction(serviceId, serviceName, actionType);
@@ -305,11 +334,12 @@
         trackingData,
         description,
         matomoConfig: MATOMO_CONFIG,
-        _paqAvailable: !!window._paq
+        _paqAvailable: !!window._paq,
+        browser: getBrowserInfo()
       });
 
       if (!window._paq) {
-        console.warn('DSF Analytics: _paq not available for', description);
+        console.warn('DSF Analytics: _paq not available for', description, 'Browser:', getBrowserInfo());
         return false;
       }
 
@@ -323,11 +353,12 @@
         console.log('DSF Analytics: Successfully tracked to Matomo:', description, {
           trackingData,
           matomoUrl: MATOMO_CONFIG.url,
-          siteId: MATOMO_CONFIG.siteId
+          siteId: MATOMO_CONFIG.siteId,
+          browser: getBrowserInfo()
         });
         return true;
       } catch (error) {
-        console.error('DSF Analytics: Tracking error:', error, trackingData);
+        console.error('DSF Analytics: Tracking error in', getBrowserInfo(), ':', error, trackingData);
         return false;
       }
     },
@@ -414,10 +445,20 @@
     trackServiceInteraction: function (serviceId, serviceName, actionType) {
       if (!MATOMO_CONFIG.enabled) return;
 
+      console.log('DSF Analytics: trackServiceInteraction called', {
+        serviceId,
+        serviceName,
+        actionType,
+        labels: MATOMO_CONFIG.labels
+      });
+
       // Prefer dynamic service name by ID if available
       let resolvedServiceName = serviceName;
       if (serviceId && MATOMO_CONFIG.labels && MATOMO_CONFIG.labels.serviceNames && MATOMO_CONFIG.labels.serviceNames[String(serviceId)]) {
         resolvedServiceName = MATOMO_CONFIG.labels.serviceNames[String(serviceId)];
+        console.log('DSF Analytics: Resolved service name by ID', { serviceId, original: serviceName, resolved: resolvedServiceName });
+      } else {
+        console.log('DSF Analytics: No dynamic label found for service', { serviceId, serviceName, availableLabels: MATOMO_CONFIG.labels && MATOMO_CONFIG.labels.serviceNames });
       }
 
       // Clean up service data to be more readable
@@ -448,17 +489,20 @@
         serviceName,
         labelsAvailable: !!MATOMO_CONFIG.labels,
         serviceNamesAvailable: !!(MATOMO_CONFIG.labels && MATOMO_CONFIG.labels.serviceNames),
-        serviceNames: MATOMO_CONFIG.labels?.serviceNames
+        serviceNames: MATOMO_CONFIG.labels && MATOMO_CONFIG.labels.serviceNames
       });
       
       // Use dynamic labels from Drupal if available
       if (MATOMO_CONFIG.labels && MATOMO_CONFIG.labels.serviceNames) {
         // Try to find service by name first
-        for (const [serviceId, dynamicName] of Object.entries(MATOMO_CONFIG.labels.serviceNames)) {
-          if (dynamicName === serviceName) {
-            const cleaned = dynamicName.replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()).trim();
-            console.log('DSF Analytics: Using dynamic service name', { original: serviceName, dynamic: dynamicName, cleaned });
-            return cleaned;
+        for (const serviceId in MATOMO_CONFIG.labels.serviceNames) {
+          if (MATOMO_CONFIG.labels.serviceNames.hasOwnProperty(serviceId)) {
+            const dynamicName = MATOMO_CONFIG.labels.serviceNames[serviceId];
+            if (dynamicName === serviceName) {
+              const cleaned = dynamicName.replace(/[-_]/g, ' ').replace(/\b\w/g, function(l) { return l.toUpperCase(); }).trim();
+              console.log('DSF Analytics: Using dynamic service name', { original: serviceName, dynamic: dynamicName, cleaned });
+              return cleaned;
+            }
           }
         }
       }
@@ -466,7 +510,7 @@
       // Fallback to basic cleaning
       const fallback = serviceName
         .replace(/[-_]/g, ' ')
-        .replace(/\b\w/g, l => l.toUpperCase())
+        .replace(/\b\w/g, function(l) { return l.toUpperCase(); })
         .trim();
       console.log('DSF Analytics: Using fallback service name cleaning', { original: serviceName, fallback });
       return fallback;
