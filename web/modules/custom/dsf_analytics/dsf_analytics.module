@@ -65,6 +65,16 @@ function dsf_analytics_page_attachments(array &$attachments) {
   
   // Check if current page is a DSF page
   $is_dsf_page = FALSE;
+  
+  // Also check the route name for front page
+  $route_match = \Drupal::routeMatch();
+  $route_name = $route_match->getRouteName();
+  
+  // Special case for front page that might be the DSF finder
+  if ($route_name === 'view.dsf_services.page_1' || $route_name === 'entity.node.canonical') {
+    $is_dsf_page = TRUE;
+  }
+  
   foreach ($dsf_pages as $dsf_path) {
     // Remove leading slash for comparison
     $dsf_path_clean = ltrim($dsf_path, '/');
@@ -79,7 +89,6 @@ function dsf_analytics_page_attachments(array &$attachments) {
   }
   
   // Also check for DSF-related content types
-  $route_match = \Drupal::routeMatch();
   if ($route_match->getRouteName() == 'entity.node.canonical') {
     $node = $route_match->getParameter('node');
     if ($node) {
