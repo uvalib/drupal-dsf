@@ -210,29 +210,29 @@
       });
 
       // Track service card interactions (what services people look at)
-      const serviceElements = once('matomo-service-tracking', '.service-card, .cardcheckbox', context);
+      const serviceElements = once('matomo-service-tracking', '.service-panel, .cardcheckbox', context);
       console.log('DSF Analytics: Found service elements:', serviceElements.length);
       serviceElements.forEach(function(element) {
         $(element).on('click change', function(e) {
           const serviceElement = $(this);
-          const serviceCard = serviceElement.closest('.service-card');
-          const serviceId = serviceCard.data('service-id') || serviceCard.find('[data-service-id]').data('service-id');
+          const servicePanel = serviceElement.closest('.service-panel');
+          const serviceId = servicePanel.attr('service') || servicePanel.data('service-id') || servicePanel.find('[data-service-id]').data('service-id');
           
           // Try multiple selectors for service name
-          let serviceName = serviceCard.find('.service-title').text().trim() ||
-                           serviceCard.find('.card-title').text().trim() ||
-                           serviceCard.find('h3').text().trim() ||
-                           serviceCard.find('h4').text().trim() ||
-                           serviceCard.find('.title').text().trim() ||
-                           serviceCard.find('[class*="title"]').text().trim() ||
-                           serviceCard.find('a').text().trim() ||
+          let serviceName = servicePanel.find('.service-title').text().trim() ||
+                           servicePanel.find('.card-title').text().trim() ||
+                           servicePanel.find('h3').text().trim() ||
+                           servicePanel.find('h4').text().trim() ||
+                           servicePanel.find('.title').text().trim() ||
+                           servicePanel.find('[class*="title"]').text().trim() ||
+                           servicePanel.find('a').text().trim() ||
                            'Unknown Service';
           
           console.log('DSF Analytics: Service interaction detected', {
             serviceId: serviceId,
             serviceName: serviceName,
             element: serviceElement[0],
-            cardHtml: serviceCard.html() ? serviceCard.html().substring(0, 200) : 'No HTML content'
+            panelHtml: servicePanel.html() ? servicePanel.html().substring(0, 200) : 'No HTML content'
           });
           
           const actionType = e.type === 'change' ? 'selection' : 'view';
