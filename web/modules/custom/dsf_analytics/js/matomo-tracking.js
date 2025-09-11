@@ -331,6 +331,13 @@
     trackFacetSelection: function (facetType, facetValue, isSelected) {
       if (!MATOMO_CONFIG.enabled) return;
 
+      console.log('DSF Analytics: trackFacetSelection called with raw data', {
+        facetType,
+        facetValue,
+        isSelected,
+        matomoConfig: MATOMO_CONFIG
+      });
+
       // Clean up facet type to be more readable
       const cleanFacetType = this.cleanFacetType(facetType);
       const cleanFacetValue = this.cleanFacetValue(facetValue);
@@ -357,16 +364,28 @@
     cleanFacetType: function(facetType) {
       if (!facetType || facetType === 'unknown') return 'Unknown_Facet';
       
+      console.log('DSF Analytics: cleanFacetType called', {
+        facetType,
+        labelsAvailable: !!MATOMO_CONFIG.labels,
+        facetTypesAvailable: !!(MATOMO_CONFIG.labels && MATOMO_CONFIG.labels.facetTypes),
+        allLabels: MATOMO_CONFIG.labels
+      });
+      
       // Use dynamic labels from Drupal if available
       if (MATOMO_CONFIG.labels && MATOMO_CONFIG.labels.facetTypes) {
         const dynamicLabel = MATOMO_CONFIG.labels.facetTypes[facetType];
+        console.log('DSF Analytics: Looking for dynamic label', { facetType, dynamicLabel });
         if (dynamicLabel) {
-          return dynamicLabel.replace(/[-_]/g, '_').replace(/\b\w/g, l => l.toUpperCase());
+          const cleaned = dynamicLabel.replace(/[-_]/g, '_').replace(/\b\w/g, l => l.toUpperCase());
+          console.log('DSF Analytics: Using dynamic label', { original: facetType, dynamic: dynamicLabel, cleaned });
+          return cleaned;
         }
       }
       
       // Fallback to basic cleaning if no dynamic labels
-      return facetType.replace(/[-_]/g, '_').replace(/facet/i, 'Facet').replace(/\b\w/g, l => l.toUpperCase());
+      const fallback = facetType.replace(/[-_]/g, '_').replace(/facet/i, 'Facet').replace(/\b\w/g, l => l.toUpperCase());
+      console.log('DSF Analytics: Using fallback cleaning', { original: facetType, fallback });
+      return fallback;
     },
 
     /**
@@ -412,21 +431,32 @@
     cleanServiceName: function(serviceName) {
       if (!serviceName || serviceName === 'Unknown Service') return 'Unknown_Service';
       
+      console.log('DSF Analytics: cleanServiceName called', {
+        serviceName,
+        labelsAvailable: !!MATOMO_CONFIG.labels,
+        serviceNamesAvailable: !!(MATOMO_CONFIG.labels && MATOMO_CONFIG.labels.serviceNames),
+        serviceNames: MATOMO_CONFIG.labels?.serviceNames
+      });
+      
       // Use dynamic labels from Drupal if available
       if (MATOMO_CONFIG.labels && MATOMO_CONFIG.labels.serviceNames) {
         // Try to find service by name first
         for (const [serviceId, dynamicName] of Object.entries(MATOMO_CONFIG.labels.serviceNames)) {
           if (dynamicName === serviceName) {
-            return dynamicName.replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()).trim();
+            const cleaned = dynamicName.replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase()).trim();
+            console.log('DSF Analytics: Using dynamic service name', { original: serviceName, dynamic: dynamicName, cleaned });
+            return cleaned;
           }
         }
       }
       
       // Fallback to basic cleaning
-      return serviceName
+      const fallback = serviceName
         .replace(/[-_]/g, ' ')
         .replace(/\b\w/g, l => l.toUpperCase())
         .trim();
+      console.log('DSF Analytics: Using fallback service name cleaning', { original: serviceName, fallback });
+      return fallback;
     },
 
     /**
