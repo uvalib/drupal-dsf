@@ -75,6 +75,21 @@ function dsf_analytics_page_attachments(array &$attachments) {
     $is_dsf_page = TRUE;
   }
   
+  // Check if this is the front page and it's set to a DSF path
+  if ($current_path === '/' || $current_path === '') {
+    $front_page = \Drupal::config('system.site')->get('page.front');
+    if ($front_page) {
+      $front_page_clean = ltrim($front_page, '/');
+      foreach ($dsf_pages as $dsf_path) {
+        $dsf_path_clean = ltrim($dsf_path, '/');
+        if ($front_page_clean === $dsf_path_clean || strpos($front_page_clean, $dsf_path_clean) === 0) {
+          $is_dsf_page = TRUE;
+          break;
+        }
+      }
+    }
+  }
+  
   foreach ($dsf_pages as $dsf_path) {
     // Remove leading slash for comparison
     $dsf_path_clean = ltrim($dsf_path, '/');
