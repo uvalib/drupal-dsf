@@ -232,7 +232,7 @@
             serviceId: serviceId,
             serviceName: serviceName,
             element: serviceElement[0],
-            cardHtml: serviceCard.html().substring(0, 200)
+            cardHtml: serviceCard.html() ? serviceCard.html().substring(0, 200) : 'No HTML content'
           });
           
           const actionType = e.type === 'change' ? 'selection' : 'view';
