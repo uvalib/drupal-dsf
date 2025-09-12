@@ -66,14 +66,8 @@
     });
   }
 
-  // Ensure _paq exists and is an array - initialize if Matomo hasn't loaded yet
-  if (typeof _paq === 'undefined' || !Array.isArray(_paq)) {
-    console.log('DSF Analytics: _paq not found or not an array, initializing fallback array', {
-      _paqType: typeof _paq,
-      _paqIsArray: Array.isArray(_paq),
-      _paqValue: _paq,
-      browser: getBrowserInfo()
-    });
+  // Simple initialization - let the official Matomo module handle _paq
+  if (typeof _paq === 'undefined') {
     window._paq = [];
   }
 
@@ -84,6 +78,9 @@
     _paqLength: _paq ? _paq.length : 'N/A',
     browser: getBrowserInfo()
   });
+
+  // Don't initialize Matomo - let the official module handle it
+  // We just extend the existing tracking with our custom events
 
   // Test Matomo server connectivity
   if (MATOMO_CONFIG.enabled) {
@@ -201,41 +198,8 @@
      * Initialize Matomo tracking code (only if not already initialized)
      */
     initializeMatomo: function () {
-      // Double-check we're not duplicating existing initialization
-      if (isMatomoAlreadyInitialized()) {
-        if (MATOMO_CONFIG.debug) {
-          console.log('DSF skipping Matomo initialization (already active)');
-        }
-        return;
-      }
-
-      // Initialize basic tracking
-      _paq.push(['trackPageView']);
-      _paq.push(['enableLinkTracking']);
-      
-      // Load Matomo script only if not already loaded
-      if (!document.querySelector('script[src*="matomo.js"]')) {
-        console.log('DSF Analytics: Loading Matomo script from:', MATOMO_CONFIG.url + 'matomo.js');
-        (function() {
-          var u = MATOMO_CONFIG.url;
-          _paq.push(['setTrackerUrl', u + 'matomo.php']);
-          _paq.push(['setSiteId', MATOMO_CONFIG.siteId]);
-          var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-          g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'matomo.js';
-          g.onload = function() { console.log('DSF Analytics: Matomo script loaded successfully'); };
-          g.onerror = function() { console.error('DSF Analytics: Failed to load Matomo script'); };
-          s.parentNode.insertBefore(g, s);
-        })();
-      } else {
-        console.log('DSF Analytics: Matomo script already loaded, setting tracker settings');
-        // Script already loaded, just set tracker settings
-        _paq.push(['setTrackerUrl', MATOMO_CONFIG.url + 'matomo.php']);
-        _paq.push(['setSiteId', MATOMO_CONFIG.siteId]);
-      }
-
-      if (MATOMO_CONFIG.debug) {
-        console.log('DSF Matomo tracking initialized with site ID:', MATOMO_CONFIG.siteId);
-      }
+      // Don't initialize - let the official Matomo module handle this
+      console.log('DSF Analytics: Skipping Matomo initialization - using official module');
     },
 
     /**
@@ -406,6 +370,16 @@
 
       if (!MATOMO_CONFIG.enabled) {
         console.log('DSF Analytics: Tracking disabled for', description);
+        return false;
+      }
+
+      // Simple check - if _paq is not an array, something is wrong
+      if (!Array.isArray(window._paq)) {
+        console.warn('DSF Analytics: _paq is not an array, skipping tracking', {
+          _paqType: typeof window._paq,
+          _paqValue: window._paq,
+          browser: getBrowserInfo()
+        });
         return false;
       }
 
