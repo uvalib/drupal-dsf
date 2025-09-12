@@ -11,6 +11,13 @@
 (function ($, Drupal, once) {
   'use strict';
 
+  // Debug: Log that the script is loading
+  console.log('DSF Analytics: matomo-tracking.js is loading...', {
+    drupalSettingsAvailable: typeof drupalSettings !== 'undefined',
+    drupalSettings: typeof drupalSettings !== 'undefined' ? drupalSettings : 'undefined',
+    browser: navigator.userAgent.includes('Chrome') ? 'Chrome' : 'Safari'
+  });
+
   // Get Matomo configuration from DSF Analytics module settings
   const MATOMO_CONFIG = {
     url: (drupalSettings.dsfAnalytics && drupalSettings.dsfAnalytics.matomo && drupalSettings.dsfAnalytics.matomo.url) || 

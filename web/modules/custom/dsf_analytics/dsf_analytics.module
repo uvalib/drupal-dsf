@@ -141,6 +141,13 @@ function dsf_analytics_page_attachments(array &$attachments) {
       ],
       'dataMode' => $config->get('data_mode') ?? 'mock',
       'labels' => _dsf_analytics_get_dynamic_labels(),
+      'debug' => [
+        'module_attached' => TRUE,
+        'current_path' => $current_path,
+        'is_dsf_page' => $is_dsf_page,
+        'dsf_pages_config' => $dsf_pages,
+        'matomo_enabled' => $matomo_enabled,
+      ],
     ];
   }
 }
