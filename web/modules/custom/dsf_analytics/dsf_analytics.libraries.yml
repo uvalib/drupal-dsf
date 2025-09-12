@@ -33,6 +33,12 @@ matomo_integration:
     - dsf_analytics/matomo_tracking
 
 matomo_complete:
+  js:
+    js/matomo-tracking.js: {}
   dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/once
     - dsf_analytics/matomo_tracking
     - dsf_analytics/matomo_integration
