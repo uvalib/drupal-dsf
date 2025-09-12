@@ -66,9 +66,41 @@
     });
   }
 
-  // Simple initialization - let the official Matomo module handle _paq
+  // Ensure _paq is always an array - fix for official Matomo module bug
   if (typeof _paq === 'undefined') {
     window._paq = [];
+  } else if (!Array.isArray(_paq)) {
+    // Convert object to array if needed
+    console.log('DSF Analytics: Converting _paq from object to array', {
+      originalType: typeof _paq,
+      originalValue: _paq,
+      browser: getBrowserInfo()
+    });
+    
+    // If it's an object with a push function, it might be a Matomo tracker object
+    if (_paq && typeof _paq.push === 'function') {
+      // Create a new array and copy any existing tracking calls
+      const newPaq = [];
+      // Try to preserve any existing tracking calls
+      if (_paq.length !== undefined) {
+        for (let i = 0; i < _paq.length; i++) {
+          if (Array.isArray(_paq[i])) {
+            newPaq.push(_paq[i]);
+          }
+        }
+      }
+      window._paq = newPaq;
+    } else {
+      // Fallback: create empty array
+      window._paq = [];
+    }
+    
+    console.log('DSF Analytics: _paq converted to array', {
+      newType: typeof _paq,
+      newIsArray: Array.isArray(_paq),
+      newLength: _paq.length,
+      browser: getBrowserInfo()
+    });
   }
 
   // Debug: Log final _paq state after our fix

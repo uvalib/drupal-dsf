@@ -30,6 +30,10 @@ function dsf_analytics_install() {
   
   // Set default configuration values.
   $config = \Drupal::configFactory()->getEditable('dsf_analytics.settings');
+  $config->set('matomo_enabled', TRUE);
+  $config->set('matomo_site_id', 1);
+  $config->set('matomo_url', 'https://analytics.lib.virginia.edu/');
+  $config->set('tracking_mode', 'PROD');
   $config->set('data_mode', 'real');
   $config->set('dsf_pages', "/dsf\n/digital-service-finder\n/services\n/find-services\n/finder\n/");
   $config->set('investigation_types', [
@@ -41,6 +45,31 @@ function dsf_analytics_install() {
     'quick_view' => 'Quick View',
   ]);
   $config->save();
+}
+
+/**
+ * Update configuration for existing installations.
+ */
+function dsf_analytics_update_8001() {
+  $config = \Drupal::configFactory()->getEditable('dsf_analytics.settings');
+  
+  // Set missing configuration values if they don't exist
+  if (!$config->get('matomo_enabled')) {
+    $config->set('matomo_enabled', TRUE);
+  }
+  if (!$config->get('matomo_site_id')) {
+    $config->set('matomo_site_id', 1);
+  }
+  if (!$config->get('matomo_url')) {
+    $config->set('matomo_url', 'https://analytics.lib.virginia.edu/');
+  }
+  if (!$config->get('tracking_mode')) {
+    $config->set('tracking_mode', 'PROD');
+  }
+  
+  $config->save();
+  
+  \Drupal::messenger()->addStatus(t('DSF Analytics configuration has been updated with missing Matomo settings.'));
 }
 
 /**
