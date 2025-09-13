@@ -220,38 +220,55 @@
       });
 
       // Fix _paq array conversion AFTER Matomo has initialized
-      if (typeof _paq !== 'undefined' && !Array.isArray(_paq)) {
-        console.log('DSF Analytics: Converting _paq from object to array (after Matomo init)', {
-          originalType: typeof _paq,
-          originalValue: _paq,
-          browser: getBrowserInfo()
-        });
-        
-        // If it's an object with a push function, it might be a Matomo tracker object
-        if (_paq && typeof _paq.push === 'function') {
-          // Create a new array and copy any existing tracking calls
-          const newPaq = [];
-          // Try to preserve any existing tracking calls
-          if (_paq.length !== undefined) {
-            for (let i = 0; i < _paq.length; i++) {
-              if (Array.isArray(_paq[i])) {
-                newPaq.push(_paq[i]);
+      // Use setTimeout to ensure this runs after all other scripts
+      setTimeout(() => {
+        if (typeof _paq !== 'undefined' && !Array.isArray(_paq)) {
+          console.log('DSF Analytics: Converting _paq from object to array (after Matomo init)', {
+            originalType: typeof _paq,
+            originalValue: _paq,
+            browser: getBrowserInfo()
+          });
+          
+          // If it's an object with a push function, it might be a Matomo tracker object
+          if (_paq && typeof _paq.push === 'function') {
+            // Create a new array and copy any existing tracking calls
+            const newPaq = [];
+            // Try to preserve any existing tracking calls
+            if (_paq.length !== undefined) {
+              for (let i = 0; i < _paq.length; i++) {
+                if (Array.isArray(_paq[i])) {
+                  newPaq.push(_paq[i]);
+                }
               }
             }
+            window._paq = newPaq;
+          } else {
+            // Fallback: create empty array
+            window._paq = [];
           }
-          window._paq = newPaq;
-        } else {
-          // Fallback: create empty array
-          window._paq = [];
-        }
-        
+          
         console.log('DSF Analytics: _paq converted to array (after Matomo init)', {
           newType: typeof _paq,
           newIsArray: Array.isArray(_paq),
           newLength: _paq.length,
           browser: getBrowserInfo()
         });
+        
+        // Force Matomo to process the _paq array if it hasn't started
+        if (window.Piwik && typeof window.Piwik.getAsyncTracker === 'function') {
+          console.log('DSF Analytics: Forcing Matomo to process _paq array');
+          try {
+            const tracker = window.Piwik.getAsyncTracker();
+            if (tracker) {
+              tracker.trackPageView();
+              console.log('DSF Analytics: Forced Matomo page view tracking');
+            }
+          } catch (e) {
+            console.log('DSF Analytics: Error forcing Matomo tracking:', e);
+          }
+        }
       }
+    }, 100); // 100ms delay to ensure Matomo has finished initializing
 
       // Track facet selections (criteria popularity)
       const facetElements = once('matomo-facet-tracking', '.facet', context);
