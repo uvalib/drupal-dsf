@@ -205,6 +205,139 @@
     initializeMatomo: function () {
       // Don't initialize - let the official Matomo module handle this
       console.log('DSF Analytics: Skipping Matomo initialization - using official module');
+      
+      // Check if Matomo script is actually loaded and working
+      this.ensureMatomoScriptLoaded();
+    },
+
+    /**
+     * Ensure Matomo script is properly loaded and working
+     * This addresses the Chrome/Firefox async script loading issue
+     */
+    ensureMatomoScriptLoaded: function() {
+      const self = this;
+      
+      // Check if Matomo script is loaded and working
+      const matomoScript = document.querySelector('script[src*="matomo.js"]');
+      if (!matomoScript) {
+        console.log('DSF Analytics: No Matomo script found');
+        return;
+      }
+      
+      // Check if script is loaded
+      const isLoaded = matomoScript.readyState === 'complete' || 
+                      matomoScript.readyState === 'loaded' ||
+                      matomoScript.readyState === 'interactive';
+      
+      console.log('DSF Analytics: Matomo script loading check', {
+        src: matomoScript.src,
+        async: matomoScript.async,
+        defer: matomoScript.defer,
+        readyState: matomoScript.readyState,
+        isLoaded: isLoaded,
+        browser: getBrowserInfo()
+      });
+      
+      if (isLoaded) {
+        console.log('DSF Analytics: Matomo script is loaded');
+        // Check if it's actually working by monitoring for requests
+        this.monitorMatomoRequests();
+      } else {
+        console.log('DSF Analytics: Matomo script not loaded, waiting...');
+        
+        // Wait for script to load
+        const checkInterval = setInterval(() => {
+          const nowLoaded = matomoScript.readyState === 'complete' || 
+                           matomoScript.readyState === 'loaded' ||
+                           matomoScript.readyState === 'interactive';
+          
+          if (nowLoaded) {
+            clearInterval(checkInterval);
+            console.log('DSF Analytics: Matomo script loaded after waiting');
+            self.monitorMatomoRequests();
+          }
+        }, 100);
+        
+        // Timeout after 5 seconds
+        setTimeout(() => {
+          clearInterval(checkInterval);
+          console.log('DSF Analytics: Matomo script failed to load, attempting fallback');
+          self.fallbackMatomoLoading();
+        }, 5000);
+      }
+    },
+
+    /**
+     * Monitor Matomo requests to verify it's working
+     */
+    monitorMatomoRequests: function() {
+      let requestCount = 0;
+      const startTime = Date.now();
+      
+      // Monitor fetch requests
+      const originalFetch = window.fetch;
+      window.fetch = function(...args) {
+        const url = args[0];
+        if (typeof url === 'string' && url.includes('matomo')) {
+          requestCount++;
+          console.log(`DSF Analytics: Matomo request #${requestCount}:`, url);
+        }
+        return originalFetch.apply(this, args);
+      };
+      
+      // Monitor XMLHttpRequest
+      const originalXHROpen = XMLHttpRequest.prototype.open;
+      XMLHttpRequest.prototype.open = function(method, url, ...args) {
+        if (typeof url === 'string' && url.includes('matomo')) {
+          requestCount++;
+          console.log(`DSF Analytics: Matomo XHR request #${requestCount}:`, url);
+        }
+        return originalXHROpen.apply(this, [method, url, ...args]);
+      };
+      
+      // Check after 3 seconds
+      setTimeout(() => {
+        if (requestCount > 0) {
+          console.log(`DSF Analytics: ✅ Matomo is working - ${requestCount} requests made`);
+        } else {
+          console.log('DSF Analytics: ❌ Matomo not working - no requests made');
+          console.log('DSF Analytics: _paq length:', _paq ? _paq.length : 'N/A');
+          console.log('DSF Analytics: _paq contents:', _paq);
+        }
+      }, 3000);
+    },
+
+    /**
+     * Fallback Matomo loading for when async script fails
+     */
+    fallbackMatomoLoading: function() {
+      console.log('DSF Analytics: Attempting fallback Matomo loading...');
+      
+      const matomoScript = document.querySelector('script[src*="matomo.js"]');
+      if (!matomoScript) return;
+      
+      // Create a new script element with synchronous loading
+      const newScript = document.createElement('script');
+      newScript.src = matomoScript.src;
+      newScript.async = false;
+      newScript.defer = false;
+      
+      newScript.onload = function() {
+        console.log('DSF Analytics: ✅ Fallback Matomo script loaded successfully');
+        
+        // Process any queued _paq events
+        if (_paq && _paq.length > 0) {
+          console.log(`DSF Analytics: Processing ${_paq.length} queued events`);
+        }
+      };
+      
+      newScript.onerror = function() {
+        console.log('DSF Analytics: ❌ Fallback Matomo script failed to load');
+      };
+      
+      // Replace the old script
+      matomoScript.remove();
+      document.head.appendChild(newScript);
     },
 
     /**
