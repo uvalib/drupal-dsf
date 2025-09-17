@@ -238,6 +238,14 @@
         browser: getBrowserInfo()
       });
       
+      // Check if both async and defer are set (this causes issues in Chrome/Firefox)
+      if (matomoScript.async && matomoScript.defer) {
+        console.log('DSF Analytics: ⚠️ Script has both async and defer - this causes issues in Chrome/Firefox');
+        console.log('DSF Analytics: Attempting to fix by reloading script without both attributes');
+        self.fixAsyncDeferScript(matomoScript);
+        return;
+      }
+      
       if (isLoaded) {
         console.log('DSF Analytics: Matomo script is loaded');
         // Check if it's actually working by monitoring for requests
@@ -265,6 +273,54 @@
           self.fallbackMatomoLoading();
         }, 5000);
       }
+    },
+
+    /**
+     * Fix the async/defer script loading issue by reloading the script
+     */
+    fixAsyncDeferScript: function(originalScript) {
+      console.log('DSF Analytics: Fixing async/defer script loading issue...');
+      
+      // Create a new script element with only async (no defer)
+      const newScript = document.createElement('script');
+      newScript.src = originalScript.src;
+      newScript.async = true;
+      newScript.defer = false;
+      
+      newScript.onload = function() {
+        console.log('DSF Analytics: ✅ Fixed Matomo script loaded successfully');
+        
+        // Force Matomo to process any queued _paq events
+        if (_paq && _paq.length > 0) {
+          console.log(`DSF Analytics: Processing ${_paq.length} queued events after script fix`);
+          
+          // Force Matomo to process the queue
+          if (window.Piwik && typeof window.Piwik.getAsyncTracker === 'function') {
+            try {
+              const tracker = window.Piwik.getAsyncTracker();
+              if (tracker) {
+                // Force process the queue
+                tracker.trackPageView();
+                console.log('DSF Analytics: Forced Matomo to process queued events');
+              }
+            } catch (e) {
+              console.log('DSF Analytics: Error forcing Matomo to process queue:', e);
+            }
+          }
+        }
+        
+        // Monitor for actual requests
+        this.monitorMatomoRequests();
+      }.bind(this);
+      
+      newScript.onerror = function() {
+        console.log('DSF Analytics: ❌ Fixed Matomo script failed to load');
+        this.fallbackMatomoLoading();
+      }.bind(this);
+      
+      // Replace the old script
+      originalScript.remove();
+      document.head.appendChild(newScript);
     },
 
     /**
@@ -573,10 +629,12 @@
       }
 
       try {
+        const initialLength = _paq ? _paq.length : 0;
+        
         console.log('DSF Analytics: About to push to _paq', {
           _paqType: typeof _paq,
           _paqIsArray: Array.isArray(_paq),
-          _paqLength: _paq ? _paq.length : 'N/A',
+          _paqLength: initialLength,
           trackingData,
           browser: getBrowserInfo()
         });
@@ -590,16 +648,27 @@
         
         // Check if the event was processed by Matomo
         setTimeout(function() {
+          const currentLength = _paq ? _paq.length : 0;
+          const wasProcessed = currentLength <= initialLength;
+          
           console.log('DSF Analytics: _paq state after 2 seconds', {
             _paqType: typeof _paq,
             _paqIsArray: Array.isArray(_paq),
-            _paqLength: _paq ? _paq.length : 'N/A',
+            _paqLength: currentLength,
+            initialLength: initialLength,
+            wasProcessed: wasProcessed,
             description,
             browser: getBrowserInfo()
           });
+          
+          if (!wasProcessed) {
+            console.warn('DSF Analytics: ⚠️ Event may not have been processed by Matomo - _paq length increased from', initialLength, 'to', currentLength);
+          } else {
+            console.log('DSF Analytics: ✅ Event appears to have been processed by Matomo');
+          }
         }, 2000);
         
-        console.log('DSF Analytics: Successfully tracked to Matomo:', description, {
+        console.log('DSF Analytics: Event queued for Matomo:', description, {
           trackingData,
           matomoUrl: MATOMO_CONFIG.url,
           siteId: MATOMO_CONFIG.siteId,
