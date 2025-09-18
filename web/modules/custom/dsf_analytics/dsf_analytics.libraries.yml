@@ -45,6 +45,6 @@ matomo_complete:
 
 matomo_fixed_async:
   js:
-    js/matomo-fixed.js: { attributes: { async: true } }
+    js/matomo-fixed.js: {}
   dependencies:
     - core/drupalSettings
