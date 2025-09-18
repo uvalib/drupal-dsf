@@ -1696,15 +1696,29 @@
       const originalUpdateBrowserUrl = window.updateBrowserUrl;
       if (typeof originalUpdateBrowserUrl === 'function') {
         window.updateBrowserUrl = function(params) {
-          // Call original function
+          // Capture referrer before URL change
+          const oldUrl = window.location.href;
+
+          // Call original function to apply URL change
           const result = originalUpdateBrowserUrl.apply(this, arguments);
-          
-          // Track as virtual page view
+
+          // Compute current URL after navigation
           const currentUrl = window.location.pathname + window.location.search;
+
+          // Matomo SPA tracking sequence per guidance
+          _paq.push(['setReferrerUrl', oldUrl]);
           _paq.push(['setCustomUrl', currentUrl]);
+          _paq.push(['setDocumentTitle', document.title]);
+          _paq.push(['deleteCustomVariables', 'page']);
           _paq.push(['trackPageView']);
-          
-          console.log(`Tracked SPA navigation: ${currentUrl}`);
+
+          // Make Matomo aware of newly added SPA content
+          _paq.push(['MediaAnalytics::scanForMedia', document]);
+          _paq.push(['FormAnalytics::scanForForms', document]);
+          _paq.push(['trackContentImpressionsWithinNode', document]);
+          _paq.push(['enableLinkTracking']);
+
+          console.log('Tracked SPA navigation', { currentUrl: currentUrl, referrer: oldUrl });
           return result;
         };
       }
