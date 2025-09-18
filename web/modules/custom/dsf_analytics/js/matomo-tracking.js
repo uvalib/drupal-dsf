@@ -173,6 +173,10 @@
       const matomoAlreadyInitialized = isMatomoAlreadyInitialized();
       console.log('DSF Analytics: isMatomoAlreadyInitialized() returned:', matomoAlreadyInitialized);
       
+      // ALWAYS check if Matomo script is properly loaded, regardless of initialization status
+      // This is crucial for fixing the Chrome/Firefox async/defer issue
+      this.ensureMatomoScriptLoaded();
+      
       if (matomoAlreadyInitialized) {
         console.log('DSF Analytics: Matomo already initialized, extending existing tracking');
         // Don't re-initialize, just attach our custom event listeners
@@ -206,8 +210,7 @@
       // Don't initialize - let the official Matomo module handle this
       console.log('DSF Analytics: Skipping Matomo initialization - using official module');
       
-      // Check if Matomo script is actually loaded and working
-      this.ensureMatomoScriptLoaded();
+      // Script loading check is now handled in the main attach function
     },
 
     /**
