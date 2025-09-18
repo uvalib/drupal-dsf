@@ -8,9 +8,19 @@
 		if (typeof console !== 'undefined' && console.log) {
 			console.log('DSF Analytics: matomo-fixed loader executing');
 		}
-		var settings = (typeof drupalSettings !== 'undefined' && drupalSettings.matomo) ? drupalSettings.matomo : null;
-		var baseUrl = settings ? (settings.url_https || settings.url_http) : '';
-		var siteId = settings ? settings.site_id : '';
+		// Prefer DSF module config; fallback to contrib matomo settings
+		var dsf = (typeof drupalSettings !== 'undefined' && drupalSettings.dsfAnalytics && drupalSettings.dsfAnalytics.matomo) ? drupalSettings.dsfAnalytics.matomo : null;
+		var contrib = (typeof drupalSettings !== 'undefined' && drupalSettings.matomo) ? drupalSettings.matomo : null;
+		var baseUrl = '';
+		var siteId = '';
+		if (dsf) {
+			baseUrl = dsf.url || '';
+			siteId = (dsf.siteId != null ? dsf.siteId : '');
+		}
+		if ((!baseUrl || !siteId) && contrib) {
+			baseUrl = baseUrl || contrib.url_https || contrib.url_http || '';
+			siteId = siteId || contrib.site_id || '';
+		}
 
 		if (!baseUrl || !siteId) {
 			// Nothing to do without config
