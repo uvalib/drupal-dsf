@@ -335,9 +335,11 @@ function _dsf_analytics_get_investigation_type_labels() {
  * Replace contrib Matomo injection with async-only tracker via our library.
  */
 function dsf_analytics_page_attachments_alter(array &$attachments) {
-  // Require Matomo configuration to be present.
-  $settings = $attachments['#attached']['drupalSettings']['matomo'] ?? NULL;
-  if (empty($settings)) {
+  // Require Matomo configuration to be present (check both locations)
+  $matomo_settings = $attachments['#attached']['drupalSettings']['matomo'] ?? NULL;
+  $dsf_matomo_settings = $attachments['#attached']['drupalSettings']['dsfAnalytics']['matomo'] ?? NULL;
+  
+  if (empty($matomo_settings) && empty($dsf_matomo_settings)) {
     return;
   }
 

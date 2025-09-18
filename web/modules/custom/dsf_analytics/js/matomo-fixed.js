@@ -9,9 +9,33 @@
 			console.log('DSF Analytics: matomo-fixed loader executing');
 		}
 		
+		// Wait for drupalSettings to be available
+		var getSettings = function() {
+			if (typeof drupalSettings !== 'undefined') {
+				return drupalSettings;
+			}
+			return null;
+		};
+		
+		var settings = getSettings();
+		if (!settings) {
+			if (typeof console !== 'undefined' && console.warn) {
+				console.warn('DSF Analytics: drupalSettings not available, using defaults');
+			}
+			// Use hardcoded defaults if drupalSettings not available
+			settings = {
+				dsfAnalytics: {
+					matomo: {
+						url: 'https://analytics.lib.virginia.edu/',
+						siteId: 67
+					}
+				}
+			};
+		}
+		
 		// Prefer DSF module config; fallback to contrib matomo settings
-		var dsf = (typeof drupalSettings !== 'undefined' && drupalSettings.dsfAnalytics && drupalSettings.dsfAnalytics.matomo) ? drupalSettings.dsfAnalytics.matomo : null;
-		var contrib = (typeof drupalSettings !== 'undefined' && drupalSettings.matomo) ? drupalSettings.matomo : null;
+		var dsf = (settings.dsfAnalytics && settings.dsfAnalytics.matomo) ? settings.dsfAnalytics.matomo : null;
+		var contrib = settings.matomo || null;
 		var baseUrl = '';
 		var siteId = '';
 		
@@ -26,7 +50,7 @@
 
 		if (!baseUrl || !siteId) {
 			if (typeof console !== 'undefined' && console.warn) {
-				console.warn('DSF Analytics: matomo-fixed missing baseUrl/siteId');
+				console.warn('DSF Analytics: matomo-fixed missing baseUrl/siteId', { dsf: dsf, contrib: contrib });
 			}
 			return;
 		}
@@ -48,6 +72,16 @@
 			var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
 			g.async = true; 
 			g.src = u + 'matomo.js'; 
+			g.onload = function() {
+				if (typeof console !== 'undefined' && console.log) {
+					console.log('DSF Analytics: matomo.js loaded successfully');
+				}
+			};
+			g.onerror = function() {
+				if (typeof console !== 'undefined' && console.error) {
+					console.error('DSF Analytics: matomo.js failed to load');
+				}
+			};
 			s.parentNode.insertBefore(g, s);
 		})();
 		
