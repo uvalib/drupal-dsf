@@ -679,6 +679,7 @@
           }
         }
 
+
         const initialLength = _paq ? _paq.length : 0;
         
         console.log('DSF Analytics: About to push to _paq', {
