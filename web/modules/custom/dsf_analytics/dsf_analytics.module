@@ -328,3 +328,45 @@ function _dsf_analytics_get_investigation_type_labels() {
   
   return $investigation_types;
 }
+
+/**
+ * Implements hook_page_attachments_alter().
+ *
+ * Replace contrib Matomo injection with async-only tracker via our library.
+ */
+function dsf_analytics_page_attachments_alter(array &$attachments) {
+  // Require Matomo configuration to be present.
+  $settings = $attachments['#attached']['drupalSettings']['matomo'] ?? NULL;
+  if (empty($settings)) {
+    return;
+  }
+
+  // Remove contrib Matomo library if attached.
+  if (!empty($attachments['#attached']['library']) && is_array($attachments['#attached']['library'])) {
+    $attachments['#attached']['library'] = array_values(array_filter(
+      $attachments['#attached']['library'],
+      static function ($lib) {
+        return $lib !== 'matomo/matomo';
+      }
+    ));
+  }
+
+  // Remove contrib inline tracking snippet if present.
+  if (!empty($attachments['#attached']['html_head'])) {
+    // Unset by explicit key if it exists.
+    if (isset($attachments['#attached']['html_head']['matomo_tracking_script'])) {
+      unset($attachments['#attached']['html_head']['matomo_tracking_script']);
+    }
+    else {
+      // Fallback: scan numerically indexed entries and remove matching key.
+      foreach ($attachments['#attached']['html_head'] as $k => $pair) {
+        if (is_array($pair) && isset($pair[1]) && $pair[1] === 'matomo_tracking_script') {
+          unset($attachments['#attached']['html_head'][$k]);
+        }
+      }
+    }
+  }
+
+  // Attach our async-only Matomo loader library.
+  $attachments['#attached']['library'][] = 'dsf_analytics/matomo_fixed_async';
+}

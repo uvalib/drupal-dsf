@@ -42,3 +42,9 @@ matomo_complete:
     - core/once
     - dsf_analytics/matomo_tracking
     - dsf_analytics/matomo_integration
+
+matomo_fixed_async:
+  js:
+    js/matomo-fixed.js: { attributes: { async: true } }
+  dependencies:
+    - core/drupalSettings
