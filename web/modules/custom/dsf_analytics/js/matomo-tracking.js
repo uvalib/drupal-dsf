@@ -633,6 +633,52 @@
       }
 
       try {
+        // Prefer direct tracker API if available to avoid relying on _paq processing timing
+        if (window.Piwik && typeof window.Piwik.getAsyncTracker === 'function' && Array.isArray(trackingData)) {
+          var tracker = window.Piwik.getAsyncTracker();
+          if (tracker) {
+            var command = trackingData[0];
+            var args = trackingData.slice(1);
+            try {
+              switch (command) {
+                case 'trackEvent':
+                  tracker.trackEvent.apply(tracker, args);
+                  console.log('DSF Analytics: Direct tracker trackEvent', { args: args, description: description });
+                  return true;
+                case 'trackPageView':
+                  tracker.trackPageView.apply(tracker, args);
+                  console.log('DSF Analytics: Direct tracker trackPageView', { args: args, description: description });
+                  return true;
+                case 'setCustomDimension':
+                  tracker.setCustomDimension.apply(tracker, args);
+                  console.log('DSF Analytics: Direct tracker setCustomDimension', { args: args, description: description });
+                  return true;
+                case 'setCustomUrl':
+                  tracker.setCustomUrl.apply(tracker, args);
+                  console.log('DSF Analytics: Direct tracker setCustomUrl', { args: args, description: description });
+                  return true;
+                case 'setDocumentTitle':
+                  tracker.setDocumentTitle.apply(tracker, args);
+                  console.log('DSF Analytics: Direct tracker setDocumentTitle', { args: args, description: description });
+                  return true;
+                case 'trackGoal':
+                  tracker.trackGoal.apply(tracker, args);
+                  console.log('DSF Analytics: Direct tracker trackGoal', { args: args, description: description });
+                  return true;
+                case 'enableLinkTracking':
+                  tracker.enableLinkTracking.apply(tracker, args);
+                  console.log('DSF Analytics: Direct tracker enableLinkTracking', { args: args, description: description });
+                  return true;
+                default:
+                  // Fall through to queue for other commands
+                  break;
+              }
+            } catch (e) {
+              console.warn('DSF Analytics: Direct tracker call failed, falling back to queue', { e: e, trackingData: trackingData, description: description });
+            }
+          }
+        }
+
         const initialLength = _paq ? _paq.length : 0;
         
         console.log('DSF Analytics: About to push to _paq', {
