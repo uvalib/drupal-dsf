@@ -47,10 +47,14 @@
     browser: getBrowserInfo()
   });
 
+  // Ensure _paq exists before any inspection to avoid ReferenceError
+  // This must occur BEFORE any Array.isArray(_paq) or property access
+  window._paq = window._paq || [];
+
   // Debug: Log initial _paq state and check for Matomo scripts
   console.log('DSF Analytics: Initial _paq state', {
     _paqType: typeof _paq,
-    _paqIsArray: Array.isArray(_paq),
+    _paqIsArray: Array.isArray(window._paq),
     _paqValue: _paq,
     _paqConstructor: _paq ? _paq.constructor.name : 'N/A',
     browser: getBrowserInfo()
@@ -72,9 +76,6 @@
       browser: getBrowserInfo()
     });
   }
-
-  // Initialize _paq if not already done by Matomo module
-  window._paq = window._paq || [];
 
   // Debug: Log final _paq state after our fix
   console.log('DSF Analytics: Final _paq state after fix', {
