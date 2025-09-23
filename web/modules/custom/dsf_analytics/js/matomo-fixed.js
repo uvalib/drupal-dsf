@@ -4,17 +4,65 @@
 	// Initialize _paq queue
 	var _paq = window._paq = window._paq || [];
 	
-	try {
-		if (typeof console !== 'undefined' && console.log) {
-			console.log('DSF Analytics: matomo-fixed loader executing');
+	// Logging control - set to false to silence most logs
+	var DEBUG_LOGGING = false;
+	
+	// Expose logging control globally for easy debugging
+	window.DSF_ANALYTICS_DEBUG = {
+		enable: function() {
+			DEBUG_LOGGING = true;
+			console.log('DSF Analytics: Debug logging enabled');
+		},
+		disable: function() {
+			DEBUG_LOGGING = false;
+			console.log('DSF Analytics: Debug logging disabled');
+		},
+		status: function() {
+			console.log('DSF Analytics: Debug logging is ' + (DEBUG_LOGGING ? 'enabled' : 'disabled'));
+		},
+		isEnabled: function() {
+			return !!DEBUG_LOGGING;
 		}
+	};
+	
+	// Helper function for conditional logging
+	var log = function(message, data) {
+		if (DEBUG_LOGGING && typeof console !== 'undefined' && console.log) {
+			if (data) {
+				console.log('DSF Analytics: ' + message, data);
+			} else {
+				console.log('DSF Analytics: ' + message);
+			}
+		}
+	};
+	
+	var warn = function(message, data) {
+		if (DEBUG_LOGGING && typeof console !== 'undefined' && console.warn) {
+			if (data) {
+				console.warn('DSF Analytics: ' + message, data);
+			} else {
+				console.warn('DSF Analytics: ' + message);
+			}
+		}
+	};
+	
+	var error = function(message, data) {
+		if (typeof console !== 'undefined' && console.error) {
+			if (data) {
+				console.error('DSF Analytics: ' + message, data);
+			} else {
+				console.error('DSF Analytics: ' + message);
+			}
+		}
+	};
+	
+	try {
+		log('matomo-fixed loader executing');
 		
 		// Get settings with fallback defaults
 		var settings = (typeof drupalSettings !== 'undefined') ? drupalSettings : null;
 		if (!settings) {
-			if (typeof console !== 'undefined' && console.warn) {
-				console.warn('DSF Analytics: drupalSettings not available, using defaults');
-			}
+			warn('drupalSettings not available, using defaults');
 			settings = {
 				dsfAnalytics: {
 					matomo: {
@@ -41,9 +89,7 @@
 		}
 
 		if (!baseUrl || !siteId) {
-			if (typeof console !== 'undefined' && console.warn) {
-				console.warn('DSF Analytics: matomo-fixed missing baseUrl/siteId', { dsf: dsf, contrib: contrib });
-			}
+			warn('matomo-fixed missing baseUrl/siteId', { dsf: dsf, contrib: contrib });
 			return;
 		}
 
@@ -68,34 +114,24 @@
 		g.src = u + 'matomo.js';
 		
 		g.onload = function() {
-			if (typeof console !== 'undefined' && console.log) {
-				console.log('DSF Analytics: ✅ Matomo script loaded successfully (synchronous)');
-			}
+			log('✅ Matomo script loaded successfully (synchronous)');
 			
 			// Process any queued events
 			if (_paq && _paq.length > 0) {
-				if (typeof console !== 'undefined' && console.log) {
-					console.log('DSF Analytics: Processing ' + _paq.length + ' queued events');
-				}
+				log('Processing ' + _paq.length + ' queued events');
 			}
 		};
 		
 		g.onerror = function() {
-			if (typeof console !== 'undefined' && console.error) {
-				console.error('DSF Analytics: ❌ Matomo script failed to load');
-			}
+			error('❌ Matomo script failed to load');
 		};
 		
 		s.parentNode.insertBefore(g, s);
 		
-		if (typeof console !== 'undefined' && console.log) {
-			console.log('DSF Analytics: matomo-fixed initialized with synchronous loading', { baseUrl: u, siteId: siteId });
-		}
+		log('matomo-fixed initialized with synchronous loading', { baseUrl: u, siteId: siteId });
 		
 	} catch (e) {
-		if (typeof console !== 'undefined' && console.error) {
-			console.error('DSF Analytics: matomo-fixed loader error', e);
-		}
+		error('matomo-fixed loader error', e);
 	}
 })();
 
