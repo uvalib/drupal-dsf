@@ -1,5 +1,6 @@
 @use "./finder-colors" as *;
 @use "../mixins.scss" as *;
+@use "sass:map";
 
 * {
   -webkit-box-sizing: border-box;
@@ -12,8 +13,49 @@
   appearance: none;
 }
 
-html {
-  font-size: 16px;
+html,
+body {
+  font-size: 17px !important;
+}
+
+$font-sizes: (
+  h1: 2.488rem,
+  h2: 2.074rem,
+  h3: 1.728rem,
+  h4: 1.44rem,
+  h5: 1.2rem,
+  h6: 1rem
+);
+
+$font-weights: (
+  'book': 400,
+  'medium': 500,
+  'demi': 700,
+  'heavy': 900
+);
+
+p {
+  font-size: 1rem;
+  font-weight: map.get($font-weights, 'book');
+  line-height: 1.5;
+}
+
+@each $size, $value in $font-sizes {
+
+  #{$size},
+  .#{$size} {
+    font-size: $value !important;
+    font-weight: map.get($font-weights, 'medium');
+    color: $heading-color !important;
+    line-height: 1.15;
+  }
+}
+
+h1,
+h2,
+.h1,
+.h2 {
+  font-weight: map.get($font-weights, 'demi');
 }
 
 .dev-environment-badge {
@@ -82,10 +124,24 @@ footer a {
 
 #app .intro-text>* {
   margin: 1.5rem 0;
-  font-size: 1.3rem;
+  // font-size: 1.3rem;
   font-weight: 300;
   line-height: 1.6;
   color: $intro-text;
+}
+
+#app .intro-text {
+  p {
+    margin-bottom: 0;
+  }
+
+  ol {
+    margin-top: 0;
+  }
+}
+
+#app .app-title {
+  margin-bottom: inherit;
 }
 
 #bs-example-navbar-collapse-1 ul li a {
@@ -143,7 +199,16 @@ footer a {
   }
 }
 
+.text-muted {
+  color: $text-muted !important;
+}
+
 /* LEFT FILTERS */
+
+#questionlist h4 {
+  font-size: map.get($font-sizes, 'h5') !important;
+  line-height: 1.1;
+}
 
 .cd-overflow {
   padding-right: 1.25rem;
@@ -226,27 +291,28 @@ footer a {
 #app {
   margin-bottom: 6rem;
 
+  h1,
   h2.title,
   h3.sub-heading {
-    color: $heading-color;
+    color: $heading-color !important;
   }
 
-  h2.sub-heading {
-    font-size: 2rem;
-  }
+  // h2.sub-heading {
+  //   font-size: 2rem;
+  // }
 
   h3.sub-heading {
     margin: 1em 0;
   }
 
-  p,
-  ul,
-  ol,
-  #comparisonchart th,
-  #comparisonchart td,
-  .cwd-scrolling-table {
-    font-size: 14px;
-  }
+  // p,
+  // ul,
+  // ol,
+  // #comparisonchart th,
+  // #comparisonchart td,
+  // .cwd-scrolling-table {
+  //   font-size: 14px;
+  // }
 
   .btn-primary {
     @include button-styles($primary-bg, $primary-text, $primary-hover-bg, $primary-hover-text, $primary-hover-border);
@@ -368,7 +434,7 @@ footer a {
 
   .title+.lead {
     color: $explanation-text;
-    font-size: 21px;
+    // font-size: 21px;
     margin-bottom: 1em;
   }
 
@@ -600,10 +666,11 @@ footer a {
   //   }
   // }
 
-  // #modularstorage-services .service-panel .service-title {
-  //   padding: 0;
-  //   padding-right: 1.8em;
-  // }
+  #modularstorage-services .service-panel .service-title {
+    // padding: 0;
+    // padding-right: 1.8em;
+    font-size: map.get($font-sizes, 'h5') !important;
+  }
 
   // #modularstorage-services .service-panel .service-title+p {
   //   margin-top: 10px;
