@@ -11,8 +11,25 @@
 (function ($, Drupal, once) {
   'use strict';
 
+  // Lightweight debug logger controlled by DSF_ANALYTICS_DEBUG
+  function dsfLog(level, message, data) {
+    try {
+      var debugOn = (window.DSF_ANALYTICS_DEBUG && typeof window.DSF_ANALYTICS_DEBUG.isEnabled === 'function')
+        ? window.DSF_ANALYTICS_DEBUG.isEnabled()
+        : false;
+      if (!debugOn && level !== 'error') return;
+      if (typeof console === 'undefined') return;
+      var fn = console[level] || console.log;
+      if (data !== undefined) {
+        fn.call(console, 'DSF Analytics: ' + message, data);
+      } else {
+        fn.call(console, 'DSF Analytics: ' + message);
+      }
+    } catch (e) { /* no-op */ }
+  }
+
   // Debug: Log that the script is loading
-  console.log('DSF Analytics: matomo-tracking.js is loading...', {
+  dsfLog('log', 'DSF Analytics: matomo-tracking.js is loading...', {
     drupalSettingsAvailable: typeof drupalSettings !== 'undefined',
     drupalSettings: typeof drupalSettings !== 'undefined' ? drupalSettings : 'undefined',
     browser: navigator.userAgent.includes('Chrome') ? 'Chrome' : 'Safari'
@@ -35,7 +52,7 @@
   };
 
   // Enhanced debugging - always log configuration
-  console.log('DSF Analytics: Configuration loaded', {
+  dsfLog('log', 'DSF Analytics: Configuration loaded', {
     config: MATOMO_CONFIG,
     drupalSettings: {
       dsfAnalytics: drupalSettings.dsfAnalytics,
@@ -52,7 +69,7 @@
   window._paq = window._paq || [];
 
   // Debug: Log initial _paq state and check for Matomo scripts
-  console.log('DSF Analytics: Initial _paq state', {
+  dsfLog('log', 'DSF Analytics: Initial _paq state', {
     _paqType: typeof _paq,
     _paqIsArray: Array.isArray(window._paq),
     _paqValue: _paq,
@@ -62,7 +79,7 @@
 
   // Check for Matomo scripts in the DOM
   const matomoScripts = document.querySelectorAll('script[src*="matomo"], script[src*="analytics"]');
-  console.log('DSF Analytics: Found Matomo scripts', {
+  dsfLog('log', 'DSF Analytics: Found Matomo scripts', {
     count: matomoScripts.length,
     scripts: Array.from(matomoScripts).map(s => s.src),
     browser: getBrowserInfo()
@@ -70,7 +87,7 @@
 
   // Check if _paq has any properties that might give us a clue
   if (_paq && typeof _paq === 'object') {
-    console.log('DSF Analytics: _paq object properties', {
+    dsfLog('log', 'DSF Analytics: _paq object properties', {
       keys: Object.keys(_paq),
       values: Object.values(_paq),
       browser: getBrowserInfo()
@@ -78,7 +95,7 @@
   }
 
   // Debug: Log final _paq state after our fix
-  console.log('DSF Analytics: Final _paq state after fix', {
+  dsfLog('log', 'DSF Analytics: Final _paq state after fix', {
     _paqType: typeof _paq,
     _paqIsArray: Array.isArray(_paq),
     _paqLength: _paq ? _paq.length : 'N/A',
@@ -91,16 +108,16 @@
   // Test Matomo server connectivity
   if (MATOMO_CONFIG.enabled) {
     const testUrl = MATOMO_CONFIG.url + 'matomo.php';
-    console.log('DSF Analytics: Testing Matomo connectivity to', testUrl, 'Browser:', getBrowserInfo());
+    dsfLog('log', 'DSF Analytics: Testing Matomo connectivity to', testUrl, 'Browser:', getBrowserInfo());
     
     // Test with a simple fetch request
     fetch(testUrl, {
       method: 'GET',
       mode: 'no-cors' // This will always succeed but won't give us response details
     }).then(() => {
-      console.log('DSF Analytics: Matomo server reachable (no-cors mode)', 'Browser:', getBrowserInfo());
+      dsfLog('log', 'DSF Analytics: Matomo server reachable (no-cors mode)', 'Browser:', getBrowserInfo());
     }).catch(error => {
-      console.error('DSF Analytics: Matomo server unreachable', error, 'Browser:', getBrowserInfo());
+      dsfLog('error', 'DSF Analytics: Matomo server unreachable', error, 'Browser:', getBrowserInfo());
     });
   }
 
@@ -121,35 +138,35 @@
    * Check if Matomo is already initialized by the Drupal module
    */
   function isMatomoAlreadyInitialized() {
-    console.log('DSF Analytics: Checking if Matomo already initialized...');
+    dsfLog('log', 'DSF Analytics: Checking if Matomo already initialized...');
     
     // Check for existing Matomo script
     const matomoScript = document.querySelector('script[src*="matomo.js"]');
-    console.log('DSF Analytics: Matomo script found:', !!matomoScript);
+    dsfLog('log', 'DSF Analytics: Matomo script found:', !!matomoScript);
     if (matomoScript) {
       return true;
     }
     
     // Check if _paq already has tracking calls
-    console.log('DSF Analytics: _paq exists:', !!window._paq, 'length:', window._paq ? window._paq.length : 0);
+    dsfLog('log', 'DSF Analytics: _paq exists:', !!window._paq, 'length:', window._paq ? window._paq.length : 0);
     if (window._paq && window._paq.length > 0) {
       // Look for common Matomo initialization calls
       for (let i = 0; i < window._paq.length; i++) {
         if (Array.isArray(window._paq[i]) && 
             (window._paq[i][0] === 'setTrackerUrl' || window._paq[i][0] === 'setSiteId')) {
-          console.log('DSF Analytics: Found Matomo initialization in _paq:', window._paq[i]);
+          dsfLog('log', 'DSF Analytics: Found Matomo initialization in _paq:', window._paq[i]);
           return true;
         }
       }
     }
     
     // Check for Matomo global variables
-    console.log('DSF Analytics: Piwik exists:', !!window.Piwik, 'Matomo exists:', !!window.Matomo);
+    dsfLog('log', 'DSF Analytics: Piwik exists:', !!window.Piwik, 'Matomo exists:', !!window.Matomo);
     if (window.Piwik || window.Matomo) {
       return true;
     }
     
-    console.log('DSF Analytics: Matomo not initialized, will initialize');
+    dsfLog('log', 'DSF Analytics: Matomo not initialized, will initialize');
     return false;
   }
 
@@ -158,7 +175,7 @@
    */
   Drupal.behaviors.dsfMatomoTracking = {
     attach: function (context, settings) {
-      console.log('DSF Analytics: Behavior attach called', {
+      dsfLog('log', 'DSF Analytics: Behavior attach called', {
         context: context,
         settings: settings,
         matomoConfig: MATOMO_CONFIG,
@@ -166,20 +183,20 @@
       });
 
       if (!MATOMO_CONFIG.enabled) {
-        console.log('DSF Analytics: Tracking disabled - no drupalSettings.matomo found or not enabled');
+        dsfLog('log', 'DSF Analytics: Tracking disabled - no drupalSettings.matomo found or not enabled');
         return;
       }
 
       // Check if we should initialize or extend existing Matomo
       const matomoAlreadyInitialized = isMatomoAlreadyInitialized();
-      console.log('DSF Analytics: isMatomoAlreadyInitialized() returned:', matomoAlreadyInitialized);
+      dsfLog('log', 'DSF Analytics: isMatomoAlreadyInitialized() returned:', matomoAlreadyInitialized);
       
       // ALWAYS check if Matomo script is properly loaded, regardless of initialization status
       // This is crucial for fixing the Chrome/Firefox async/defer issue
       this.ensureMatomoScriptLoaded();
       
       if (matomoAlreadyInitialized) {
-        console.log('DSF Analytics: Matomo already initialized, extending existing tracking');
+        dsfLog('log', 'DSF Analytics: Matomo already initialized, extending existing tracking');
         // Don't re-initialize, just attach our custom event listeners
         this.attachTrackingListeners(context);
         return;
@@ -188,7 +205,7 @@
       // Initialize Matomo only once and only if not already done
       if (!window.dsfMatomoInitialized) {
         if (MATOMO_CONFIG.debug) {
-          console.log('DSF initializing Matomo tracking (no existing tracker found)');
+          dsfLog('log', 'DSF initializing Matomo tracking (no existing tracker found)');
         }
         this.initializeMatomo();
         window.dsfMatomoInitialized = true;
@@ -209,7 +226,7 @@
      */
     initializeMatomo: function () {
       // Don't initialize - let the official Matomo module handle this
-      console.log('DSF Analytics: Skipping Matomo initialization - using official module');
+      dsfLog('log', 'DSF Analytics: Skipping Matomo initialization - using official module');
       
       // Script loading check is now handled in the main attach function
     },
@@ -224,7 +241,7 @@
       // Check if Matomo script is loaded and working
       const matomoScript = document.querySelector('script[src*="matomo.js"]');
       if (!matomoScript) {
-        console.log('DSF Analytics: No Matomo script found');
+        dsfLog('log', 'DSF Analytics: No Matomo script found');
         return;
       }
       
@@ -233,7 +250,7 @@
                       matomoScript.readyState === 'loaded' ||
                       matomoScript.readyState === 'interactive';
       
-      console.log('DSF Analytics: Matomo script loading check', {
+      dsfLog('log', 'DSF Analytics: Matomo script loading check', {
         src: matomoScript.src,
         async: matomoScript.async,
         defer: matomoScript.defer,
@@ -244,18 +261,18 @@
       
       // Check if both async and defer are set (this causes issues in Chrome/Firefox)
       if (matomoScript.async && matomoScript.defer) {
-        console.log('DSF Analytics: ⚠️ Script has both async and defer - this causes issues in Chrome/Firefox');
-        console.log('DSF Analytics: Attempting to fix by reloading script without both attributes');
+        dsfLog('warn', 'DSF Analytics: ⚠️ Script has both async and defer - this causes issues in Chrome/Firefox');
+        dsfLog('log', 'DSF Analytics: Attempting to fix by reloading script without both attributes');
         self.fixAsyncDeferScript(matomoScript);
         return;
       }
       
       if (isLoaded) {
-        console.log('DSF Analytics: Matomo script is loaded');
+        dsfLog('log', 'DSF Analytics: Matomo script is loaded');
         // Check if it's actually working by monitoring for requests
         this.monitorMatomoRequests();
       } else {
-        console.log('DSF Analytics: Matomo script not loaded, waiting...');
+        dsfLog('log', 'DSF Analytics: Matomo script not loaded, waiting...');
         
         // Wait for script to load
         const checkInterval = setInterval(() => {
@@ -265,7 +282,7 @@
           
           if (nowLoaded) {
             clearInterval(checkInterval);
-            console.log('DSF Analytics: Matomo script loaded after waiting');
+            dsfLog('log', 'DSF Analytics: Matomo script loaded after waiting');
             self.monitorMatomoRequests();
           }
         }, 100);
@@ -273,7 +290,7 @@
         // Timeout after 5 seconds
         setTimeout(() => {
           clearInterval(checkInterval);
-          console.log('DSF Analytics: Matomo script failed to load, attempting fallback');
+          dsfLog('log', 'DSF Analytics: Matomo script failed to load, attempting fallback');
           self.fallbackMatomoLoading();
         }, 5000);
       }
@@ -283,7 +300,7 @@
      * Fix the async/defer script loading issue by reloading the script
      */
     fixAsyncDeferScript: function(originalScript) {
-      console.log('DSF Analytics: Fixing async/defer script loading issue...');
+      dsfLog('log', 'DSF Analytics: Fixing async/defer script loading issue...');
       
       // Create a new script element with only async (no defer)
       const newScript = document.createElement('script');
@@ -292,11 +309,11 @@
       newScript.defer = false;
       
       newScript.onload = function() {
-        console.log('DSF Analytics: ✅ Fixed Matomo script loaded successfully');
+        dsfLog('log', 'DSF Analytics: ✅ Fixed Matomo script loaded successfully');
         
         // Force Matomo to process any queued _paq events
         if (_paq && _paq.length > 0) {
-          console.log(`DSF Analytics: Processing ${_paq.length} queued events after script fix`);
+          dsfLog('log', `DSF Analytics: Processing ${_paq.length} queued events after script fix`);
           
           // Force Matomo to process the queue
           if (window.Piwik && typeof window.Piwik.getAsyncTracker === 'function') {
@@ -305,10 +322,10 @@
               if (tracker) {
                 // Force process the queue
                 tracker.trackPageView();
-                console.log('DSF Analytics: Forced Matomo to process queued events');
+                dsfLog('log', 'DSF Analytics: Forced Matomo to process queued events');
               }
             } catch (e) {
-              console.log('DSF Analytics: Error forcing Matomo to process queue:', e);
+              dsfLog('log', 'DSF Analytics: Error forcing Matomo to process queue:', e);
             }
           }
         }
@@ -318,7 +335,7 @@
       }.bind(this);
       
       newScript.onerror = function() {
-        console.log('DSF Analytics: ❌ Fixed Matomo script failed to load');
+        dsfLog('log', 'DSF Analytics: ❌ Fixed Matomo script failed to load');
         this.fallbackMatomoLoading();
       }.bind(this);
       
@@ -340,7 +357,7 @@
         const url = args[0];
         if (typeof url === 'string' && url.includes('matomo')) {
           requestCount++;
-          console.log(`DSF Analytics: Matomo request #${requestCount}:`, url);
+          dsfLog('log', `DSF Analytics: Matomo request #${requestCount}:`, url);
         }
         return originalFetch.apply(this, args);
       };
@@ -350,7 +367,7 @@
       XMLHttpRequest.prototype.open = function(method, url, ...args) {
         if (typeof url === 'string' && url.includes('matomo')) {
           requestCount++;
-          console.log(`DSF Analytics: Matomo XHR request #${requestCount}:`, url);
+          dsfLog('log', `DSF Analytics: Matomo XHR request #${requestCount}:`, url);
         }
         return originalXHROpen.apply(this, [method, url, ...args]);
       };
@@ -358,11 +375,11 @@
       // Check after 3 seconds
       setTimeout(() => {
         if (requestCount > 0) {
-          console.log(`DSF Analytics: ✅ Matomo is working - ${requestCount} requests made`);
+          dsfLog('log', `DSF Analytics: ✅ Matomo is working - ${requestCount} requests made`);
         } else {
-          console.log('DSF Analytics: ❌ Matomo not working - no requests made');
-          console.log('DSF Analytics: _paq length:', _paq ? _paq.length : 'N/A');
-          console.log('DSF Analytics: _paq contents:', _paq);
+          dsfLog('log', 'DSF Analytics: ❌ Matomo not working - no requests made');
+          dsfLog('log', 'DSF Analytics: _paq length:', _paq ? _paq.length : 'N/A');
+          dsfLog('log', 'DSF Analytics: _paq contents:', _paq);
         }
       }, 3000);
     },
@@ -371,7 +388,7 @@
      * Fallback Matomo loading for when async script fails
      */
     fallbackMatomoLoading: function() {
-      console.log('DSF Analytics: Attempting fallback Matomo loading...');
+      dsfLog('log', 'DSF Analytics: Attempting fallback Matomo loading...');
       
       const matomoScript = document.querySelector('script[src*="matomo.js"]');
       if (!matomoScript) return;
@@ -383,16 +400,16 @@
       newScript.defer = false;
       
       newScript.onload = function() {
-        console.log('DSF Analytics: ✅ Fallback Matomo script loaded successfully');
+        dsfLog('log', 'DSF Analytics: ✅ Fallback Matomo script loaded successfully');
         
         // Process any queued _paq events
         if (_paq && _paq.length > 0) {
-          console.log(`DSF Analytics: Processing ${_paq.length} queued events`);
+          dsfLog('log', `DSF Analytics: Processing ${_paq.length} queued events`);
         }
       };
       
       newScript.onerror = function() {
-        console.log('DSF Analytics: ❌ Fallback Matomo script failed to load');
+        dsfLog('log', 'DSF Analytics: ❌ Fallback Matomo script failed to load');
       };
       
       // Replace the old script
@@ -406,7 +423,7 @@
     attachTrackingListeners: function (context) {
       const self = this;
       
-      console.log('DSF Analytics: attachTrackingListeners called', {
+      dsfLog('log', 'DSF Analytics: attachTrackingListeners called', {
         context: context,
         contextLength: context.length,
         contextType: context.constructor.name
@@ -416,7 +433,7 @@
       // Use setTimeout to ensure this runs after all other scripts
       setTimeout(() => {
         if (typeof _paq !== 'undefined' && !Array.isArray(_paq)) {
-          console.log('DSF Analytics: Converting _paq from object to array (after Matomo init)', {
+          dsfLog('log', 'DSF Analytics: Converting _paq from object to array (after Matomo init)', {
             originalType: typeof _paq,
             originalValue: _paq,
             browser: getBrowserInfo()
@@ -440,7 +457,7 @@
             window._paq = [];
           }
           
-        console.log('DSF Analytics: _paq converted to array (after Matomo init)', {
+        dsfLog('log', 'DSF Analytics: _paq converted to array (after Matomo init)', {
           newType: typeof _paq,
           newIsArray: Array.isArray(_paq),
           newLength: _paq.length,
@@ -449,15 +466,15 @@
         
         // Force Matomo to process the _paq array if it hasn't started
         if (window.Piwik && typeof window.Piwik.getAsyncTracker === 'function') {
-          console.log('DSF Analytics: Forcing Matomo to process _paq array');
+          dsfLog('log', 'DSF Analytics: Forcing Matomo to process _paq array');
           try {
             const tracker = window.Piwik.getAsyncTracker();
             if (tracker) {
               tracker.trackPageView();
-              console.log('DSF Analytics: Forced Matomo page view tracking');
+              dsfLog('log', 'DSF Analytics: Forced Matomo page view tracking');
             }
           } catch (e) {
-            console.log('DSF Analytics: Error forcing Matomo tracking:', e);
+            dsfLog('log', 'DSF Analytics: Error forcing Matomo tracking:', e);
           }
         }
       }
@@ -465,7 +482,7 @@
 
       // Track facet selections (criteria popularity)
       const facetElements = once('matomo-facet-tracking', '.facet', context);
-      console.log('DSF Analytics: Found facet elements:', facetElements.length);
+      dsfLog('log', 'DSF Analytics: Found facet elements:', facetElements.length);
       facetElements.forEach(function(element) {
         $(element).on('change', function() {
           const facetElement = $(this);
@@ -485,7 +502,7 @@
 
       // Track service card interactions (what services people look at)
       const serviceElements = once('matomo-service-tracking', '.service-panel, .cardcheckbox', context);
-      console.log('DSF Analytics: Found service elements:', serviceElements.length);
+      dsfLog('log', 'DSF Analytics: Found service elements:', serviceElements.length);
       serviceElements.forEach(function(element) {
         $(element).on('click change', function(e) {
           const serviceElement = $(this);
@@ -502,7 +519,7 @@
                            servicePanel.find('a').text().trim() ||
                            'Unknown Service';
           
-          console.log('DSF Analytics: Service interaction detected', {
+          dsfLog('log', 'DSF Analytics: Service interaction detected', {
             serviceId: serviceId,
             serviceName: serviceName,
             element: serviceElement[0],
@@ -584,7 +601,7 @@
           });
           
           if (shouldReattach) {
-            console.log('DSF Analytics: New content detected, re-attaching listeners');
+            dsfLog('log', 'DSF Analytics: New content detected, re-attaching listeners');
             // Re-attach listeners to the document to catch new elements
             self.attachTrackingListeners(document);
           }
@@ -596,7 +613,7 @@
           subtree: true
         });
         
-        console.log('DSF Analytics: MutationObserver set up to watch for new content');
+        dsfLog('log', 'DSF Analytics: MutationObserver set up to watch for new content');
       }
     },
 
@@ -604,7 +621,7 @@
      * Safely push tracking events to Matomo
      */
     safeTrack: function(trackingData, description) {
-      console.log('DSF Analytics: safeTrack called', {
+      dsfLog('log', 'DSF Analytics: safeTrack called', {
         trackingData,
         description,
         matomoConfig: MATOMO_CONFIG,
@@ -613,18 +630,18 @@
       });
 
       if (!window._paq) {
-        console.warn('DSF Analytics: _paq not available for', description, 'Browser:', getBrowserInfo());
+        dsfLog('warn', 'DSF Analytics: _paq not available for', description, 'Browser:', getBrowserInfo());
         return false;
       }
 
       if (!MATOMO_CONFIG.enabled) {
-        console.log('DSF Analytics: Tracking disabled for', description);
+        dsfLog('log', 'DSF Analytics: Tracking disabled for', description);
         return false;
       }
 
       // Simple check - if _paq is not an array, something is wrong
       if (!Array.isArray(window._paq)) {
-        console.warn('DSF Analytics: _paq is not an array, skipping tracking', {
+        dsfLog('warn', 'DSF Analytics: _paq is not an array, skipping tracking', {
           _paqType: typeof window._paq,
           _paqValue: window._paq,
           browser: getBrowserInfo()
@@ -643,38 +660,38 @@
               switch (command) {
                 case 'trackEvent':
                   tracker.trackEvent.apply(tracker, args);
-                  console.log('DSF Analytics: Direct tracker trackEvent', { args: args, description: description });
+                  dsfLog('log', 'DSF Analytics: Direct tracker trackEvent', { args: args, description: description });
                   return true;
                 case 'trackPageView':
                   tracker.trackPageView.apply(tracker, args);
-                  console.log('DSF Analytics: Direct tracker trackPageView', { args: args, description: description });
+                  dsfLog('log', 'DSF Analytics: Direct tracker trackPageView', { args: args, description: description });
                   return true;
                 case 'setCustomDimension':
                   tracker.setCustomDimension.apply(tracker, args);
-                  console.log('DSF Analytics: Direct tracker setCustomDimension', { args: args, description: description });
+                  dsfLog('log', 'DSF Analytics: Direct tracker setCustomDimension', { args: args, description: description });
                   return true;
                 case 'setCustomUrl':
                   tracker.setCustomUrl.apply(tracker, args);
-                  console.log('DSF Analytics: Direct tracker setCustomUrl', { args: args, description: description });
+                  dsfLog('log', 'DSF Analytics: Direct tracker setCustomUrl', { args: args, description: description });
                   return true;
                 case 'setDocumentTitle':
                   tracker.setDocumentTitle.apply(tracker, args);
-                  console.log('DSF Analytics: Direct tracker setDocumentTitle', { args: args, description: description });
+                  dsfLog('log', 'DSF Analytics: Direct tracker setDocumentTitle', { args: args, description: description });
                   return true;
                 case 'trackGoal':
                   tracker.trackGoal.apply(tracker, args);
-                  console.log('DSF Analytics: Direct tracker trackGoal', { args: args, description: description });
+                  dsfLog('log', 'DSF Analytics: Direct tracker trackGoal', { args: args, description: description });
                   return true;
                 case 'enableLinkTracking':
                   tracker.enableLinkTracking.apply(tracker, args);
-                  console.log('DSF Analytics: Direct tracker enableLinkTracking', { args: args, description: description });
+                  dsfLog('log', 'DSF Analytics: Direct tracker enableLinkTracking', { args: args, description: description });
                   return true;
                 default:
                   // Fall through to queue for other commands
                   break;
               }
             } catch (e) {
-              console.warn('DSF Analytics: Direct tracker call failed, falling back to queue', { e: e, trackingData: trackingData, description: description });
+              dsfLog('warn', 'DSF Analytics: Direct tracker call failed, falling back to queue', { e: e, trackingData: trackingData, description: description });
             }
           }
         }
@@ -682,7 +699,7 @@
 
         const initialLength = _paq ? _paq.length : 0;
         
-        console.log('DSF Analytics: About to push to _paq', {
+        dsfLog('log', 'DSF Analytics: About to push to _paq', {
           _paqType: typeof _paq,
           _paqIsArray: Array.isArray(_paq),
           _paqLength: initialLength,
@@ -692,7 +709,7 @@
         
         _paq.push(trackingData);
         
-        console.log('DSF Analytics: Pushed to _paq, new length:', _paq ? _paq.length : 'N/A', {
+        dsfLog('log', 'DSF Analytics: Pushed to _paq, new length:', _paq ? _paq.length : 'N/A', {
           trackingData,
           browser: getBrowserInfo()
         });
@@ -702,7 +719,7 @@
           const currentLength = _paq ? _paq.length : 0;
           const wasProcessed = currentLength <= initialLength;
           
-          console.log('DSF Analytics: _paq state after 2 seconds', {
+          dsfLog('log', 'DSF Analytics: _paq state after 2 seconds', {
             _paqType: typeof _paq,
             _paqIsArray: Array.isArray(_paq),
             _paqLength: currentLength,
@@ -713,13 +730,13 @@
           });
           
           if (!wasProcessed) {
-            console.warn('DSF Analytics: ⚠️ Event may not have been processed by Matomo - _paq length increased from', initialLength, 'to', currentLength);
+            dsfLog('warn', 'DSF Analytics: ⚠️ Event may not have been processed by Matomo - _paq length increased from', initialLength, 'to', currentLength);
           } else {
-            console.log('DSF Analytics: ✅ Event appears to have been processed by Matomo');
+            dsfLog('log', 'DSF Analytics: ✅ Event appears to have been processed by Matomo');
           }
         }, 2000);
         
-        console.log('DSF Analytics: Event queued for Matomo:', description, {
+        dsfLog('log', 'DSF Analytics: Event queued for Matomo:', description, {
           trackingData,
           matomoUrl: MATOMO_CONFIG.url,
           siteId: MATOMO_CONFIG.siteId,
@@ -727,7 +744,7 @@
         });
         return true;
       } catch (error) {
-        console.error('DSF Analytics: Tracking error in', getBrowserInfo(), ':', error, trackingData);
+        dsfLog('error', 'DSF Analytics: Tracking error in', getBrowserInfo(), ':', error, trackingData);
         return false;
       }
     },
@@ -738,7 +755,7 @@
     trackFacetSelection: function (facetType, facetValue, isSelected) {
       if (!MATOMO_CONFIG.enabled) return;
 
-      console.log('DSF Analytics: trackFacetSelection called with raw data', {
+      dsfLog('log', 'DSF Analytics: trackFacetSelection called with raw data', {
         facetType,
         facetValue,
         isSelected,
@@ -771,7 +788,7 @@
     cleanFacetType: function(facetType) {
       if (!facetType || facetType === 'unknown') return 'Unknown_Facet';
       
-      console.log('DSF Analytics: cleanFacetType called', {
+      dsfLog('log', 'DSF Analytics: cleanFacetType called', {
         facetType,
         labelsAvailable: !!MATOMO_CONFIG.labels,
         facetTypesAvailable: !!(MATOMO_CONFIG.labels && MATOMO_CONFIG.labels.facetTypes),
@@ -781,17 +798,17 @@
       // Use dynamic labels from Drupal if available
       if (MATOMO_CONFIG.labels && MATOMO_CONFIG.labels.facetTypes) {
         const dynamicLabel = MATOMO_CONFIG.labels.facetTypes[facetType];
-        console.log('DSF Analytics: Looking for dynamic label', { facetType, dynamicLabel });
+        dsfLog('log', 'DSF Analytics: Looking for dynamic label', { facetType, dynamicLabel });
         if (dynamicLabel) {
           const cleaned = dynamicLabel.replace(/[-_]/g, '_').replace(/\b\w/g, l => l.toUpperCase());
-          console.log('DSF Analytics: Using dynamic label', { original: facetType, dynamic: dynamicLabel, cleaned });
+          dsfLog('log', 'DSF Analytics: Using dynamic label', { original: facetType, dynamic: dynamicLabel, cleaned });
           return cleaned;
         }
       }
       
       // Fallback to basic cleaning if no dynamic labels
       const fallback = facetType.replace(/[-_]/g, '_').replace(/facet/i, 'Facet').replace(/\b\w/g, l => l.toUpperCase());
-      console.log('DSF Analytics: Using fallback cleaning', { original: facetType, fallback });
+      dsfLog('log', 'DSF Analytics: Using fallback cleaning', { original: facetType, fallback });
       return fallback;
     },
 
@@ -814,7 +831,7 @@
     trackServiceInteraction: function (serviceId, serviceName, actionType) {
       if (!MATOMO_CONFIG.enabled) return;
 
-      console.log('DSF Analytics: trackServiceInteraction called', {
+      dsfLog('log', 'DSF Analytics: trackServiceInteraction called', {
         serviceId,
         serviceName,
         actionType,
@@ -825,9 +842,9 @@
       let resolvedServiceName = serviceName;
       if (serviceId && MATOMO_CONFIG.labels && MATOMO_CONFIG.labels.serviceNames && MATOMO_CONFIG.labels.serviceNames[String(serviceId)]) {
         resolvedServiceName = MATOMO_CONFIG.labels.serviceNames[String(serviceId)];
-        console.log('DSF Analytics: Resolved service name by ID', { serviceId, original: serviceName, resolved: resolvedServiceName });
+        dsfLog('log', 'DSF Analytics: Resolved service name by ID', { serviceId, original: serviceName, resolved: resolvedServiceName });
       } else {
-        console.log('DSF Analytics: No dynamic label found for service', { serviceId, serviceName, availableLabels: MATOMO_CONFIG.labels && MATOMO_CONFIG.labels.serviceNames });
+        dsfLog('log', 'DSF Analytics: No dynamic label found for service', { serviceId, serviceName, availableLabels: MATOMO_CONFIG.labels && MATOMO_CONFIG.labels.serviceNames });
       }
 
       // Clean up service data to be more readable
@@ -854,7 +871,7 @@
     cleanServiceName: function(serviceName) {
       if (!serviceName || serviceName === 'Unknown Service') return 'Unknown_Service';
       
-      console.log('DSF Analytics: cleanServiceName called', {
+      dsfLog('log', 'DSF Analytics: cleanServiceName called', {
         serviceName,
         labelsAvailable: !!MATOMO_CONFIG.labels,
         serviceNamesAvailable: !!(MATOMO_CONFIG.labels && MATOMO_CONFIG.labels.serviceNames),
@@ -869,7 +886,7 @@
             const dynamicName = MATOMO_CONFIG.labels.serviceNames[serviceId];
             if (dynamicName === serviceName) {
               const cleaned = dynamicName.replace(/[-_]/g, ' ').replace(/\b\w/g, function(l) { return l.toUpperCase(); }).trim();
-              console.log('DSF Analytics: Using dynamic service name', { original: serviceName, dynamic: dynamicName, cleaned });
+              dsfLog('log', 'DSF Analytics: Using dynamic service name', { original: serviceName, dynamic: dynamicName, cleaned });
               return cleaned;
             }
           }
@@ -881,7 +898,7 @@
         .replace(/[-_]/g, ' ')
         .replace(/\b\w/g, function(l) { return l.toUpperCase(); })
         .trim();
-      console.log('DSF Analytics: Using fallback service name cleaning', { original: serviceName, fallback });
+      dsfLog('log', 'DSF Analytics: Using fallback service name cleaning', { original: serviceName, fallback });
       return fallback;
     },
 
@@ -906,7 +923,7 @@
      * Track detailed service investigation events
      */
     trackServiceInvestigation: function (serviceId, serviceName, investigationType) {
-      console.log('DSF Analytics: trackServiceInvestigation called', {
+      dsfLog('log', 'DSF Analytics: trackServiceInvestigation called', {
         serviceId,
         serviceName,
         investigationType,
@@ -915,7 +932,7 @@
       });
 
       if (!MATOMO_CONFIG.enabled) {
-        console.log('DSF Analytics: Service investigation tracking disabled');
+        dsfLog('log', 'DSF Analytics: Service investigation tracking disabled');
         return;
       }
 
@@ -932,9 +949,9 @@
       ]);
 
       // Track investigation depth
-      _paq.push(['setCustomDimension', 4, cleanInvestigationType]);
+      SafatSafar_paq.push(['setCustomDimension', 4, cleanInvestigationType]);
 
-      console.log(`DSF Analytics: Tracked service investigation: ${cleanInvestigationType} on ${cleanServiceName} (${serviceId})`);
+      dsfLog(`DSF Analytics: Tracked service investigation: ${cleanInvestigationType} on ${cleanServiceName} (${serviceId})`);
     },
 
     /**
@@ -959,7 +976,7 @@
      * Track search and filter events
      */
     trackSearchEvent: function (eventType, data) {
-      console.log('DSF Analytics: trackSearchEvent called', {
+      dsfLog('log', 'DSF Analytics: trackSearchEvent called', {
         eventType,
         data,
         matomoConfig: MATOMO_CONFIG,
@@ -967,7 +984,7 @@
       });
 
       if (!MATOMO_CONFIG.enabled) {
-        console.log('DSF Analytics: Search event tracking disabled');
+        dsfLog('log', 'DSF Analytics: Search event tracking disabled');
         return;
       }
 
@@ -984,7 +1001,7 @@
         resultCount
       ]);
 
-      console.log(`DSF Analytics: Tracked search event: ${eventType} with ${resultCount} results`);
+      dsfLog(`DSF Analytics: Tracked search event: ${eventType} with ${resultCount} results`);
     },
 
     /**
@@ -1001,7 +1018,7 @@
         value
       ]);
 
-      console.log(`Tracked custom event: ${category} > ${action} > ${name} (${value})`);
+      dsfLog(`Tracked custom event: ${category} > ${action} > ${name} (${value})`);
     },
 
     /**
@@ -1060,7 +1077,7 @@
       // Set custom dimension for workflow stage tracking
       _paq.push(['setCustomDimension', 5, stage]);
 
-      console.log(`Tracked workflow stage: ${stage} - ${eventName}`);
+      dsfLog(`Tracked workflow stage: ${stage} - ${eventName}`);
     },
 
     /**
@@ -1092,7 +1109,7 @@
         ]);
       }
 
-      console.log(`Tracked selection session: ${servicesSelected.length} services selected via ${selectionMethod}`);
+      dsfLog(`Tracked selection session: ${servicesSelected.length} services selected via ${selectionMethod}`);
     },
 
     /**
@@ -1125,7 +1142,7 @@
         ]);
       }
 
-      console.log(`Tracked comparison session: ${servicesCompared.length} services compared, outcome: ${outcome}`);
+      dsfLog(`Tracked comparison session: ${servicesCompared.length} services compared, outcome: ${outcome}`);
     },
 
     /**
@@ -1159,7 +1176,7 @@
         ]);
       });
 
-      console.log(`Tracked investigation session: ${serviceName} - ${investigationDepth} investigation with ${actionsPerformed.length} actions`);
+      dsfLog(`Tracked investigation session: ${serviceName} - ${investigationDepth} investigation with ${actionsPerformed.length} actions`);
     },
 
     /**
@@ -1191,7 +1208,7 @@
         ]);
       }
 
-      console.log(`Tracked findings recording: ${method} used to save ${itemsRecorded.length} items from ${recordingContext}`);
+      dsfLog(`Tracked findings recording: ${method} used to save ${itemsRecorded.length} items from ${recordingContext}`);
     },
 
     /**
@@ -1208,7 +1225,7 @@
         1
       ]);
 
-      console.log(`Tracked accessibility feature: ${feature} in ${context}`);
+      dsfLog(`Tracked accessibility feature: ${feature} in ${context}`);
     },
 
     /**
@@ -1225,7 +1242,7 @@
         1
       ]);
 
-      console.log(`Tracked frustration indicator: ${indicator} - ${details}`);
+      dsfLog(`Tracked frustration indicator: ${indicator} - ${details}`);
     },
 
     /**
@@ -1242,7 +1259,7 @@
         metrics.value || 1
       ]);
 
-      console.log(`Tracked performance issue: ${issueType}`, metrics);
+      dsfLog(`Tracked performance issue: ${issueType}`, metrics);
     }
   };
 
@@ -1367,7 +1384,7 @@
         if (!chartInView) {
           chartInView = true;
           chartViewingStartTime = Date.now();
-          console.log('DSF Analytics: Chart viewing started');
+          dsfLog('log', 'DSF Analytics: Chart viewing started');
           
           // Track chart view start
           window.DSFMatomoTracker.trackCustomEvent('DSF_Chart_Viewing', 'Chart_View_Started', 'User scrolled to comparison chart', 1);
@@ -1380,7 +1397,7 @@
           chartInView = false;
           if (chartViewingStartTime) {
             chartViewingDuration = Date.now() - chartViewingStartTime;
-            console.log('DSF Analytics: Chart viewing ended, duration:', chartViewingDuration + 'ms');
+            dsfLog('log', 'DSF Analytics: Chart viewing ended, duration:', chartViewingDuration + 'ms');
             
             // Track chart view duration
             window.DSFMatomoTracker.trackCustomEvent('DSF_Chart_Viewing', 'Chart_View_Ended', 
@@ -1766,7 +1783,7 @@
           _paq.push(['trackContentImpressionsWithinNode', document]);
           _paq.push(['enableLinkTracking']);
 
-          console.log('Tracked SPA navigation', { currentUrl: currentUrl, referrer: oldUrl });
+          dsfLog('log', 'Tracked SPA navigation', { currentUrl: currentUrl, referrer: oldUrl });
           return result;
         };
       }
