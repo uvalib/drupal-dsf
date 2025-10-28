@@ -1,0 +1,14 @@
+uuid: 8b9a2d56-2c2a-4f4a-9c6f-1f2b7f6d9a3c
+langcode: en
+status: true
+dependencies: {  }
+_core: {  }
+id: analytics_admin
+label: 'Analytics admin'
+weight: 4
+is_admin: false
+permissions:
+  - 'access dsf analytics'
+  - 'administer dsf analytics'
+
+

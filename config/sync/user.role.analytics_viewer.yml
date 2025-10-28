@@ -1,0 +1,13 @@
+uuid: 5d3ec4a1-5c79-4a1b-9c3e-6f3e2c2b9e2a
+langcode: en
+status: true
+dependencies: {  }
+_core: {  }
+id: analytics_viewer
+label: 'Analytics viewer'
+weight: 3
+is_admin: false
+permissions:
+  - 'access dsf analytics'
+
+
