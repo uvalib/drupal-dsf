@@ -47,11 +47,13 @@
         "drupal/quickedit": "^1.0",
         "drupal/rdf": "^2.0",
         "drupal/restui": "^1.0",
+        "drupal/simplesamlphp_auth": "^4.1",
         "drupal/sitewide_alert": "^3.0",
         "drupal/stable": "^2",
         "drupal/twig_debugger": "^1.1",
         "drupal/uswds": "^3",
         "drush/drush": "^12.5",
+        "predis/predis": "^3.4",
         "uvalib/cd-finder-uva": "dev-master",
         "uvalib/uva_dsf_uswds": "dev-main"
     },
@@ -72,7 +74,9 @@
             "drupal/core-composer-scaffold": true,
             "php-http/discovery": true,
             "phpstan/extension-installer": true,
-            "tbachert/spi": false
+            "tbachert/spi": false,
+            "simplesamlphp/composer-xmlprovider-installer": true,
+            "simplesamlphp/composer-module-installer": true
         },
         "platform": {
             "php": "8.1"
