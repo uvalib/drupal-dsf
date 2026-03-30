@@ -39,7 +39,7 @@ phases:
       - chmod 600 ${PRIVATE_KEY}
       # decrypt the container_0.env.secret
       - CONTAINER_SECRET_KEY_NAME=dsf.library.virginia.edu/staging/keys/dsf-drupal-staging.pem
-      - CONTAINER_SECRET=${CODEBUILD_SRC_DIR}/terraform-infrastructure/dsf.library.virginia.edu/staging/container_0.env.secret
+      - CONTAINER_SECRET=${CODEBUILD_SRC_DIR}/terraform-infrastructure/dsf.library.virginia.edu/staging/ansible/container_0.env.secret
       - ${CODEBUILD_SRC_DIR}/terraform-infrastructure/scripts/decrypt-key.ksh ${CONTAINER_SECRET}.cpt ${CONTAINER_SECRET_KEY_NAME}
       - chmod 600 ${CONTAINER_SECRET}
 
