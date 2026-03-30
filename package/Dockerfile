@@ -21,6 +21,7 @@ WORKDIR $APP_HOME
 # Move in necessary assets
 COPY package/data/container_bash_profile /root/.profile
 COPY web/sites/default/settings.php /opt/drupal/web/sites/default/settings.php
+COPY package/data/files/etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
 # github checkout drupal-dh dir and symlink appropriate directories
 RUN 	mkdir /opt/drupal/util \
@@ -55,6 +56,10 @@ RUN rm -rf /opt/drupal/vendor
 RUN composer install --prefer-dist
 RUN ls -l /opt/drupal/web/themes
 RUN ls -l /opt/drupal/web/modules
+
+RUN a2enmod proxy
+RUN a2enmod proxy_http
+RUN a2enmod headers
 
 WORKDIR /opt/drupal
 # Add the build tag

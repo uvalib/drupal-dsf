@@ -44,9 +44,11 @@
         "drupal/hal": "^2.0",
         "drupal/matomo": "^1.25",
         "drupal/paragraphs": "^1.15",
+        "predis/predis": "^3.4",
         "drupal/quickedit": "^1.0",
         "drupal/rdf": "^2.0",
         "drupal/restui": "^1.0",
+        "drupal/simplesamlphp_auth": "^4.1",
         "drupal/sitewide_alert": "^3.0",
         "drupal/stable": "^2",
         "drupal/twig_debugger": "^1.1",
@@ -72,6 +74,8 @@
             "drupal/core-composer-scaffold": true,
             "php-http/discovery": true,
             "phpstan/extension-installer": true,
+            "simplesamlphp/composer-module-installer": true,
+            "simplesamlphp/composer-xmlprovider-installer": true,
             "tbachert/spi": false
         },
         "platform": {
