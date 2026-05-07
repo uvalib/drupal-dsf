@@ -41,7 +41,7 @@ RUN rm -rf /var/www/html && ln -s /opt/drupal/web /var/www/html
 
 # RUN chown -R www-data:www-data /opt/drupal/web/sites/default/files
 # install other dependancies
-RUN pecl install apcu-5.1.22 && docker-php-ext-enable apcu
+RUN pecl install apcu && docker-php-ext-enable apcu
 
 # need to mount volume in /opt/drupal/web/sites (is that done here?)
 # need to run composer install here
