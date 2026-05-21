@@ -1,0 +1,22 @@
+uuid: 67a5e330-1780-4f27-bcb9-1a2836ac3654
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - uva_dsf_uswds
+_core:
+  default_config_hash: bMLNWPKf3uHuqgmVszMb5zhM205c4Y-r7j5Tw6NDo-o
+id: uva_dsf_uswds_help
+theme: uva_dsf_uswds
+region: help
+weight: 0
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }

@@ -1,0 +1,22 @@
+uuid: ad156f40-6e88-4dd3-8498-b997aea4db7d
+langcode: en
+status: true
+dependencies:
+  theme:
+    - uva_dsf_uswds
+_core:
+  default_config_hash: D_hUB_AW2IvKbVo3lVG-B2KfTsX6xJ-CxfOcRYUnL3E
+id: uva_dsf_uswds_secondary_local_tasks
+theme: uva_dsf_uswds
+region: header_top
+weight: 0
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Secondary tabs'
+  label_display: '0'
+  provider: core
+  primary: false
+  secondary: true
+visibility: {  }

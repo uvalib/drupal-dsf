@@ -1,0 +1,22 @@
+uuid: fbf05f08-b416-4ba1-b925-7a5e7eb722c9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_more_information
+    - paragraphs.paragraphs_type.service_paragraphs
+  module:
+    - text
+id: paragraph.service_paragraphs.field_more_information
+field_name: field_more_information
+entity_type: paragraph
+bundle: service_paragraphs
+label: 'More information'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

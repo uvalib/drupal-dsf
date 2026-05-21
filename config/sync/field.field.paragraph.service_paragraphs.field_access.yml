@@ -1,0 +1,22 @@
+uuid: 6eecb41a-4812-419d-aa4b-7ab36df8685d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_access
+    - paragraphs.paragraphs_type.service_paragraphs
+  module:
+    - text
+id: paragraph.service_paragraphs.field_access
+field_name: field_access
+entity_type: paragraph
+bundle: service_paragraphs
+label: Access
+description: 'How do you access your data? '
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

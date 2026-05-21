@@ -3,9 +3,17 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.service_paragraphs.field_first_category
-    - field.field.paragraph.service_paragraphs.field_hot_or_cold
-    - field.field.paragraph.service_paragraphs.field_second_category
+    - field.field.paragraph.service_paragraphs.field_access
+    - field.field.paragraph.service_paragraphs.field_affiliation
+    - field.field.paragraph.service_paragraphs.field_contact
+    - field.field.paragraph.service_paragraphs.field_cost
+    - field.field.paragraph.service_paragraphs.field_information_usage
+    - field.field.paragraph.service_paragraphs.field_more_information
+    - field.field.paragraph.service_paragraphs.field_protection
+    - field.field.paragraph.service_paragraphs.field_purpose
+    - field.field.paragraph.service_paragraphs.field_sensitivity
+    - field.field.paragraph.service_paragraphs.field_sharing
+    - field.field.paragraph.service_paragraphs.field_space
     - paragraphs.paragraphs_type.service_paragraphs
   module:
     - text
@@ -16,25 +24,81 @@ targetEntityType: paragraph
 bundle: service_paragraphs
 mode: default
 content:
-  field_first_category:
+  field_access:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_affiliation:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_contact:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_cost:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_information_usage:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
     weight: 0
     region: content
-  field_hot_or_cold:
+  field_more_information:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_protection:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_purpose:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_sensitivity:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
     weight: 2
     region: content
-  field_second_category:
+  field_sharing:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 10
+    region: content
+  field_space:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
     region: content
 hidden: {  }

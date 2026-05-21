@@ -5,6 +5,8 @@ dependencies:
   config:
     - field.field.taxonomy_term.facets.field_control_type
     - taxonomy.vocabulary.facets
+  module:
+    - text
 _core:
   default_config_hash: U8Qya7NuZCK1KZykjbs6EIMRXoWyjgCmtzW-grWoNyk
 id: taxonomy_term.facets.default
@@ -12,9 +14,17 @@ targetEntityType: taxonomy_term
 bundle: facets
 mode: default
 content:
+  description:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
   field_control_type:
     type: entity_reference_autocomplete
-    weight: 1
+    weight: 2
     region: content
     settings:
       match_operator: CONTAINS
@@ -32,11 +42,10 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 100
+    weight: 3
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
 hidden:
-  description: true
   path: true

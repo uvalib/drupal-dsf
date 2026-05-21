@@ -1,0 +1,25 @@
+uuid: 3b70ce4e-f9ae-40fe-b05e-01850a9725ee
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:footer:760c4af0-db1f-4c2e-aa97-347e5ae92bdd'
+  module:
+    - block_content
+  theme:
+    - uva_dsf_bs
+id: uva_dsf_bs_sitefooter
+theme: uva_dsf_bs
+region: footer_first
+weight: 0
+provider: null
+plugin: 'block_content:760c4af0-db1f-4c2e-aa97-347e5ae92bdd'
+settings:
+  id: 'block_content:760c4af0-db1f-4c2e-aa97-347e5ae92bdd'
+  label: 'site footer'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

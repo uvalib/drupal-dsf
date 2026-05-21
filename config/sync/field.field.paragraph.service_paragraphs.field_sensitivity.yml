@@ -1,0 +1,22 @@
+uuid: 9b7bc805-8cb5-4ed7-8e97-83beeae43ea2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_sensitivity
+    - paragraphs.paragraphs_type.service_paragraphs
+  module:
+    - text
+id: paragraph.service_paragraphs.field_sensitivity
+field_name: field_sensitivity
+entity_type: paragraph
+bundle: service_paragraphs
+label: 'Data sensitivity'
+description: 'What data sensitivity classifications and/or external regulations apply to your data?'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

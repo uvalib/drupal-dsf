@@ -8,3 +8,4 @@ name: 'Control Type'
 vid: control_type
 description: 'Part of the Finder module'
 weight: 0
+new_revision: false

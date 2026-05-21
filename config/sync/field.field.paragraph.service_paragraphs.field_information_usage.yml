@@ -1,0 +1,22 @@
+uuid: b661f129-f317-4fe1-812f-ec1348a7f42e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_information_usage
+    - paragraphs.paragraphs_type.service_paragraphs
+  module:
+    - text
+id: paragraph.service_paragraphs.field_information_usage
+field_name: field_information_usage
+entity_type: paragraph
+bundle: service_paragraphs
+label: Information/usage
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

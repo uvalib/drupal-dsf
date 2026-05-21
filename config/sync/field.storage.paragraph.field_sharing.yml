@@ -1,0 +1,19 @@
+uuid: 0c12a844-286f-4950-ae3d-06cf4317e609
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - text
+id: paragraph.field_sharing
+field_name: field_sharing
+entity_type: paragraph
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

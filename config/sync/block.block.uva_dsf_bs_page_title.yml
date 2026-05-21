@@ -1,0 +1,26 @@
+uuid: a610c545-174f-4c2e-9baf-c01a4e90baa5
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - uva_dsf_bs
+_core:
+  default_config_hash: gfXKmThltk6eewwrjAEaxVPxzPEVHV1UfNjjOUQ5A7g
+id: uva_dsf_bs_page_title
+theme: uva_dsf_bs
+region: header
+weight: -4
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /nowhere/

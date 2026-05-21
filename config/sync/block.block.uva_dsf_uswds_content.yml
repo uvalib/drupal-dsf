@@ -1,0 +1,22 @@
+uuid: 5eb26c38-5827-44e0-89ee-25a63e5e8b39
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - uva_dsf_uswds
+_core:
+  default_config_hash: QTwkfDaGeBUk6aerktJBDXso4fCsqLTQOuWKXE1xMPU
+id: uva_dsf_uswds_content
+theme: uva_dsf_uswds
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

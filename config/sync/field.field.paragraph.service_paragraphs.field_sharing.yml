@@ -1,0 +1,22 @@
+uuid: b4b7979c-ba6b-42e9-b0a8-6c61fbd52112
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_sharing
+    - paragraphs.paragraphs_type.service_paragraphs
+  module:
+    - text
+id: paragraph.service_paragraphs.field_sharing
+field_name: field_sharing
+entity_type: paragraph
+bundle: service_paragraphs
+label: Sharing
+description: 'How do you share your data?'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

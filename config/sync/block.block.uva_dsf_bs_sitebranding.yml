@@ -1,0 +1,23 @@
+uuid: a3fc2c22-de27-467e-8cca-40693f72eb20
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - uva_dsf_bs
+id: uva_dsf_bs_sitebranding
+theme: uva_dsf_bs
+region: header
+weight: 2
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: false
+  use_site_slogan: false
+visibility: {  }

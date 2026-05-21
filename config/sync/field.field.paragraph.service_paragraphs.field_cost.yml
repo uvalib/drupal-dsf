@@ -1,0 +1,22 @@
+uuid: 8f482537-6d72-46ce-8817-9000b11505ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_cost
+    - paragraphs.paragraphs_type.service_paragraphs
+  module:
+    - text
+id: paragraph.service_paragraphs.field_cost
+field_name: field_cost
+entity_type: paragraph
+bundle: service_paragraphs
+label: Cost
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

@@ -1,0 +1,20 @@
+uuid: 4f3d749f-c13d-4a71-98b2-d8e27cd1e896
+langcode: en
+status: true
+dependencies:
+  theme:
+    - uva_dsf_uswds
+_core:
+  default_config_hash: osZQ9lL2jTdH5am4LJiZ29RaivhzOf6vCpoRy6FZwIE
+id: uva_dsf_uswds_local_actions
+theme: uva_dsf_uswds
+region: content
+weight: -10
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

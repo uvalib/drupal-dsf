@@ -1,0 +1,25 @@
+uuid: 1205d2d5-81d2-4ff1-8fd3-6774b4533ed4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.service.field_facet_matches
+    - field.field.node.service.field_service_paragraphs
+    - field.field.node.service.field_summary
+    - node.type.service
+  module:
+    - user
+id: node.service.default
+targetEntityType: node
+bundle: service
+mode: default
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_facet_matches: true
+  field_service_paragraphs: true
+  field_summary: true

@@ -1,0 +1,22 @@
+uuid: ad7e75e4-ec3f-4346-b5fc-43ff2a1074f9
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - uva_dsf_bs
+_core:
+  default_config_hash: iIy-YIc9d9s1isAtTIKWDBKd6kd2r6LxoYz_-hkLJco
+id: uva_dsf_bs_messages
+theme: uva_dsf_bs
+region: header
+weight: 1
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  label_display: '0'
+  provider: system
+visibility: {  }

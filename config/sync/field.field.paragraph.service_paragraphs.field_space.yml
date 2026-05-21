@@ -1,0 +1,22 @@
+uuid: e80a241a-47fe-4880-bb69-ee8d7c4beadd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_space
+    - paragraphs.paragraphs_type.service_paragraphs
+  module:
+    - text
+id: paragraph.service_paragraphs.field_space
+field_name: field_space
+entity_type: paragraph
+bundle: service_paragraphs
+label: 'Size limits'
+description: 'How much storage space do you anticipate needing over the next two years?'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

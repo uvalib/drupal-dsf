@@ -1,0 +1,22 @@
+uuid: 8866b026-387d-4130-abb3-779bf78fbf62
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_purpose
+    - paragraphs.paragraphs_type.service_paragraphs
+  module:
+    - text
+id: paragraph.service_paragraphs.field_purpose
+field_name: field_purpose
+entity_type: paragraph
+bundle: service_paragraphs
+label: 'Use case'
+description: 'What are the primary purposes for your data storage?'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long
